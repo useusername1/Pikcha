@@ -24,7 +24,7 @@ import { ReactComponent as Logo } from "../../data/Logo.svg";
 const SearchBar = lazy(() => import("./SearchBar"));
 
 const IMG_SRC =
-  "https://drive.google.com/uc?id=1OmsgU1GLU9iUBYe9ruw_Uy1AcrN57n4g";
+  "https://lh3.googleusercontent.com/pw/AMWts8CEDi2m6IeYf8S0FGfXum-T0_vsJIa1geotAKan_2NzfhOcgYgrtrfd8mjMtVfZ0BCUPDXoUPos9yV5VWgy8eSvzMBs-4jA3Xq0ocmQhpTqPSWQ8lXrK8LsMWISS3vZbZR6Y74ztKYybTTmXQ966bEx=s407-no?authuser=0";
 
 const HeaderTopBar = () => {
   const navigate = useNavigate();

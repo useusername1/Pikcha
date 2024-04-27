@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef } from "react";
 import { flushSync } from "react-dom";
 import useWebsocket from "../../hooks/useWebsocket";
 import { ChatBoxDiv, ChatBoxWrapper } from "./ChatStyled";
-import axios from "axios";
+import axios from "../../utils/axiosinstance";
 import Sendbar from "./Send/Sendbar";
 import SendChatBox from "./ChatBox/SendChatBox";
 import ChatBox from "./ChatBox/ChatBox";
@@ -24,7 +24,7 @@ import { LoginState } from "../../recoil/state";
 import SearchBox from "./Search/SearchBox";
 import { ChatPanelStatusType } from "./Chat";
 
-const URL = "https://pikcha36.o-r.kr:8080/stomp-websocket-sockjs";
+const URL = `${process.env.REACT_APP_HOST}/stomp-websocket-sockjs`;
 const TOPIC = "/topic/messages"; //topic주소
 
 interface ChatPanelProps {
@@ -63,9 +63,7 @@ const ChatPanel = ({ chatStatus }: ChatPanelProps) => {
   useEffect(() => {
     if (!isLogin) return;
     axios
-      .get(`https://pikcha36.o-r.kr:8080/app/enter`, {
-        headers: { Authorization: localStorage.getItem("Authorization") },
-      })
+      .get(`/app/enter`)
       .then((res) => {
         scrollFlagRef.current = false;
         clientRef.current?.activate();
@@ -103,14 +101,7 @@ const ChatPanel = ({ chatStatus }: ChatPanelProps) => {
         }
         if (entries[0].isIntersecting) {
           axios
-            .get(
-              `https://pikcha36.o-r.kr:8080/app/load/${lastChatIdRef.current}`,
-              {
-                headers: {
-                  Authorization: localStorage.getItem("Authorization"),
-                },
-              }
-            )
+            .get(`/app/load/${lastChatIdRef.current}`)
             .then((res) => {
               const scrollTemp =
                 (chatBoxRef.current as HTMLDivElement).scrollHeight -

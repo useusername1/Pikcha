@@ -1,7 +1,8 @@
-const prefix = "https://drive.google.com/uc?id=";
+const prefix = "https://lh3.googleusercontent.com/d/";
+
 const carouselData = [
   {
-    img: prefix + "1YWd1jKmfExPR6i8xi0omGNBRVlxNojcd",
+    img: prefix + "1Ovd4L2Fl6znCpbT1kff_agMiAyoyYPjF",
     id: 3,
     attractionId: 76,
     title: "사진찍기 가장 좋은 장소는 어디일까요?",
@@ -12,7 +13,7 @@ const carouselData = [
     location: "남산공원",
   },
   {
-    img: prefix + "16asJgbGLraRUT9FZoD3h1Ivzq6Jax97V",
+    img: prefix + "1hqdbju_UgsedDPstJFoVM4_oEUnVVQYB",
     id: 0,
     attractionId: 65,
     title: "사진찍기 가장 좋은 장소는 어디일까요?",
@@ -23,7 +24,7 @@ const carouselData = [
     location: "여의도한강공원",
   },
   {
-    img: prefix + "1A0hK4ijcsEWHTG-IGs_gO8v8QHuiPJ_8",
+    img: prefix + "1Fs-vlECNDZja33v5jT6Y_kKctt_muYeQ",
     id: 1,
     attractionId: 91,
     title: "사진찍기 가장 좋은 장소는 어디일까요?",
@@ -34,7 +35,7 @@ const carouselData = [
     location: "동대문디자인플라자",
   },
   {
-    img: prefix + "1UDr-bGWp8AqSF_pSuiimNwPvRnLMKbYV",
+    img: prefix + "1CIJUqvfxwpitT3o9dNWJbq0Q3aoNXvmj",
     id: 2,
     attractionId: 65,
     title: "사진찍기 가장 좋은 장소는 어디일까요?",
@@ -46,7 +47,7 @@ const carouselData = [
   },
 
   {
-    img: prefix + "1_N4v0M79nc4EkceHvVj1YxL09krXYucr",
+    img: prefix + "1ttsws74d4LRfh4EENWmfjQh8XfDeYkQh",
     id: 4,
     attractionId: 104,
     title: "사진찍기 가장 좋은 장소는 어디일까요?",
@@ -57,7 +58,7 @@ const carouselData = [
     location: "청계천",
   },
   {
-    img: prefix + "1bMLTieIC-3W1v99DpWR_frxzW17pDKwR",
+    img: prefix + "1ikJ2TKPXUiHiRow92bnItRgQsvdbgpqB",
     id: 5,
     attractionId: 88,
     title: "사진찍기 가장 좋은 장소는 어디일까요?",
@@ -68,7 +69,7 @@ const carouselData = [
     location: "광화문광장",
   },
   {
-    img: prefix + "1bgUbgqqS6ZSytEhJnIde6064EkgSWMcb",
+    img: prefix + "17Il9M_oGtjoWLWduDSOlz8yKxXmv2x9Q",
     id: 6,
     attractionId: 72,
     title: "사진찍기 가장 좋은 장소는 어디일까요?",
@@ -79,7 +80,7 @@ const carouselData = [
     location: "N서울타워",
   },
   {
-    img: prefix + "1k_CtXEn_CrHLmu3S8mgmxVCsX89mjFNr",
+    img: prefix + "1vT-akVGSitXbEmJsKdUuOfnLoCIO7o-8",
     id: 8,
     attractionId: 52,
     title: "사진찍기 가장 좋은 장소는 어디일까요?",
@@ -90,7 +91,7 @@ const carouselData = [
     location: "서울숲공원",
   },
   {
-    img: prefix + "1x5A69O3EE25JFnykZYG_9hgDWzJ_l9A-",
+    img: prefix + "1dujpKzi0A_ZrgHH7y52GJccu3UB6nn_8",
     id: 9,
     attractionId: 83,
     title: "사진찍기 가장 좋은 장소는 어디일까요?",

@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import axios from "axios";
+import axios from "../../../utils/axiosinstance";
 import { useSetRecoilState } from "recoil";
 import { ShowSearchBox } from "../../../recoil/ChatState";
 import ChatSearchTimeSelector from "./ChatSearchTimeSelector";
@@ -45,7 +45,7 @@ const SearchBox = ({ lastChatIdRef, chatDataMapRef }: SearchBoxProps) => {
     if (searchValue.length < 2) return;
     const payload = { content: searchValue, yearAndMonth: yearMonth };
     axios
-      .get(`https://pikcha36.o-r.kr:8080/app/search`, { params: payload })
+      .get(`/app/search`, { params: payload })
       .then((res) => {
         setSearchedMessages(res.data.data);
       })

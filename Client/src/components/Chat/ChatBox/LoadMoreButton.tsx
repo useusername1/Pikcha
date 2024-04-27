@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "../../../utils/axiosinstance";
 import { LoadMoreButtonWrapper, StyledLoadMoreButton } from "./ChatBoxStyled";
 import { BiPlus as PlusIcon } from "react-icons/bi";
 import { useRecoilState } from "recoil";
@@ -15,12 +15,7 @@ const LoadMoreButton = ({ chatIdRange }: LoadMoreButtonProps) => {
   const [prevChatId, nextChatId] = chatIdRange.map((el) => chatData[el].chatId);
   const handleButtonClick = () => {
     axios
-      .get(
-        `https://pikcha36.o-r.kr:8080/app/load?gte=${prevChatId}&lte=${nextChatId}`,
-        {
-          headers: { Authorization: localStorage.getItem("Authorization") },
-        }
-      )
+      .get(`/app/load?gte=${prevChatId}&lte=${nextChatId}`)
       .then((res) => {
         const loadMoreMessage: chatDatatype = {
           ...emptyMessage,

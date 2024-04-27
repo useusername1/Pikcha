@@ -1,18 +1,54 @@
-import Axios from "axios";
+import Axios, { AxiosError } from "axios";
 
 const axios = Axios.create({
-  baseURL: "https://pikcha36.o-r.kr:8080",
+  baseURL: `${process.env.REACT_APP_HOST}`,
   withCredentials: true,
 });
 
+let reFreshFunc: Promise<void> | null = null;
+interface ErrorResponse {
+  message: string;
+}
+
+function handleTokenExpiry() {
+  localStorage.clear();
+  alert("로그인이 필요합니다");
+  window.location.replace("/");
+}
+
+async function renewToken() {
+  console.log("try to renew accesstoken");
+  //refreshtoken으로 accesstoken을 재발급받고
+  //정상발급인 경우 localstorage accesstoken값 갱신
+  //리프레쉬 토큰 만료 시 main페이지로 이동
+  try {
+    const memberId = localStorage.getItem("memberId");
+    const { data } = await Axios.get(
+      `${process.env.REACT_APP_HOST}/token/refresh/${memberId}`,
+      {
+        headers: {
+          Authorization: null,
+        },
+      }
+    );
+    localStorage.setItem("Authorization", `${data.data.accessToken}`);
+    localStorage.setItem("loginStatus", "true");
+  } catch (error) {
+    const rTokenError = error as AxiosError<ErrorResponse>;
+    if (rTokenError.response) {
+      const { status, data } = rTokenError.response;
+      if (status === 400 && data?.message === "RefreshToken Expired") {
+        handleTokenExpiry();
+      }
+    }
+  }
+}
+
 axios.interceptors.request.use(
   (config) => {
-    const originalRequest = config;
     const accessToken = localStorage.getItem("Authorization");
-    axios.defaults.headers.common["Authorization"] = accessToken;
-    originalRequest.headers["Authorization"] = accessToken;
-    return originalRequest;
-    
+    config.headers["Authorization"] = accessToken;
+    return config;
   },
   (error) => {
     return Promise.reject(error);
@@ -20,64 +56,27 @@ axios.interceptors.request.use(
 );
 
 axios.interceptors.response.use(
-  function (res) {
+  (res) => {
     return res;
   },
-  async (error) => {
-    const {
-      config,
-      response: { status },
-    } = error;
-    if (status === 400 && error.response.data.message === "Token Expired") {
-      const originalRequest = config;
-      axios.defaults.headers.common["Authorization"] = null;
-      const memberId = localStorage.getItem("memberId");
-      const { data } = await Axios.get(`/token/refresh/${memberId}`, {
-        headers: {
-          Authorization: null,
-        },
+  async (error: AxiosError<ErrorResponse>) => {
+    if (error.response && error.config) {
+      const {
+        config: originalRequest,
+        response: { status, data },
+      } = error;
+      const isTokenIssue =
+        (status === 400 && data.message === "Token Expired") ||
+        (status === 404 && data.message === "Token not found");
+      if (isTokenIssue) {
+        if (!reFreshFunc) {
+          reFreshFunc = renewToken();
+        }
+        await reFreshFunc;
+        reFreshFunc = null;
+        return axios(originalRequest);
       }
-      ) 
-      const accessToken = data.data.accessToken;
-      localStorage.setItem("Authorization", `${accessToken}`);
-      originalRequest.headers.Authorization = accessToken;
-      axios.defaults.headers.common["Authorization"] = accessToken;
-      localStorage.setItem("loginStatus", "true");
-      return axios(originalRequest);
     }
-    if (status === 404 && error.response.data.message === "Token not found") {
-      const originalRequest = config;
-      axios.defaults.headers.common["Authorization"] = null;
-      const memberId = localStorage.getItem("memberId");
-      const { data } = await Axios.get(`/token/refresh/${memberId}`, {
-        headers: {
-          Authorization: null,
-        },
-      });
-      const accessToken = data.data.accessToken;
-      localStorage.setItem("Authorization", `${accessToken}`);
-      originalRequest.headers.Authorization = accessToken;
-      axios.defaults.headers.common["Authorization"] = accessToken;
-      localStorage.setItem("loginStatus", "true");
-      return axios(originalRequest);
-    }
-    if (
-      status === 400 &&
-      error.response.data.message === "RefreshToken Expired"
-    ) {
-      localStorage.setItem("loginStatus", "false");
-      localStorage.removeItem("memberId");
-      localStorage.removeItem("Authorization");
-      alert("로그인 시간 만료.");
-      window.location.replace("/login");
-    }
-    // if (status === 500 ){
-    //   localStorage.setItem("loginStatus", "false")
-    //   localStorage.removeItem("memberId")
-    //   localStorage.removeItem("Authorization")
-    //   // alert("로그인 시간 만료.")
-    //   // window.location.replace("/login")
-    // }
     return Promise.reject(error);
   }
 );

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import Axios from "../utils/axiosinstance";
 import styled, { keyframes } from "styled-components";
 import FixedOnScrollUpHeader from "../components/Header/FixedOnScrollUpHeader";
 import PostCardComponent from "../components/PostCard/PostCardComponent";
@@ -111,17 +112,16 @@ function Main() {
   const [isLogin] = useRecoilState(LoginState);
   const memberId = localStorage.getItem("memberId");
 
-  const url1 =
-    "https://pikcha36.o-r.kr:8080/attractions/filter?page=1&size=4&sort=posts";
-  const url1_LoggedIn = `https://pikcha36.o-r.kr:8080/attractions/filter/${memberId}?page=1&size=4&sort=posts`;
-  const url2 = `https://pikcha36.o-r.kr:8080/posts/home?page=1&size=8&sort=views`;
-  const url2_LoggedIn = `https://pikcha36.o-r.kr:8080/posts/home/${memberId}?page=1&size=8&sort=views`;
+  const url1 = "/attractions/filter?page=1&size=4&sort=posts";
+  const url1_LoggedIn = `/attractions/filter/${memberId}?page=1&size=4&sort=posts`;
+  const url2 = `/posts/home?page=1&size=8&sort=views`;
+  const url2_LoggedIn = `/posts/home/${memberId}?page=1&size=8&sort=views`;
 
   useEffect(() => {
     const attraction_url = isLogin ? url1_LoggedIn : url1;
     const post_url = isLogin ? url2_LoggedIn : url2;
     axios
-      .all([axios.post(attraction_url, { provinces: [] }), axios.get(post_url)])
+      .all([Axios.post(attraction_url, { provinces: [] }), Axios.get(post_url)])
       .then(
         axios.spread((res1, res2) => {
           setAttractionData(res1.data.data);

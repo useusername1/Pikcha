@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "../../../utils/axiosinstance";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import {
   AlertQueueState,
@@ -33,13 +33,7 @@ const ReportModal = ({ setChatData }: ReportModalProps) => {
     if (!reportChatData) return;
 
     axios
-      .post(
-        `https://pikcha36.o-r.kr:8080/app/report/${reportChatData.chatId}`,
-        {},
-        {
-          headers: { Authorization: localStorage.getItem("Authorization") },
-        }
-      )
+      .post(`/app/report/${reportChatData.chatId}`, {})
       .then((res) => {
         setChatData((p) => {
           const index = p.findIndex(
