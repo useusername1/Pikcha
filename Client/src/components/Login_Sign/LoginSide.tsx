@@ -88,12 +88,10 @@ const LoginSide = () => {
   };
 
   const googleLogin = () => {
-    window.location.href =
-      "https://pikcha36.o-r.kr:8080/oauth2/authorization/google";
+    window.location.href = `${process.env.REACT_APP_HOST}/oauth2/authorization/google`;
   };
   const kakaoLogin = () => {
-    window.location.href =
-      "https://pikcha36.o-r.kr:8080/oauth2/authorization/kakao";
+    window.location.href = `${process.env.REACT_APP_HOST}/oauth2/authorization/kakao`;
   };
 
   return (

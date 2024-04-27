@@ -15,7 +15,7 @@ import { FaHeart as HeartIcon } from "react-icons/fa";
 import { MdReport as ReportIcon } from "react-icons/md";
 import { MdSubdirectoryArrowRight as ReplyIcon } from "react-icons/md";
 import ReplyMessageBox from "./ReplyChatBox";
-import axios from "axios";
+import axios from "../../../utils/axiosinstance";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import {
   isDeleteModeState,
@@ -61,13 +61,7 @@ const OtherChatBox = ({
   };
   const handleHeartClick = () => {
     axios
-      .post(
-        `https://pikcha36.o-r.kr:8080/app/likes/${chatData.chatId}`,
-        {},
-        {
-          headers: { Authorization: localStorage.getItem("Authorization") },
-        }
-      )
+      .post(`/app/likes/${chatData.chatId}`, {})
       .then((res) => console.log(res.data, "좋아요 반영"))
       .catch((err) => console.log(err));
   };

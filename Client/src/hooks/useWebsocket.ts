@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import * as Stomp from "@stomp/stompjs";
 import SockJS from "sockjs-client";
 import { v4 as uuidv4 } from "uuid";
-import axios from "axios";
+import axios from "../utils/axiosinstance";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import {
   AlertQueueState,
@@ -301,11 +301,8 @@ function useWebsocket(
     };
     console.log(payload, "payload");
     axios
-      .delete("https://pikcha36.o-r.kr:8080/app/delete", {
+      .delete("/app/delete", {
         data: payload,
-        headers: {
-          Authorization: localStorage.getItem("Authorization"),
-        },
       })
       .then((res) => {
         console.log(res.data);

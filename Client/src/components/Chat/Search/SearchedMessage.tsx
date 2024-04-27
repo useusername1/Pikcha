@@ -1,5 +1,5 @@
 import { flushSync } from "react-dom";
-import axios from "axios";
+import axios from "../../../utils/axiosinstance";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import {
   ScrollTargetChatIdState,
@@ -62,12 +62,7 @@ const SearchedMessage = ({
     const [beforeChatIdx, nextChatIdx] =
       searchResult.targetIdIndex as Array<number>;
     axios
-      .get(
-        `https://pikcha36.o-r.kr:8080/app/load?gte=${chatId}&lte=${chatData[nextChatIdx].chatId}`,
-        {
-          headers: { Authorization: localStorage.getItem("Authorization") },
-        }
-      )
+      .get(`/app/load?gte=${chatId}&lte=${chatData[nextChatIdx].chatId}`)
       .then((res) => {
         const loadMoreMessage: chatDatatype = {
           ...emptyMessage,
