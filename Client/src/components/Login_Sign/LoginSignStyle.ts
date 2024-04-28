@@ -4,18 +4,28 @@ interface TextProps {
   fontSize: string;
   color: string;
   fontweight: string;
+  divider?: boolean;
+  textDecoration?: string;
+  cursor?: string;
+  margin?: string;
 }
 interface PaddingProps {
   padding: string;
 }
 interface OverlayProps {
   overlay: boolean;
+  isLeft?: boolean;
 }
 interface ButtonProps {
   backgroundcolor?: string;
   color?: string;
   hoverbackgroundcolor?: string;
   hovercolor?: string;
+  border?: string;
+}
+
+interface TopContainerProps {
+  padding?: string;
 }
 export const Wrapper = styled.section`
   width: 100%;
@@ -23,21 +33,18 @@ export const Wrapper = styled.section`
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 30px;
+  border-radius: var(--br-m);
 `;
 export const Signincontainer = styled.div<OverlayProps>`
-  min-width: 360px;
-  min-height: 515px;
   box-shadow: 0px 0px 35px -4px rgba(227, 227, 227, 0.75);
-  width: 30%;
-  height: 70%;
-  min-width: 360px;
-  min-height: 515px;
+  width: 430px;
+  height: 515px;
   border-radius: ${(props) =>
-    props.overlay ? "30px 0px 0px 30px" : "0px 30px 30px 0px"};
+    props.overlay
+      ? "var(--br-m) 0 0 var(--br-m)"
+      : "0 var(--br-m) var(--br-m) 0"};
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   background-color: white;
   transition: all 0.5s;
@@ -51,17 +58,14 @@ export const Signincontainer = styled.div<OverlayProps>`
       : "0px 0px 35px -4px rgba(227,227,227,0.75)"};
 `;
 export const Logincontainer = styled.div<OverlayProps>`
-  min-width: 360px;
-  min-height: 515px;
-  width: 30%;
-  height: 70%;
-  min-width: 360px;
-  min-height: 515px;
+  width: 430px;
+  height: 515px;
   border-radius: ${(props) =>
-    props.overlay ? "30px 0px 0px 30px" : "0px 30px 30px 0px"};
+    props.overlay
+      ? "var(--br-m) 0 0 var(--br-m)"
+      : "0 var(--br-m) var(--br-m) 0"};
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
   align-items: center;
   background-color: white;
   transition: all 0.5s;
@@ -74,58 +78,71 @@ export const Logincontainer = styled.div<OverlayProps>`
       ? "0px 0px 35px -4px rgba(227,227,227,0.75)"
       : "0px 0px 35px -4px rgba(227,227,227,0.75)"};
 `;
-export const Rightoverlay = styled.div<OverlayProps>`
-  width: 30%;
-  height: 70%;
-  min-width: 360px;
-  min-height: 515px;
-  border-radius: ${(props) =>
-    props.overlay ? "0px 30px 30px 0px" : "30px 0px 0px 30px"};
+
+export const LogoContainer = styled.div`
+  position: absolute;
+  width: 100%;
+  height: 100%;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: var(--purple-300);
-  transition: all 0.5s;
-  justify-content: center;
-  color: white;
-  position: absolute;
-  z-index: ${(props) => (props.overlay ? "0" : "1")};
-  transform: ${(props) =>
-    props.overlay ? "translateX(50%)" : "translateX(-50%)"};
-  box-shadow: ${(props) =>
-    props.overlay
-      ? "0px 0px 35px -4px rgba(227,227,227,0.75)"
-      : "0px 0px 35px -4px rgba(227,227,227,0.75)"};
+  svg {
+    opacity: 100%;
+    path {
+      fill: var(--black-200);
+    }
+    :hover {
+      cursor: pointer;
+    }
+  }
 `;
-export const Leftoverlay = styled.div<OverlayProps>`
-  width: 30%;
-  height: 70%;
-  min-width: 360px;
-  min-height: 515px;
+
+export const StyledOverlay = styled.div<OverlayProps>`
+  width: 430px;
+  height: 515px;
   border-radius: ${(props) =>
-    props.overlay ? "0px 30px 30px 0px" : "30px 0px 0px 30px"};
+    props.overlay
+      ? "0 var(--br-m) var(--br-m) 0"
+      : "var(--br-m) 0 0 var(--br-m)"};
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: var(--purple-300);
+  background-color: var(--black-900);
   transition: all 0.5s;
   justify-content: center;
   color: white;
   position: absolute;
-  z-index: ${(props) => (props.overlay ? "1" : "0")};
+  z-index: ${(props) => (props.overlay === props.isLeft ? "1" : "0")};
   transform: ${(props) =>
     props.overlay ? "translateX(50%)" : "translateX(-50%)"};
   box-shadow: ${(props) =>
     props.overlay
       ? "0px 0px 35px -4px rgba(227,227,227,0.75)"
       : "0px 0px 35px -4px rgba(227,227,227,0.75)"};
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: ${(props) =>
+      props.overlay
+        ? "0 var(--br-m) var(--br-m) 0"
+        : "var(--br-m) 0 0 var(--br-m)"};
+  }
+  ${LogoContainer} {
+    border-radius: ${(props) =>
+      props.overlay
+        ? "0 var(--br-m) var(--br-m) 0"
+        : "var(--br-m) 0 0 var(--br-m)"};
+  }
 `;
 export const OauthBtn = styled.button<ButtonProps>`
-  width: 40px;
-  height: 40px;
-  border: 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 45px;
+  height: 45px;
+  border: ${(props) => (props.border ? props.border : "0px")};
   background-color: ${(props) => props.backgroundcolor};
   border-radius: 30px;
   color: ${(props) => props.color};
@@ -141,7 +158,7 @@ export const InputStyle = styled.input`
   width: 75%;
   height: 40px;
   border: 0px;
-  border-bottom: 1px solid var(--black-400);
+  border-bottom: 1px solid var(--black-300);
   padding-top: 15px;
   font-size: 15px;
   margin-bottom: 5px;
@@ -149,12 +166,41 @@ export const InputStyle = styled.input`
     outline: none;
     border-bottom: 1px solid var(--black-600);
   }
+  &::placeholder {
+    color: var(--black-600);
+  }
 `;
 export const TextStyle = styled.div<TextProps>`
   font-size: ${(props) => props.fontSize};
   color: ${(props) => props.color};
   font-weight: ${(props) => props.fontweight};
   padding-top: 10px;
+  margin: ${(props) => (props.margin ? props.margin : "")};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: ${(props) => (props.cursor ? props.cursor : "")};
+  ${(props) =>
+    props.textDecoration &&
+    `
+    text-decoration: ${props.textDecoration};
+    text-underline-position: under; 
+  `}
+  ${(props) => {
+    const textColor = props.color;
+    return (
+      props.divider &&
+      `
+      &::before, &::after {
+        content: '';
+        width:20px;
+        height: 0.5px;
+        background: ${textColor};  
+        margin: 0 10px;
+      }
+      `
+    );
+  }};
 `;
 
 export const ErrMsg = styled.div<TextProps>`
@@ -190,10 +236,11 @@ export const CloseButton = styled.button`
   }
 `;
 
-export const SocitalLoginContinaer = styled.div`
-  width: 100px;
+export const SocialLoginContainer = styled.div`
+  width: 40%;
+  margin: 10px 0 15px 0;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-evenly;
 `;
 
 export const LoginInputContainer = styled.form`
@@ -201,7 +248,7 @@ export const LoginInputContainer = styled.form`
   flex-direction: column;
   align-items: center;
   width: 80%;
-  margin-bottom: 130px;
+  padding: 8% 0;
   span {
     width: 70%;
     text-align: left;
@@ -215,16 +262,15 @@ export const LoginHeaderContainer = styled.div`
   align-items: center;
 `;
 
-export const LogoContainer = styled.div`
-  margin-top: 10px;
-  svg {
-    width: 120px;
-    height: 55px;
-    path {
-      fill: white;
-    }
-    :hover {
-      cursor: pointer;
-    }
-  }
+export const TopConatiner = styled.section<TopContainerProps>`
+  width: 100%;
+  padding: ${(props) => (props.padding ? props.padding : "10% 0")};
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+`;
+
+export const BottomTextContainer = styled.div`
+  display: flex;
 `;
