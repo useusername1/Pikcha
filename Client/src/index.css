@@ -59,6 +59,9 @@ body {
   --chat-messagebox: hsl(227, 100%, 65.7%);
   --delete-message: #aabdff;
   --reply-borderline: hsl(227, 95%, 71%);
+  --kakao-color: #fee500;
+  --kakao-hover: #fddb6b;
+  --pikcha-black: #19171f;
 }
 
 li {
