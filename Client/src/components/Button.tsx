@@ -6,6 +6,7 @@ interface ButtonProps {
   height?: string;
   backgroundColor?: string;
   border?: string;
+  borderRadius?: string;
   color?: string;
   fontsize?: string;
   hoverBackgroundColor?: string;
@@ -23,12 +24,13 @@ const VioletButton = styled.button<ButtonProps>`
   width: ${(props) => props.width};
   height: ${(props) => props.height};
   background-color: var(--purple-300);
-  border-radius: var(--br-l);
+  border-radius: ${(props) =>
+    props.borderRadius ? props.borderRadius : "var(--br-l)"};
   border: none;
   color: white;
   font-weight: var(--fw-bold);
   font-size: ${(props) => props.fontsize};
-  margin: ${(props) => props.margin};
+  margin: ${(props) => (props.margin ? props.margin : "")};
   cursor: pointer;
   &:hover {
     background-color: var(--purple-400);
@@ -41,7 +43,7 @@ const WhiteButton = styled.button<ButtonProps>`
   height: ${(props) => props.height};
   background-color: var(--purple-300);
   border-radius: var(--br-l);
-  border: 1px solid white;
+  border: ${(props) => (props.border ? props.border : "1px solid white")};
   color: white;
   font-weight: var(--fw-bold);
   font-size: ${(props) => props.fontsize};
@@ -90,10 +92,11 @@ const CustomButton = styled.button<ButtonProps>`
   width: ${(props) => props.width};
   height: ${(props) => props.height};
   background-color: ${(props) => props.backgroundColor};
-  border-radius: var(--br-l);
+  border-radius: ${(props) =>
+    props.borderRadius ? props.borderRadius : "var(--br-m)"};
   border: none;
   font-weight: var(--fw-bold);
-  color: var(--purple-400);
+  color: ${(props) => (props.color ? props.color : "black")};
   font-size: var(--font-sm);
   margin: ${(props) => props.margin};
   cursor: pointer;
@@ -114,6 +117,9 @@ const Button = ({
   margin,
   backgroundColor,
   hoverBackgroundColor,
+  borderRadius,
+  border,
+  color,
 }: ButtonProps) => {
   return (
     <>
@@ -125,6 +131,7 @@ const Button = ({
           hovercolor={hovercolor}
           onClick={onClick}
           margin={margin}
+          borderRadius={borderRadius}
         >
           {text}
         </VioletButton>
@@ -139,6 +146,7 @@ const Button = ({
           hovercolor={hovercolor}
           onClick={onClick}
           margin={margin}
+          border={border}
         >
           {text}
         </WhiteButton>
@@ -192,11 +200,13 @@ const Button = ({
           width={width}
           height={height}
           fontsize={fontsize}
+          color={color}
           hovercolor={hovercolor}
           backgroundColor={backgroundColor}
           onClick={onClick}
           margin={margin}
           hoverBackgroundColor={hoverBackgroundColor}
+          borderRadius={borderRadius}
         >
           {text}
         </CustomButton>

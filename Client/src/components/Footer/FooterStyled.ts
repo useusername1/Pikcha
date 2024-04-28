@@ -3,7 +3,7 @@ import styled from "styled-components";
 const FooterWrapper = styled.div`
   width: 100%;
   height: 250px;
-  background-color: #19171f;
+  background-color: var(--pikcha-black);
   display: flex;
   justify-content: center;
   align-items: center;
