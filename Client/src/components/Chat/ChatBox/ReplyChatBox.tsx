@@ -1,8 +1,9 @@
-import { useSetRecoilState } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import { chatDatatype } from "../Chat";
 import { ReplyMessageBoxDiv } from "./ChatBoxStyled";
-import { ScrollTargetChatIdState } from "../../../recoil/ChatState";
+import { ScrollTargetChatIdState } from "../../../recoil/chatState";
 import { scrollFlagRef } from "../ChatPanel";
+import { UserDataAtomFamily } from "../../../recoil/auth";
 
 interface ReplyMessageBoxProps {
   chatData: chatDatatype;
@@ -20,6 +21,7 @@ const ReplyMessageBox = ({
   textColor,
   chatDataMapRef,
 }: ReplyMessageBoxProps) => {
+  const memberId = useRecoilValue(UserDataAtomFamily.MEMBER_ID);
   const setScrollTargetChatId = useSetRecoilState(ScrollTargetChatIdState);
   const handleClick = () => {
     if (!chatDataMapRef) return;
@@ -34,7 +36,7 @@ const ReplyMessageBox = ({
       <img src={chatData.targetPicture as string} alt="target-user" />
       <div className="target-info">
         <span className="targetuser-info">
-          {Number(localStorage.getItem("memberId")) === chatData.targetMemberId
+          {memberId === chatData.targetMemberId
             ? "나"
             : `${chatData.targetUsername}님`}
           에게 답장

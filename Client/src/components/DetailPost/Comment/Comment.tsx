@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useRecoilState } from "recoil";
-import { deletePostComment } from "../../../API/BlogDetail/Delete/Delete";
-import { modifiedComment } from "../../../API/BlogDetail/Patch/Patch";
-import { MemberId } from "../../../recoil/state";
+import { deletePostComment } from "../../../api/BlogDetail/Delete/Delete";
+import { modifiedComment } from "../../../api/BlogDetail/Patch/Patch";
+import { UserDataAtomFamily } from "../../../recoil/auth";
 import * as poc from "./CommentStyled";
 import ReComment from "../Recomment/Recomment";
 import { IoMdArrowDropdown, IoMdArrowDropup } from "react-icons/io";
-import { handleCommentSubmit } from "../../../API/BlogDetail/Post/Post";
+import { handleCommentSubmit } from "../../../api/BlogDetail/Post/Post";
 import { CommentType, ReCommentType } from "../../../utils/d";
 import { isModalVisible } from "../../../recoil/setOverlay";
 
@@ -27,7 +27,7 @@ const Comment = ({
   });
   const { recommentContent, editcommentContent } = content;
   const [isMoreRecomment, setIsMoreReomment] = useState(false);
-  const [memberId] = useRecoilState(MemberId);
+  const [memberId] = useRecoilState(UserDataAtomFamily.MEMBER_ID);
   const [_, setIsModal] = useRecoilState(isModalVisible);
   const { id } = useParams();
 

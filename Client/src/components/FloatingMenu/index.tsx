@@ -15,13 +15,13 @@ import { BsLink45Deg as ShareAddressIcon } from "react-icons/bs";
 import { getCurrentCount } from "../../utils/utils";
 import { useParams } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { LoginState } from "../../recoil/state";
+import { UserDataAtomFamily } from "../../recoil/auth";
 import {
   BookmarkSavesState,
   LikesState,
   AttractionDataState,
-} from "../../recoil/PlaceDetailState";
-import axios from "../../utils/axiosinstance";
+} from "../../recoil/placeDetailState";
+import axios from "../../api/axiosInstance";
 import useClickDetect from "../../hooks/useClickDetect";
 
 interface ShareProps {
@@ -38,7 +38,7 @@ const FloatingMenu = ({
   const [bookmarkSaves, setBookmarkSaves] = useRecoilState(BookmarkSavesState); //로컬 북마트 상태 저장
   const [likes, setLikes] = useRecoilState(LikesState);
   const attractionData = useRecoilValue(AttractionDataState);
-  const [isLogin] = useRecoilState(LoginState);
+  const [isLogin] = useRecoilState(UserDataAtomFamily.LOGIN_STATE);
   const {
     ref,
     isVisible: showSharebox,

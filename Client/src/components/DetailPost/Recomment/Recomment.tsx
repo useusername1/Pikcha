@@ -2,9 +2,9 @@ import { useState } from "react";
 import { ReCommentType } from "../../../utils/d";
 import * as poc from "../Comment/CommentStyled";
 import { useRecoilState } from "recoil";
-import { MemberId } from "../../../recoil/state";
-import { deletePostComment } from "../../../API/BlogDetail/Delete/Delete";
-import { modifiedComment } from "../../../API/BlogDetail/Patch/Patch";
+import { UserDataAtomFamily } from "../../../recoil/auth";
+import { deletePostComment } from "../../../api/BlogDetail/Delete/Delete";
+import { modifiedComment } from "../../../api/BlogDetail/Patch/Patch";
 
 const Recomment = ({
   recomments,
@@ -17,7 +17,7 @@ const Recomment = ({
   const [recommentIdx, setRecommentIdx] = useState(0);
   const [isEdit, setIsEdit] = useState(false);
   const [isRecomment, setIsRecomment] = useState(false);
-  const [memberId] = useRecoilState(MemberId);
+  const [memberId] = useRecoilState(UserDataAtomFamily.MEMBER_ID);
   return (
     <>
       {recomments && (

@@ -2,12 +2,12 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { useLocation, Link } from "react-router-dom";
 import LocationFilter from "../../components/LocationFilter";
 import { Header } from "../../components/Header";
-import axios from "../../utils/axiosinstance";
+import axios from "../../api/axiosInstance";
 import PlaceCard from "../../components/PlaceCard/PlaceCard";
 import Pagination from "../../components/Pagination";
 import Footer from "../../components/Footer";
-import { useRecoilState } from "recoil";
-import { LoginState } from "../../recoil/state";
+import { useRecoilValue } from "recoil";
+import { UserDataAtomFamily } from "../../recoil/auth";
 import EmptyResult from "../../components/EmptyResult";
 import * as pl from "./PlaceStyled";
 import { ArrayPlaceType, PageInfoType, PageSessionType } from "../../utils/d";
@@ -51,11 +51,11 @@ const Place = () => {
 
   const [sort, setSort] = useState(() => (pageDataArr ? pageDataArr.sort : 0));
   const [placesData, setPlacesData] = useState<ArrayPlaceType>();
-  const [isLogin] = useRecoilState(LoginState);
   const [isNavbarChecked, setIsNavbarChecked] = useState<boolean>(false);
+  const isLogin = useRecoilValue(UserDataAtomFamily.LOGIN_STATE);
+  const memberId = useRecoilValue(UserDataAtomFamily.MEMBER_ID);
   const totalInfoRef = useRef<PageInfoType | null>(null);
   const curPageRef = useRef<PageSessionType | null>(null);
-  const memberId = localStorage.getItem("memberId");
   const { search } = useLocation();
   const ITEM_LIMIT = 9;
 
@@ -104,7 +104,7 @@ const Place = () => {
         totalInfoRef.current = res.data.pageInfo;
       })
       .catch((err) => console.error(err));
-  }, [searchValue, curPage, checkedList, sort]);
+  }, [searchValue, curPage, checkedList, sort, isLogin]);
 
   const handleSortClick = (sort: number) => {
     setSort(sort);
@@ -118,7 +118,7 @@ const Place = () => {
           setIsNavbarChecked={setIsNavbarChecked}
         ></MobileHeader>
       ) : (
-        <div style={{ display: "fixed" }}>
+        <div>
           <Header headerColor="var(--black-200)">
             <Header.HeaderTop />
             <Header.HeaderBody
@@ -141,7 +141,6 @@ const Place = () => {
           </Link>
         </MenuSideBar>
       ) : null}
-
       <pl.PlaceWrapper>
         {Mobile ? null : (
           <pl.LocationWrapper>

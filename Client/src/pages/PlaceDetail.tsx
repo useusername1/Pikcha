@@ -4,16 +4,16 @@ import { useNavigate, useParams, Link } from "react-router-dom";
 import { FaMapMarkerAlt as MarkIcon } from "react-icons/fa";
 import FixedOnScrollUpHeader from "../components/Header/FixedOnScrollUpHeader";
 import KakaoMap from "../components/KakaoMap";
-import axios from "../utils/axiosinstance";
+import axios from "../api/axiosInstance";
 import PostCardComponent from "../components/PostCard/PostCardComponent";
 import Footer from "../components/Footer";
-import { LoginState } from "../recoil/state";
+import { UserDataAtomFamily } from "../recoil/auth";
 import {
   BookmarkSavesState,
   LikesState,
   AttractionDataState,
-} from "../recoil/PlaceDetailState";
-import { useRecoilState, useSetRecoilState } from "recoil";
+} from "../recoil/placeDetailState";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import Modal from "../components/Modal";
 import Pagination from "../components/Pagination";
 import EmptyResult from "../components/EmptyResult";
@@ -216,18 +216,19 @@ export type PlaceData = {
 
 const PlaceDetail = (): JSX.Element => {
   let [view, setView] = useState<string>("info");
-  const scrollRefContent = useRef<HTMLDivElement>(null);
   const [fixBar, setFixBar] = useState(0);
   const [postData, setPostData] = useState<ArrayPostType>();
+  const [curPage, setCurPage] = useState(1);
   const [attractionData, setAttractionData] =
     useRecoilState(AttractionDataState); // 명소 정보 저장
-  const [isLogin] = useRecoilState(LoginState);
+  const [isModal, setIsModal] = useRecoilState(isModalVisible);
+  const isLogin = useRecoilValue(UserDataAtomFamily.LOGIN_STATE);
+  const memberId = useRecoilValue(UserDataAtomFamily.MEMBER_ID);
   const setBookmarkSaves = useSetRecoilState(BookmarkSavesState);
   const setLikes = useSetRecoilState(LikesState);
-  const [curPage, setCurPage] = useState(1);
-  const [isModal, setIsModal] = useRecoilState(isModalVisible);
+  const scrollRefContent = useRef<HTMLDivElement>(null);
   const totalInfoRef = useRef<PageInfoType | null>(null);
-  const memberId = localStorage.getItem("memberId");
+
   const { id } = useParams();
   const url = `/attractions/${id}`;
   const url2 = `/attractions/${id}/${memberId}`;

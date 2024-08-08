@@ -2,15 +2,15 @@ import { useState, useRef, useEffect } from "react";
 import * as Stomp from "@stomp/stompjs";
 import SockJS from "sockjs-client";
 import { v4 as uuidv4 } from "uuid";
-import axios from "../utils/axiosinstance";
+import axios from "../api/axiosInstance";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import {
   AlertQueueState,
   NewMessageArrivedState,
   chatDataState,
   onlineNumberOfUserState,
-} from "../recoil/ChatState";
-import { LoginState } from "../recoil/state";
+} from "../recoil/chatState";
+import { UserDataAtomFamily } from "../recoil/auth";
 import { chatDatatype } from "../components/Chat/Chat";
 import { flushSync } from "react-dom";
 
@@ -32,8 +32,11 @@ function useWebsocket(
   const lastChatIdRef = useRef<number | undefined>(undefined);
   const setOnlineNumOfUsers = useSetRecoilState(onlineNumberOfUserState);
   const setAlertQueue = useSetRecoilState(AlertQueueState);
-  const isLogin = useRecoilValue(LoginState);
+  const isLogin = useRecoilValue(UserDataAtomFamily.LOGIN_STATE);
   const setNewMessageArrived = useSetRecoilState(NewMessageArrivedState);
+  const memberId = useRecoilValue(UserDataAtomFamily.MEMBER_ID);
+  const accessToken = useRecoilValue(UserDataAtomFamily.AUTH_TOKEN);
+
   /*likes-,delete-,report-*/
   useEffect(() => {
     clientRef.current = new Stomp.Client(initialConnectSet);
@@ -52,7 +55,7 @@ function useWebsocket(
     if (!isLogin && clientRef.current) {
       clientRef.current.deactivate();
     } //로그인 상태가 아니면 소켓 연결 종료
-  });
+  }, [isLogin]);
 
   const subscribeCallback = (message: Stomp.IMessage) => {
     const parsedMessage = JSON.parse(message.body);
@@ -63,9 +66,7 @@ function useWebsocket(
         const targetIdx = chatDataMapRef.current?.get(
           parsedMessage.chatId
         )?.idx;
-        if (
-          parsedMessage.memberId === Number(localStorage.getItem("memberId"))
-        ) {
+        if (parsedMessage.memberId === memberId) {
           setChatData((p) => {
             return [
               ...p.slice(0, targetIdx),
@@ -140,9 +141,7 @@ function useWebsocket(
         break;
       }
       case "CHAT": {
-        if (
-          parsedMessage.memberId === Number(localStorage.getItem("memberId"))
-        ) {
+        if (parsedMessage.memberId === memberId) {
           flushSync(() => {
             setChatBuffer((p) =>
               p.length
@@ -160,9 +159,7 @@ function useWebsocket(
         break;
       }
       case "REPLY": {
-        if (
-          parsedMessage.memberId === Number(localStorage.getItem("memberId"))
-        ) {
+        if (parsedMessage.memberId === memberId) {
           setChatBuffer((p) =>
             p.length
               ? p.filter((el) => el.verifyKey !== parsedMessage.verifyKey)
@@ -212,7 +209,7 @@ function useWebsocket(
       destination: "/app/chat",
       body: JSON.stringify({
         type: "JOIN",
-        memberId: localStorage.getItem("memberId"),
+        memberId: memberId,
       }),
     });
   };
@@ -234,7 +231,7 @@ function useWebsocket(
       content: text,
       verifyKey: uuidv4(),
       type: "CHAT",
-      memberId: localStorage.getItem("memberId"),
+      memberId: memberId,
     };
     if (!clientRef.current?.connected) return;
     setChatBuffer((p) => [
@@ -243,7 +240,7 @@ function useWebsocket(
         chatId: -1,
         content: text,
         createdAt: new Date().toISOString(),
-        memberId: Number(localStorage.getItem("memberId") as string),
+        memberId: memberId as number,
         picture: undefined,
         type: "CHAT",
         username: "",
@@ -297,7 +294,7 @@ function useWebsocket(
 
     const payload = {
       ids: [...message],
-      memberId: localStorage.getItem("memberId"),
+      memberId,
     };
     console.log(payload, "payload");
     axios
@@ -324,7 +321,7 @@ function useWebsocket(
       content: text,
       verifyKey: uuidv4(),
       type: "REPLY",
-      memberId: localStorage.getItem("memberId"),
+      memberId,
       targetId: targetInfo.chatId,
     };
     if (!clientRef.current?.connected) return;
@@ -334,7 +331,7 @@ function useWebsocket(
         chatId: -1,
         content: text,
         createdAt: new Date().toISOString(),
-        memberId: Number(localStorage.getItem("memberId")),
+        memberId: memberId as number,
         picture: "",
         type: "CHAT",
         username: "",
@@ -364,7 +361,7 @@ function useWebsocket(
       console.log(str);
     },
     connectHeaders: {
-      Authorization: localStorage.getItem("Authorization") as string,
+      Authorization: accessToken as string,
     },
     onConnect: connectCallback,
     onStompError: errorCallback,
