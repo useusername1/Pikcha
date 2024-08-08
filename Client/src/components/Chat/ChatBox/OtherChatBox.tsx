@@ -15,14 +15,14 @@ import { FaHeart as HeartIcon } from "react-icons/fa";
 import { MdReport as ReportIcon } from "react-icons/md";
 import { MdSubdirectoryArrowRight as ReplyIcon } from "react-icons/md";
 import ReplyMessageBox from "./ReplyChatBox";
-import axios from "../../../utils/axiosinstance";
+import axios from "../../../api/axiosInstance";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import {
   isDeleteModeState,
   isReplyMessageState,
   reportChatDataState,
   showReportModalState,
-} from "../../../recoil/ChatState";
+} from "../../../recoil/chatState";
 
 interface MyChatBoxProps {
   chatData: chatDatatype;

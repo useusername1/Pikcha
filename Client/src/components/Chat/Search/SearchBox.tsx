@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
-import axios from "../../../utils/axiosinstance";
+import axios from "../../../api/axiosInstance";
 import { useSetRecoilState } from "recoil";
-import { ShowSearchBox } from "../../../recoil/ChatState";
+import { ShowSearchBox } from "../../../recoil/chatState";
 import ChatSearchTimeSelector from "./ChatSearchTimeSelector";
 import SearchedMessage from "./SearchedMessage";
 import {

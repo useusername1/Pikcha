@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import ButtonForm from "../Button";
-import axios from "../../utils/axiosinstance";
+import axios from "../../api/axiosInstance";
 import DaumPostcode from "react-daum-postcode";
 import { useRecoilState } from "recoil";
 import { setOverlay } from "../../recoil/setOverlay";
@@ -73,24 +73,17 @@ const Login = () => {
     }
     if (!signemailErr && !signpasswordErr && !phonenumberErr) {
       return axios
-        .post(
-          "/signup",
-          {
-            email: signemail,
-            password: signpassword,
-            phoneNumber: phonenumber,
-            address: address,
-            username: username,
-          },
-          {
-            withCredentials: true,
-          }
-        )
+        .post("/signup", {
+          email: signemail,
+          password: signpassword,
+          phoneNumber: phonenumber,
+          address: address,
+          username: username,
+        })
         .then((res) => {
           if (res.status === 201) {
             setOverlays(false);
             navigate(-1);
-            // window.location.replace("/login")
           }
         })
         .catch((err) => {

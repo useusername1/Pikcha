@@ -1,4 +1,4 @@
-import axios from "../../utils/axiosinstance";
+import axios from "../axiosInstance";
 
 export const handlePostSubmit = async (
   title: string,

@@ -3,7 +3,7 @@ import {
   deleteItemsState,
   isDeleteModeState,
   showConfirmModalState,
-} from "../../../recoil/ChatState";
+} from "../../../recoil/chatState";
 import { sendbarStyle } from "../Send/Sendbar";
 import { ConfirmBarDiv, CancelAllButton, DeleteAllButton } from "./ModalStyled";
 

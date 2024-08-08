@@ -1,9 +1,9 @@
-import axios from "../../../utils/axiosinstance";
+import axios from "../../axiosInstance";
 import { ArrayCommentType } from "../../../utils/d";
 
 export const getPost = async (
   postId: string | undefined,
-  memberId?: number,
+  memberId?: number | null,
   isLogin?: boolean
 ) => {
   try {

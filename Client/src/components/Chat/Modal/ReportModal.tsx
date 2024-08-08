@@ -1,10 +1,10 @@
-import axios from "../../../utils/axiosinstance";
+import axios from "../../../api/axiosInstance";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import {
   AlertQueueState,
   reportChatDataState,
   showReportModalState,
-} from "../../../recoil/ChatState";
+} from "../../../recoil/chatState";
 import { DividerLine } from "../ChatStyled";
 import {
   ReportModalWrapper,

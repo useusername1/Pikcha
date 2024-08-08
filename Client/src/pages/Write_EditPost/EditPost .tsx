@@ -5,16 +5,16 @@ import {
   PostContent,
   PostPreviewList,
   PostTags,
-} from "../../recoil/WritePostState";
+} from "../../recoil/writePostState";
 import ButtonForm from "../../components/Button";
 import ContentRegister from "../../components/Wirte_EditPost/ContentRegister";
 import WriteGuide from "../../components/Wirte_EditPost/WriteGuide";
 import Tag from "../../components/Wirte_EditPost/Tag";
-import { handlePostSubmit } from "../../API/Write_EditPost/handlePostSubmit";
+import { handlePostSubmit } from "../../api/Write_EditPost/handlePostSubmit";
 import { BsDot } from "react-icons/bs";
 import { MdOutlineKeyboardBackspace } from "react-icons/md";
 import { CgClose } from "react-icons/cg";
-import { getPost } from "../../API/BlogDetail/Get/Get";
+import { getPost } from "../../api/BlogDetail/Get/Get";
 import * as wp from "./Write_EditPostStyled";
 
 export default function EditPost() {

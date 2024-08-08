@@ -23,7 +23,7 @@ import {
   isDeleteModeState,
   isReplyMessageState,
   showConfirmModalState,
-} from "../../../recoil/ChatState";
+} from "../../../recoil/chatState";
 
 interface MyChatBoxProps {
   chatData: chatDatatype;

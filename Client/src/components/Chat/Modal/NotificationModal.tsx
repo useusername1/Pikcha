@@ -1,6 +1,6 @@
 import { ReactElement, useEffect, useState } from "react";
 import { useRecoilState, useSetRecoilState } from "recoil";
-import { AlertQueueState } from "../../../recoil/ChatState";
+import { AlertQueueState } from "../../../recoil/chatState";
 import {
   NotificationModalWrapper,
   NotificationModalItemDiv,

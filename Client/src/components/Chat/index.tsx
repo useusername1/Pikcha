@@ -1,7 +1,7 @@
 import ChatButton from "./ChatButton";
 import ChatPanel from "./ChatPanel";
 import { useRecoilValue } from "recoil";
-import { ChatStatus } from "../../recoil/ChatState";
+import { ChatStatus } from "../../recoil/chatState";
 
 const Chat = () => {
   const chatStatus = useRecoilValue(ChatStatus);

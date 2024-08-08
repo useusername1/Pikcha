@@ -1,5 +1,5 @@
 import React, { Dispatch, SetStateAction } from "react";
-import axios from "../../../utils/axiosinstance";
+import axios from "../../axiosInstance";
 
 export const handleCommentSubmit = async (
   id: string | undefined,

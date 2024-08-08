@@ -5,7 +5,7 @@ import {
   ShowNewMesssageBoxState,
   ShowSearchBox,
   isReplyMessageState,
-} from "../../../recoil/ChatState";
+} from "../../../recoil/chatState";
 import EmojiPicker, {
   EmojiClickData,
   EmojiStyle,
@@ -28,6 +28,7 @@ import { TbArrowForward as ReplyIcon } from "react-icons/tb";
 import { chatDatatype, sendbarStyleType } from "../Chat";
 import NewMessageModal from "../Modal/NewMessageModal";
 import { scrollFlagRef } from "../ChatPanel";
+import { UserDataAtomFamily } from "../../../recoil/auth";
 
 export const sendbarStyle: sendbarStyleType = {
   padding: 10,
@@ -65,6 +66,8 @@ const Sendbar = ({
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
   const showSearchBox = useRecoilValue(ShowSearchBox);
   const showNewMessageBox = useRecoilValue(ShowNewMesssageBoxState);
+  const memberId = useRecoilValue(UserDataAtomFamily.MEMBER_ID);
+
   const handleInputChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setText((e.target as HTMLTextAreaElement).value);
   };
@@ -177,8 +180,7 @@ const Sendbar = ({
                 <div className="reply-message">{isReplyMessage.content}</div>
                 <div className="reply-user">
                   <ReplyIcon />
-                  {Number(localStorage.getItem("memberId")) ===
-                  isReplyMessage.memberId
+                  {memberId === isReplyMessage.memberId
                     ? "나"
                     : `${isReplyMessage.username}님`}
                   에게 답장

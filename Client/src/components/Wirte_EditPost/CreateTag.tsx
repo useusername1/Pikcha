@@ -1,7 +1,7 @@
 import { TfiClose } from "react-icons/tfi";
 import * as wp from "../../pages/Write_EditPost/Write_EditPostStyled";
 import { useRecoilState } from "recoil";
-import { PostTags } from "../../recoil/WritePostState";
+import { PostTags } from "../../recoil/writePostState";
 
 export default function CreateTag() {
   const [tags, setTags] = useRecoilState(PostTags);
