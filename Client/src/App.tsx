@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { lazy, Suspense, useEffect } from "react";
 import "./App.css";
-import Oauth from "./routes/OauthRoute";
+import OAuth from "./routes/OAuthRoute";
 import ScrollToTop from "./components/ScrollToTop";
 import useSetupAxiosInterceptor from "./hooks/useSetupAxiosInterceptor";
 import ProtectedRoute from "./routes/ProtectedRoute";
@@ -42,7 +42,7 @@ function App() {
             <Route path="/map" element={<Map />} />
             <Route path="/attractions/detail/:id" element={<PlaceDetail />} />
             <Route path="/posts/detail/:postId" element={<DetailPost />} />
-            <Route path="/oauth" element={<Oauth />} />
+            <Route path="/oauth" element={<OAuth />} />
             <Route element={<ProtectedRoute />}>
               <Route path="/mypage" element={<MyPage />} />
               <Route path="/edit/:postId" element={<EditPost />} />
