@@ -1,18 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import ButtonForm from "../Button";
-import axios from "../../utils/axiosinstance";
-import { useNavigate } from "react-router-dom";
-import { useRecoilState } from "recoil";
-import {
-  LoginState,
-  AuthToken,
-  LoggedUser,
-  MemberId,
-} from "../../recoil/state";
+import axios from "../../api/axiosInstance";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import { UserDataAtomFamily, UserStateKeys } from "../../recoil/auth";
 import { setOverlay } from "../../recoil/setOverlay";
 import * as l from "./LoginSignStyle";
 import { FcGoogle as GoogleIcon } from "react-icons/fc";
 import { RiKakaoTalkFill as KakaoIcon } from "react-icons/ri";
+import useAuthPostMessage from "../../hooks/useAuthPostMessage";
+import { flushSync } from "react-dom";
+import useNavigateToStoredLocation from "../../hooks/useNavigateToStoredLocation";
 
 const LoginSide = () => {
   const [overlays, setOverlays] = useRecoilState<boolean>(setOverlay);
@@ -20,12 +17,13 @@ const LoginSide = () => {
   const [loginpassword, setLoginPassword] = useState<string>("");
   const [loginemailErr, setLoginEmailErr] = useState<boolean>(true);
   const [loginpasswordErr, setLoginPasswordErr] = useState<boolean>(true);
-  const [isLogin, setIslogin] = useRecoilState(LoginState);
-  const [auth, setAuth] = useRecoilState(AuthToken);
-  const [loggedUser, setLoggedUser] = useRecoilState(LoggedUser);
-  const [memberId, setMenberId] = useRecoilState(MemberId);
+  const setIslogin = useSetRecoilState(UserDataAtomFamily.LOGIN_STATE);
+  const setAuth = useSetRecoilState(UserDataAtomFamily.AUTH_TOKEN);
+  const setLoggedUser = useSetRecoilState(UserDataAtomFamily.LOGGED_USER);
+  const setMemberId = useSetRecoilState(UserDataAtomFamily.MEMBER_ID);
+  const { postLogin } = useAuthPostMessage();
+  const navigateToStoredLocation = useNavigateToStoredLocation();
 
-  const navigate = useNavigate();
   const handleLoginEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const EMAIL_REGEX = /\w+([-+.]\w+)*@\w+([-.]\w+)*\.[a-zA-Z]{2,4}$/;
     setLoginEmailErr(!EMAIL_REGEX.test(e.target.value));
@@ -51,28 +49,22 @@ const LoginSide = () => {
     }
 
     return axios
-      .post(
-        `/login`,
-        {
-          username: loginemail,
-          password: loginpassword,
-        },
-        {
-          withCredentials: true,
-        }
-      )
+      .post(`/login`, {
+        username: loginemail,
+        password: loginpassword,
+      })
       .then((res) => {
-        const { memberId, accessToken } = res.data.data;
         if (res.status === 200) {
-          setIslogin(true);
-          setAuth(accessToken);
-          setLoggedUser(loginemail);
-          setMenberId(memberId);
-          setOverlays(false);
-          localStorage.setItem("loginStatus", "true ");
-          localStorage.setItem("Authorization", `${accessToken}`);
-          localStorage.setItem("memberId", memberId);
-          navigate(-1);
+          const { memberId, accessToken, email } = res.data.data;
+          flushSync(() => {
+            setIslogin(true);
+            setLoggedUser(email);
+            setMemberId(memberId);
+            setOverlays(false);
+            setAuth(accessToken);
+          });
+          postLogin();
+          navigateToStoredLocation();
         }
       })
       .catch((err) => {

@@ -1,3 +1,4 @@
+import { lazy, ReactNode, MouseEventHandler } from "react";
 import {
   HeaderWrapper,
   HeaderTop,
@@ -10,52 +11,36 @@ import {
   Profile,
 } from "./style";
 import { Link, useNavigate } from "react-router-dom";
-import { useRecoilState, useRecoilValue } from "recoil";
-import {
-  LoginState,
-  AuthToken,
-  LoggedUser,
-  MemberId,
-} from "../../recoil/state";
-import axios from "../../utils/axiosinstance";
+import { useRecoilValue } from "recoil";
+import { UserDataAtomFamily } from "../../recoil/auth";
+import axios from "../../api/axiosInstance";
 import ButtonForm from "../Button";
-import { lazy, ReactNode, MouseEventHandler, useEffect } from "react";
 import { ReactComponent as Logo } from "../../data/Logo.svg";
+import { storeLocation } from "../../utils/storeLocation";
+import useLogout from "../../hooks/useLogout";
 const SearchBar = lazy(() => import("./SearchBar"));
 
 const IMG_SRC =
   "https://lh3.googleusercontent.com/pw/AMWts8CEDi2m6IeYf8S0FGfXum-T0_vsJIa1geotAKan_2NzfhOcgYgrtrfd8mjMtVfZ0BCUPDXoUPos9yV5VWgy8eSvzMBs-4jA3Xq0ocmQhpTqPSWQ8lXrK8LsMWISS3vZbZR6Y74ztKYybTTmXQ966bEx=s407-no?authuser=0";
 
 const HeaderTopBar = () => {
+  const isLogin = useRecoilValue(UserDataAtomFamily.LOGIN_STATE);
   const navigate = useNavigate();
-  const [isLogin, setIslogin] = useRecoilState(LoginState);
-  const [auth, setAuth] = useRecoilState<string>(AuthToken);
-  // const [refresh, setRefresh] = useRecoilState<string>(RefreshToken);
-  const [loggedUser, setLoggedUser] = useRecoilState<string>(LoggedUser);
-  const localLogin = localStorage.getItem("loginStatus");
-  const [memberId, setMemberId] = useRecoilState(MemberId);
-  useEffect(() => {
-    if (typeof localLogin === "string") {
-      setIslogin(JSON.parse(localLogin));
-    }
-  }, []);
+  const { handleLogout } = useLogout();
+
+  const handleLoginClick = () => {
+    storeLocation();
+    navigate("/login");
+  };
 
   const onClickLogout = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
-    e.preventDefault();
+    e.stopPropagation();
     axios
       .post(`/logout`)
-      .then((res) => {
-        setIslogin(false);
-        setAuth("");
-        setLoggedUser("");
-        setMemberId(undefined);
-        axios.defaults.headers.common["Authorization"] = null;
-        localStorage.removeItem("Authorization");
-        localStorage.setItem("loginStatus", "false");
-        localStorage.removeItem("memberId");
-        navigate("/");
+      .then((_) => {
+        handleLogout();
       })
       .catch((err) => console.error(err));
   };
@@ -71,7 +56,10 @@ const HeaderTopBar = () => {
                 height="1px"
                 text="마이페이지"
                 type="none"
-                onClick={() => navigate("/mypage")}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  navigate("/mypage");
+                }}
               ></ButtonForm>
             </li>
             <li>
@@ -91,7 +79,7 @@ const HeaderTopBar = () => {
               height="1px"
               text="로그인 / 회원가입"
               type="none"
-              onClick={() => navigate("/login")}
+              onClick={handleLoginClick}
             ></ButtonForm>
           </li>
         )}
@@ -112,8 +100,9 @@ const HeaderBodyBar = ({
   backgroundOn = true,
   selectedMenu = -1,
 }: HeaderBodyProps) => {
+  const islogin = useRecoilValue(UserDataAtomFamily.LOGIN_STATE);
   const navigate = useNavigate();
-  const islogin = useRecoilValue(LoginState);
+
   return (
     <HeaderBodyWrapper backgroundOn={backgroundOn}>
       <HeaderBody>
