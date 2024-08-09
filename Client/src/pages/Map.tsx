@@ -13,8 +13,7 @@ import axios from "../api/axiosInstance";
 import { GiTalk } from "react-icons/gi";
 import { useNavigate } from "react-router-dom";
 import { UserDataAtomFamily } from "../recoil/auth";
-import { useRecoilState, useRecoilValue } from "recoil";
-import Modal from "../components/Modal";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import { useMediaQuery } from "react-responsive";
 import * as m from "./Map/Map";
 import MobileHeaderBack from "../components/Header/MobileHeaderBack";
@@ -60,7 +59,7 @@ const Map = () => {
   const [filterOrPosition, setFilterOrPosition] = useState<boolean>(false);
   const isLogin = useRecoilValue(UserDataAtomFamily.LOGIN_STATE);
   const memberId = useRecoilValue(UserDataAtomFamily.MEMBER_ID);
-  const [isModal, setIsModal] = useRecoilState(isModalVisible);
+  const setIsModal = useSetRecoilState(isModalVisible);
   const [isVoted, setIsVoted] = useState<boolean>();
   const [isLiked, setIsLiked] = useState<boolean>();
   const navigate = useNavigate();
@@ -130,7 +129,6 @@ const Map = () => {
 
   return (
     <>
-      {isModal && <Modal />}
       {Mobile ? (
         <MobileHeaderBack
           isNavbarChecked={isNavbarChecked}

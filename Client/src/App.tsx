@@ -7,6 +7,7 @@ import useSetupAxiosInterceptor from "./hooks/useSetupAxiosInterceptor";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import useSetupAuthBroadcastChannel from "./hooks/useSetupAuthBroadcastChannel";
 import Loading from "./pages/Loading";
+import Modal from "./components/Modal";
 
 const Main = lazy(() => import("./pages/Main"));
 const Place = lazy(() => import("./pages/Place/Place"));
@@ -26,10 +27,12 @@ function App() {
   useEffect(() => {
     sessionStorage.setItem("pageData", "{}");
   }, []);
+
   return (
     <div className="App">
       <BrowserRouter>
         <ScrollToTop />
+        <Modal />
         <Suspense fallback={<Loading />}>
           <Routes>
             <Route path="/login" element={<LoginSign />}></Route>

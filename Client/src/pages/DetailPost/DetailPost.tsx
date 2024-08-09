@@ -5,9 +5,8 @@ import { AiFillHeart, AiFillEye, AiOutlineShareAlt } from "react-icons/ai";
 import { FaRegCommentDots } from "react-icons/fa";
 import Comment from "../../components/DetailPost/Comment/Comment";
 import { useNavigate, useParams } from "react-router-dom";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import { UserDataAtomFamily } from "../../recoil/auth";
-import Modal from "../../components/Modal";
 import { Header } from "../../components/Header";
 import Footer from "../../components/Footer";
 import * as dp from "./DetailPostStyled";
@@ -23,7 +22,7 @@ const DetailPost = () => {
   const [post, setPost] = useState<PostDetailType>();
   const [commentList, setCommentList] = useState<ArrayCommentType>();
   const [isVoted, setIsVoted] = useState(false);
-  const [isModal, setIsModal] = useRecoilState(isModalVisible);
+  const setIsModal = useSetRecoilState(isModalVisible);
   const isLogin = useRecoilValue(UserDataAtomFamily.LOGIN_STATE);
   const memberId = useRecoilValue(UserDataAtomFamily.MEMBER_ID);
   const { postId } = useParams();
@@ -77,7 +76,6 @@ const DetailPost = () => {
         <Header.HeaderBody />
       </Header>
       <dp.DetailPostWrapper>
-        {isModal && <Modal />}
         {(post && post.memberId === memberId) || memberId === 1 ? (
           <dp.PostMangeButtnContainer>
             <dp.PostManageButton onClick={() => navigate(`/edit/${postId}`)}>

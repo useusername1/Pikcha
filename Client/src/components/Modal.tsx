@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { FcInfo } from "react-icons/fc";
-import "../index.css";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { isModalVisible } from "../recoil/setOverlay";
@@ -11,19 +10,19 @@ const ModalBackground = styled.div`
   left: 0;
   bottom: 0;
   right: 0;
-  background: rgba(126, 133, 137, 0.8);
+  background-color: rgba(255, 255, 255, 0.7);
   z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 const Container = styled.div`
   width: 390px;
   height: 135px;
   border-radius: 9px;
   margin: 0 auto;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-  position: fixed;
-  top: 40%;
-  left: 40%;
   background-color: white;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 5px 15px;
   display: flex;
   flex-direction: column;
 `;
@@ -53,6 +52,9 @@ const ContainerInfo = styled.div`
     display: block;
     color: var(--black-700);
     font-weight: 600;
+  }
+  svg {
+    color: var(--chat-messagebox);
   }
 `;
 
@@ -84,32 +86,34 @@ const ContainerButton = styled.div`
 
 const Modal = () => {
   const navigate = useNavigate();
+  const [isModal, setIsModal] = useRecoilState(isModalVisible);
   const HandleLoginModalViewer = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     setIsModal(false);
     navigate(`/login`);
   };
-  const [_, setIsModal] = useRecoilState(isModalVisible);
 
   return (
     <>
-      <ModalBackground>
-        <Container>
-          <ContainerInfo>
-            <div>
-              <FcInfo size="50" fill="red" />
-            </div>
-            <div>
-              <h3>로그인이 필요한 서비스입니다. </h3>
-              <p>로그인 하시겠습니까?</p>
-            </div>
-          </ContainerInfo>
-          <ContainerButton>
-            <button onClick={HandleLoginModalViewer}>확인</button>
-            <button onClick={() => setIsModal(false)}>취소</button>
-          </ContainerButton>
-        </Container>
-      </ModalBackground>
+      {isModal ? (
+        <ModalBackground>
+          <Container>
+            <ContainerInfo>
+              <div>
+                <FcInfo size="50" />
+              </div>
+              <div>
+                <h3>로그인이 필요한 서비스입니다. </h3>
+                <p>로그인 하시겠습니까?</p>
+              </div>
+            </ContainerInfo>
+            <ContainerButton>
+              <button onClick={HandleLoginModalViewer}>확인</button>
+              <button onClick={() => setIsModal(false)}>취소</button>
+            </ContainerButton>
+          </Container>
+        </ModalBackground>
+      ) : null}
     </>
   );
 };

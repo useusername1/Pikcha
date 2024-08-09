@@ -14,7 +14,6 @@ import {
   AttractionDataState,
 } from "../recoil/placeDetailState";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
-import Modal from "../components/Modal";
 import Pagination from "../components/Pagination";
 import EmptyResult from "../components/EmptyResult";
 import { ArrayPostType, PageInfoType } from "../utils/d";
@@ -221,9 +220,9 @@ const PlaceDetail = (): JSX.Element => {
   const [curPage, setCurPage] = useState(1);
   const [attractionData, setAttractionData] =
     useRecoilState(AttractionDataState); // 명소 정보 저장
-  const [isModal, setIsModal] = useRecoilState(isModalVisible);
   const isLogin = useRecoilValue(UserDataAtomFamily.LOGIN_STATE);
   const memberId = useRecoilValue(UserDataAtomFamily.MEMBER_ID);
+  const setIsModal = useSetRecoilState(isModalVisible);
   const setBookmarkSaves = useSetRecoilState(BookmarkSavesState);
   const setLikes = useSetRecoilState(LikesState);
   const scrollRefContent = useRef<HTMLDivElement>(null);
@@ -301,8 +300,6 @@ const PlaceDetail = (): JSX.Element => {
 
   return (
     <>
-      {isModal && <Modal />}
-
       {Mobile ? (
         <MobileHeader
           isNavbarChecked={isNavbarChecked}
