@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import KakaoMap from "../components/KakaoMap";
 import { regionDummy } from "../data/regionData";
 import { useState, useEffect } from "react";
@@ -20,6 +20,7 @@ import MobileHeaderBack from "../components/Header/MobileHeaderBack";
 import { MenuSideBar, MenuButton } from "./MainResponsive";
 import { Link } from "react-router-dom";
 import { isModalVisible } from "../recoil/setOverlay";
+import encodeURLForBackgroundImage from "../utils/encodeImgURL";
 
 interface RegionType {
   attractionAddress: string;
@@ -63,6 +64,14 @@ const Map = () => {
   const [isVoted, setIsVoted] = useState<boolean>();
   const [isLiked, setIsLiked] = useState<boolean>();
   const navigate = useNavigate();
+
+  const regionURLList = useMemo(
+    () =>
+      regionList?.map((el: RegionType) =>
+        encodeURLForBackgroundImage(el.fixedImage)
+      ),
+    [regionList]
+  );
 
   const url = "/attractions/maps?page=1&size=104&sort=posts";
   const url2 = `/attractions/${modalDataId}`;
@@ -197,7 +206,7 @@ const Map = () => {
                         setModalDataId(el.attractionId);
                         setFilterOrPosition(false);
                       }}
-                      imgUrl={el.fixedImage}
+                      imgUrl={regionURLList[index]}
                       key={el.attractionId}
                     >
                       <div>{el.attractionName}</div>
