@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
-import { isDeleteMode, UserData } from "../../recoil/MyPageState";
+import { isDeleteMode, UserData } from "../../recoil/myPageState";
 import { MdDeleteForever as DeleteIcon } from "react-icons/md";
-import axios from "../../utils/axiosinstance";
+import axios from "../../api/axiosInstance";
 import { useState } from "react";
 import * as mpc from "./MyPageComtentsStyled";
 import { MySavesType } from "../../utils/d";

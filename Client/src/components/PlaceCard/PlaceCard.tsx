@@ -3,10 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { AiFillHeart as LikeIcon } from "react-icons/ai";
 import { BsFillBookmarkFill as BookmarkIcon } from "react-icons/bs";
 import { MdModeComment } from "react-icons/md";
-import { useRecoilState } from "recoil";
-import { LoginState } from "../../recoil/state";
-import Axios from "../../utils/axiosinstance";
-import Modal from "../Modal";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { UserDataAtomFamily } from "../../recoil/auth";
+import Axios from "../../api/axiosInstance";
 import { getCurrentCount } from "../../utils/utils";
 import * as plc from "./PlaceCardStyled";
 import { PlaceType } from "../../utils/d";
@@ -21,8 +20,8 @@ const PlaceCard = ({
 }) => {
   const [currentBookmark, setCurrentBookmark] = useState(placeInfo.isSaved); //로컬 북마트 상태 저장
   const [currentLike, setCurrentLike] = useState(placeInfo.isVoted);
-  const [isLogin] = useRecoilState(LoginState);
-  const [isModal, setIsModal] = useRecoilState(isModalVisible);
+  const isLogin = useRecoilValue(UserDataAtomFamily.LOGIN_STATE);
+  const setIsModal = useSetRecoilState(isModalVisible);
   const navigate = useNavigate();
   const {
     attractionId,
@@ -53,7 +52,6 @@ const PlaceCard = ({
   };
   return (
     <>
-      {isModal && <Modal />}
       <plc.PlaceCardWrapper key={attractionId} width={width}>
         <img
           referrerPolicy="no-referrer"

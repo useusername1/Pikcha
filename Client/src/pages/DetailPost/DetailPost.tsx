@@ -5,29 +5,28 @@ import { AiFillHeart, AiFillEye, AiOutlineShareAlt } from "react-icons/ai";
 import { FaRegCommentDots } from "react-icons/fa";
 import Comment from "../../components/DetailPost/Comment/Comment";
 import { useNavigate, useParams } from "react-router-dom";
-import { useRecoilState } from "recoil";
-import { LoginState, MemberId } from "../../recoil/state";
-import Modal from "../../components/Modal";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { UserDataAtomFamily } from "../../recoil/auth";
 import { Header } from "../../components/Header";
 import Footer from "../../components/Footer";
 import * as dp from "./DetailPostStyled";
 import { ArrayCommentType, PostDetailType } from "../../utils/d";
 import AddComment from "../../components/DetailPost/AddComment";
-import { deletePostHandler } from "../../API/BlogDetail/Delete/Delete";
-import { getPost, getPostCommentList } from "../../API/BlogDetail/Get/Get";
-import { handleLikePost } from "../../API/BlogDetail/Post/Post";
+import { deletePostHandler } from "../../api/BlogDetail/Delete/Delete";
+import { getPost, getPostCommentList } from "../../api/BlogDetail/Get/Get";
+import { handleLikePost } from "../../api/BlogDetail/Post/Post";
 import { isModalVisible } from "../../recoil/setOverlay";
 import { getCurrentCount } from "../../utils/utils";
 
 const DetailPost = () => {
   const [post, setPost] = useState<PostDetailType>();
   const [commentList, setCommentList] = useState<ArrayCommentType>();
-  const [isLogin] = useRecoilState(LoginState);
   const [isVoted, setIsVoted] = useState(false);
+  const setIsModal = useSetRecoilState(isModalVisible);
+  const isLogin = useRecoilValue(UserDataAtomFamily.LOGIN_STATE);
+  const memberId = useRecoilValue(UserDataAtomFamily.MEMBER_ID);
   const { postId } = useParams();
-  const [memberId] = useRecoilState(MemberId);
   const navigate = useNavigate();
-  const [isModal, setIsModal] = useRecoilState(isModalVisible);
   const initialLikesRef = useRef(false); //로컬 좋아요 상태 저장
 
   useEffect(() => {
@@ -77,7 +76,6 @@ const DetailPost = () => {
         <Header.HeaderBody />
       </Header>
       <dp.DetailPostWrapper>
-        {isModal && <Modal />}
         {(post && post.memberId === memberId) || memberId === 1 ? (
           <dp.PostMangeButtnContainer>
             <dp.PostManageButton onClick={() => navigate(`/edit/${postId}`)}>

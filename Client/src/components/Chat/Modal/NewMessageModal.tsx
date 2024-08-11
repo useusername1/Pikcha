@@ -3,7 +3,7 @@ import { useRecoilValue } from "recoil";
 import {
   NewMessageArrivedState,
   ShowNewMesssageBoxState,
-} from "../../../recoil/ChatState";
+} from "../../../recoil/chatState";
 import { scrollFlagRef } from "../ChatPanel";
 import { NewMessageBoxWrapper } from "./ModalStyled";
 interface NewMessageBoxProps {

@@ -4,15 +4,10 @@ import { MdModeComment } from "react-icons/md";
 import { FaMapMarkerAlt } from "react-icons/fa";
 import { TfiPencil } from "react-icons/tfi";
 import Button from "../../components/Button";
-import axios from "../../utils/axiosinstance";
-import { useRecoilState } from "recoil";
-import {
-  AuthToken,
-  LoggedUser,
-  LoginState,
-  MemberId,
-} from "../../recoil/state";
-import { UserData, isDeleteMode, isEditMode } from "../../recoil/MyPageState";
+import axios from "../../api/axiosInstance";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import { UserDataAtomFamily } from "../../recoil/auth";
+import { UserData, isDeleteMode, isEditMode } from "../../recoil/myPageState";
 import { BsFillBookmarkFill } from "react-icons/bs";
 import HiddenHeader from "../../components/Header/HiddenHeader";
 import { useNavigate } from "react-router-dom";
@@ -27,24 +22,23 @@ import { ArrayMyPostsType, ArrayMySavesType } from "../../utils/d";
 
 const MyPage = () => {
   const [tab, setTab] = useState(0);
-  // const [userData, setUserData] = useState<UserType>();
-  const [userData, setUserData] = useRecoilState(UserData);
-  const [memberId] = useRecoilState(MemberId);
   const [isEdit, setIsEdit] = useState(false);
-  const [bookmarkDelete, setBookmarkDelete] = useRecoilState(isDeleteMode);
-  const [editPosts, setEditPosts] = useRecoilState(isEditMode);
-
+  const [openPostcode, setOpenPostcode] = useState<boolean>(false);
   const [inputs, setInputs] = useState({
     username: "",
     address: "",
     phoneNumber: "",
   });
+  const [bookmarkDelete, setBookmarkDelete] = useRecoilState(isDeleteMode);
+  const [userData, setUserData] = useRecoilState(UserData);
+  const [editPosts, setEditPosts] = useRecoilState(isEditMode);
+  const [memberId, setMemberId] = useRecoilState(UserDataAtomFamily.MEMBER_ID);
+  const setLoggedUser = useSetRecoilState(UserDataAtomFamily.LOGGED_USER);
+  const setIsLogin = useSetRecoilState(UserDataAtomFamily.LOGIN_STATE);
+  const setAuth = useSetRecoilState(UserDataAtomFamily.AUTH_TOKEN);
   const navigate = useNavigate();
+
   const { username, address, phoneNumber } = inputs;
-  const [isLogin, setIsLogin] = useRecoilState(LoginState);
-  const [auth, setAuth] = useRecoilState(AuthToken);
-  const [LoggerUser, setLoggedUser] = useRecoilState(LoggedUser);
-  const [openPostcode, setOpenPostcode] = useState<boolean>(false);
 
   if (userData?.saves.length === 0) {
     setBookmarkDelete(false);
@@ -52,13 +46,13 @@ const MyPage = () => {
   const getUserProfile = async () => {
     await axios
       .get(`/users/profile/${memberId}`)
-      .then((res) => {
-        setUserData(res.data.data);
-        const { data } = res.data;
+      .then(({ data: { data } }) => {
+        setUserData(data);
+        const { username, address, phoneNumber } = data;
         setInputs({
-          username: data.username,
-          address: data.address,
-          phoneNumber: data.phoneNumber,
+          username,
+          address,
+          phoneNumber,
         });
       })
       .catch((err) => console.error(err));
@@ -67,7 +61,7 @@ const MyPage = () => {
   useEffect(() => {
     getUserProfile();
     return () => setBookmarkDelete(false);
-  }, []);
+  }, [memberId]);
 
   const handleTabMenuBar = (
     e: React.MouseEvent<HTMLButtonElement>,
@@ -101,12 +95,9 @@ const MyPage = () => {
         .then((res) => {
           if (res.status === 200) {
             setIsLogin(false);
-            setAuth("");
-            setLoggedUser("");
-            axios.defaults.headers.common["Authorization"] = null;
-            localStorage.removeItem("Authorization");
-            localStorage.setItem("loginStatus", "false");
-            localStorage.removeItem("memberId");
+            setAuth(null);
+            setLoggedUser(null);
+            setMemberId(null);
             alert("탈퇴가 완료되었습니다.");
             navigate(`/`);
           }

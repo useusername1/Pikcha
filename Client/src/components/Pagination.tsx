@@ -1,5 +1,6 @@
 import { Dispatch, SetStateAction, FormEvent } from "react";
-import styled, { css } from "styled-components";import { BsThreeDots as DotsIcon } from "react-icons/bs";
+import styled, { css } from "styled-components";
+import { BsThreeDots as DotsIcon } from "react-icons/bs";
 import { PageInfoType } from "../utils/d";
 
 const Pagination = ({

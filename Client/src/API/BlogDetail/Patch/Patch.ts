@@ -1,4 +1,4 @@
-import axios from "../../../utils/axiosinstance";
+import axios from "../../axiosInstance";
 
 export const modifiedComment = (commentId: number, commentContent: string) => {
   axios

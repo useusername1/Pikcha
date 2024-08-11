@@ -3,10 +3,10 @@ import { useNavigate } from "react-router-dom";
 import { MdDeleteForever as DeleteIcon } from "react-icons/md";
 import { MdModeEditOutline as EditIcon } from "react-icons/md";
 import { useRecoilState } from "recoil";
-import { isEditMode, UserData } from "../../recoil/MyPageState";
-import axios from "../../utils/axiosinstance";
+import { isEditMode, UserData } from "../../recoil/myPageState";
+import axios from "../../api/axiosInstance";
 import { useState } from "react";
-import * as mpc from './MyPageComtentsStyled'
+import * as mpc from "./MyPageComtentsStyled";
 import { MyPostsType } from "../../utils/d";
 interface MyPagePostCardItemProps {
   postInfo: MyPostsType;
@@ -34,7 +34,7 @@ const MyPagePostCardItem = ({ postInfo }: MyPagePostCardItemProps) => {
                 setUserData({
                   ...userData,
                   posts: userData.posts.filter(
-                    (el:MyPostsType) => el.postId !== postId
+                    (el: MyPostsType) => el.postId !== postId
                   ) as typeof userData.posts,
                   totalMyPosts: userData.totalMyPosts - 1,
                 }),

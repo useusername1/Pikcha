@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef } from "react";
 import { flushSync } from "react-dom";
 import useWebsocket from "../../hooks/useWebsocket";
 import { ChatBoxDiv, ChatBoxWrapper } from "./ChatStyled";
-import axios from "../../utils/axiosinstance";
+import axios from "../../api/axiosInstance";
 import Sendbar from "./Send/Sendbar";
 import SendChatBox from "./ChatBox/SendChatBox";
 import ChatBox from "./ChatBox/ChatBox";
@@ -17,9 +17,9 @@ import {
   isDeleteModeState,
   showConfirmModalState,
   showReportModalState,
-} from "../../recoil/ChatState";
+} from "../../recoil/chatState";
 import NotificationModal from "./Modal/NotificationModal";
-import { LoginState } from "../../recoil/state";
+import { UserDataAtomFamily } from "../../recoil/auth";
 
 import SearchBox from "./Search/SearchBox";
 import { ChatPanelStatusType } from "./Chat";
@@ -53,7 +53,7 @@ const ChatPanel = ({ chatStatus }: ChatPanelProps) => {
   const showConfirmModal = useRecoilValue(showConfirmModalState); //삭제승인 모달
   const showReportModal = useRecoilValue(showReportModalState); //신고 모달
   const setChatData = useSetRecoilState(chatDataState);
-  const isLogin = useRecoilValue(LoginState);
+  const isLogin = useRecoilValue(UserDataAtomFamily.LOGIN_STATE);
   const sendChatBoxRef = useRef<HTMLDivElement | null>(null);
   const observerRef = useRef<IntersectionObserver | null>(null);
   const chatBoxRef = useRef<HTMLDivElement | null>(null);
@@ -78,7 +78,7 @@ const ChatPanel = ({ chatStatus }: ChatPanelProps) => {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [isLogin]);
 
   const scrollIntoBottom = () => {
     scrollFlagRef.current = false;

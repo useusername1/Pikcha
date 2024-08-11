@@ -16,7 +16,7 @@ import {
   NewMessageArrivedState,
   ShowSearchBox,
   onlineNumberOfUserState,
-} from "../../recoil/ChatState";
+} from "../../recoil/chatState";
 const ChatHeader = () => {
   const onlineNumOfUsers = useRecoilValue(onlineNumberOfUserState);
   const setChatStatus = useSetRecoilState(ChatStatus);

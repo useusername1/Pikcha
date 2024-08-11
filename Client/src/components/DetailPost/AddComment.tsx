@@ -2,14 +2,14 @@ import * as dp from "../../pages/DetailPost/DetailPostStyled";
 import Button from "../../components/Button";
 import { useState } from "react";
 import { useRecoilState } from "recoil";
-import { LoginState } from "../../recoil/state";
+import { UserDataAtomFamily } from "../../recoil/auth";
 import { useParams } from "react-router-dom";
-import { handleCommentSubmit } from "../../API/BlogDetail/Post/Post";
+import { handleCommentSubmit } from "../../api/BlogDetail/Post/Post";
 import { isModalVisible } from "../../recoil/setOverlay";
 
 const AddComment = () => {
   const [addComment, setAddComment] = useState("");
-  const [isLogin] = useRecoilState(LoginState);
+  const [isLogin] = useRecoilState(UserDataAtomFamily.LOGIN_STATE);
   const { id } = useParams();
   const [_, setIsModal] = useRecoilState(isModalVisible);
 

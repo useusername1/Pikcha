@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
-import Axios from "../utils/axiosinstance";
+import Axios from "axios";
+import axios from "../api/axiosInstance";
 import styled, { keyframes } from "styled-components";
 import FixedOnScrollUpHeader from "../components/Header/FixedOnScrollUpHeader";
 import PostCardComponent from "../components/PostCard/PostCardComponent";
@@ -10,8 +10,8 @@ import Ranking from "../components/Ranking";
 import { Link } from "react-router-dom";
 import { HiOutlineChevronDoubleRight as DoubleArrowIcon } from "react-icons/hi";
 import Footer from "../components/Footer";
-import { useRecoilState } from "recoil";
-import { LoginState } from "../recoil/state";
+import { useRecoilValue } from "recoil";
+import { UserDataAtomFamily } from "../recoil/auth";
 import { ArrayPlaceType, ArrayPostType } from "../utils/d";
 import { useMediaQuery } from "react-responsive";
 import MainMobile from "./MainResponsive";
@@ -109,9 +109,8 @@ function Main() {
 
   const [attractionData, setAttractionData] = useState<ArrayPlaceType>();
   const [postData, setPostData] = useState<ArrayPostType>();
-  const [isLogin] = useRecoilState(LoginState);
-  const memberId = localStorage.getItem("memberId");
-
+  const isLogin = useRecoilValue(UserDataAtomFamily.LOGIN_STATE);
+  const memberId = useRecoilValue(UserDataAtomFamily.MEMBER_ID);
   const url1 = "/attractions/filter?page=1&size=4&sort=posts";
   const url1_LoggedIn = `/attractions/filter/${memberId}?page=1&size=4&sort=posts`;
   const url2 = `/posts/home?page=1&size=8&sort=views`;
@@ -120,15 +119,16 @@ function Main() {
   useEffect(() => {
     const attraction_url = isLogin ? url1_LoggedIn : url1;
     const post_url = isLogin ? url2_LoggedIn : url2;
-    axios
-      .all([Axios.post(attraction_url, { provinces: [] }), Axios.get(post_url)])
-      .then(
-        axios.spread((res1, res2) => {
-          setAttractionData(res1.data.data);
-          setPostData(res2.data.data);
-        })
-      );
-  }, []);
+    Axios.all([
+      axios.post(attraction_url, { provinces: [] }),
+      axios.get(post_url),
+    ]).then(
+      Axios.spread((res1, res2) => {
+        setAttractionData(res1.data.data);
+        setPostData(res2.data.data);
+      })
+    );
+  }, [isLogin]);
 
   return (
     <>
@@ -136,6 +136,7 @@ function Main() {
         <>
           <MainMobile />
           <Chat key={"chatbox"} />
+
           <CardBox>
             <InfoBox>
               <h2>많이 다녀간 명소</h2>

@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef, useMemo } from "react";
-import axios from "../../utils/axiosinstance";
+import axios from "../../api/axiosInstance";
 import { getRandomInt } from "../../utils/utils";
 import {
   RankingWrapper,

@@ -1,8 +1,8 @@
-import axios from "../../../utils/axiosinstance";
+import axios from "../../../api/axiosInstance";
 import { LoadMoreButtonWrapper, StyledLoadMoreButton } from "./ChatBoxStyled";
 import { BiPlus as PlusIcon } from "react-icons/bi";
 import { useRecoilState } from "recoil";
-import { chatDataState } from "../../../recoil/ChatState";
+import { chatDataState } from "../../../recoil/chatState";
 import { emptyMessage } from "../Search/SearchedMessage";
 import { chatDatatype } from "../Chat";
 //이전 chatid, 이후 chatid받기 뒤에 loadmore 추가

@@ -3,7 +3,7 @@ import {
   deleteItemsState,
   isDeleteModeState,
   showConfirmModalState,
-} from "../../../recoil/ChatState";
+} from "../../../recoil/chatState";
 import { DeleteModalWrapper, DeleteModal } from "./ModalStyled";
 import { HiExclamationTriangle as ExclamaionIcon } from "react-icons/hi2";
 

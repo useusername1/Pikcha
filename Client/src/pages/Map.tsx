@@ -9,12 +9,11 @@ import { BsBookmarkPlus, BsFillChatLeftFill } from "react-icons/bs";
 import HiddenHeader from "../components/Header/HiddenHeader";
 import "../index.css";
 import tags from "../data/tagData";
-import axios from "../utils/axiosinstance";
+import axios from "../api/axiosInstance";
 import { GiTalk } from "react-icons/gi";
 import { useNavigate } from "react-router-dom";
-import { LoginState } from "../recoil/state";
-import { useRecoilState } from "recoil";
-import Modal from "../components/Modal";
+import { UserDataAtomFamily } from "../recoil/auth";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import { useMediaQuery } from "react-responsive";
 import * as m from "./Map/Map";
 import MobileHeaderBack from "../components/Header/MobileHeaderBack";
@@ -57,13 +56,14 @@ const Map = () => {
   const [modalData, setModalData] = useState<any>("");
   const [modalDataId, setModalDataId] = useState<number>(1);
   const [wholeData, setWholeData] = useState<any>();
-  const navigate = useNavigate();
   const [filterOrPosition, setFilterOrPosition] = useState<boolean>(false);
-  const [isLogin] = useRecoilState(LoginState);
+  const isLogin = useRecoilValue(UserDataAtomFamily.LOGIN_STATE);
+  const memberId = useRecoilValue(UserDataAtomFamily.MEMBER_ID);
+  const setIsModal = useSetRecoilState(isModalVisible);
   const [isVoted, setIsVoted] = useState<boolean>();
   const [isLiked, setIsLiked] = useState<boolean>();
-  const [isModal, setIsModal] = useRecoilState(isModalVisible);
-  const memberId = localStorage.getItem("memberId");
+  const navigate = useNavigate();
+
   const url = "/attractions/maps?page=1&size=104&sort=posts";
   const url2 = `/attractions/${modalDataId}`;
   const url3 = `/attractions/${modalDataId}/${memberId}`;
@@ -129,7 +129,6 @@ const Map = () => {
 
   return (
     <>
-      {isModal && <Modal />}
       {Mobile ? (
         <MobileHeaderBack
           isNavbarChecked={isNavbarChecked}

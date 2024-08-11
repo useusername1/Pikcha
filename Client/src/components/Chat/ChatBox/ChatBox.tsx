@@ -7,7 +7,7 @@ import {
   ScrollTargetChatIdState,
   ShowNewMesssageBoxState,
   chatDataState,
-} from "../../../recoil/ChatState";
+} from "../../../recoil/chatState";
 import LoadMoreButton from "./LoadMoreButton";
 import { rafThrottle } from "../../../utils/utils";
 import { scrollFlagRef } from "../ChatPanel";
@@ -16,6 +16,7 @@ import {
   UserInfoAlarmWrapper,
   ChatCreatedDateDiv,
 } from "./ChatBoxStyled";
+import { UserDataAtomFamily } from "../../../recoil/auth";
 
 interface ChatBoxProps {
   deleteMessage: (message: Set<number> | number[]) => void;
@@ -35,15 +36,15 @@ const ChatBox = ({
   chatBoxRef,
   chatDataMapRef,
 }: ChatBoxProps) => {
+  const [showChatDate, setShowChatDate] = useState(false);
   const chatData = useRecoilValue(chatDataState);
   const scrollTargetChatId = useRecoilValue(ScrollTargetChatIdState);
   const newMessageArrived = useRecoilValue(NewMessageArrivedState);
+  const myMemberId = useRecoilValue(UserDataAtomFamily.MEMBER_ID);
   const setShowNewMessageBox = useSetRecoilState(ShowNewMesssageBoxState);
-  const [showChatDate, setShowChatDate] = useState(false);
   const scrollPositionRef = useRef<number | undefined>(undefined);
   const timeoutIdRef = useRef<NodeJS.Timeout | null>(null);
   const newMessageObserverRef = useRef<IntersectionObserver | null>(null);
-  const myMemberId = Number(localStorage.getItem("memberId"));
 
   const options = {
     root: chatBoxRef.current,

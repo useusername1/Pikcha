@@ -1,10 +1,10 @@
 import { flushSync } from "react-dom";
-import axios from "../../../utils/axiosinstance";
+import axios from "../../../api/axiosInstance";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import {
   ScrollTargetChatIdState,
   chatDataState,
-} from "../../../recoil/ChatState";
+} from "../../../recoil/chatState";
 
 import { scrollFlagRef } from "../ChatPanel";
 import { SearchedMessageContent, SearchedMessageWrapper } from "./SearchStyled";
