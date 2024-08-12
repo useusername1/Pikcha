@@ -2,7 +2,7 @@ import { useEffect, useState, useRef } from "react";
 import LocationFilter from "../../components/LocationFilter";
 import { Header } from "../../components/Header";
 import PostCardComponent from "../../components/PostCard/PostCardComponent";
-import axios from "../../utils/axiosinstance";
+import axios from "../../api/axiosInstance";
 import Pagination from "../../components/Pagination";
 import Footer from "../../components/Footer";
 import EmptyResult from "../../components/EmptyResult";
@@ -11,13 +11,11 @@ import { ArrayPostType, PageInfoType } from "../../utils/d";
 import MobileHeader from "../../components/Header/MobileHeader";
 import { useMediaQuery } from "react-responsive";
 import { MenuSideBar, MenuButton } from "../MainResponsive";
-import { Link } from 'react-router-dom';
-
+import { Link } from "react-router-dom";
 
 const ITEM_LIMIT = 9;
 
 const Post = () => {
-
   const Mobile = useMediaQuery({
     query: "(max-width: 768px)",
   });
@@ -72,42 +70,49 @@ const Post = () => {
     setOnFliter(idx);
   };
 
-
   return (
     <>
-    {Mobile?
+      {Mobile ? (
         <MobileHeader
-        isNavbarChecked={isNavbarChecked}
-        setIsNavbarChecked={setIsNavbarChecked}
-        ></MobileHeader> : 
-      <div style={{ display: "fixed" }}>
-        <Header>
-          <Header.HeaderTop />
-          <Header.HeaderBody selectedMenu={1} backgroundOn={false} />
-        </Header>
-      </div>}
+          isNavbarChecked={isNavbarChecked}
+          setIsNavbarChecked={setIsNavbarChecked}
+        ></MobileHeader>
+      ) : (
+        <div style={{ display: "fixed" }}>
+          <Header>
+            <Header.HeaderTop />
+            <Header.HeaderBody selectedMenu={1} backgroundOn={false} />
+          </Header>
+        </div>
+      )}
 
-      {isNavbarChecked ? 
-      <MenuSideBar>
-        <Link to='/attractions'><MenuButton>명소</MenuButton></Link>
-        <Link to='/posts'><MenuButton>포스트</MenuButton></Link>
-        <Link to='/map'><MenuButton>내 주변 명소찾기</MenuButton></Link>
-      </MenuSideBar> : null}
-
+      {isNavbarChecked ? (
+        <MenuSideBar>
+          <Link to="/attractions">
+            <MenuButton>명소</MenuButton>
+          </Link>
+          <Link to="/posts">
+            <MenuButton>포스트</MenuButton>
+          </Link>
+          <Link to="/map">
+            <MenuButton>내 주변 명소찾기</MenuButton>
+          </Link>
+        </MenuSideBar>
+      ) : null}
 
       <po.PostWrapper>
-        {Mobile ? null : 
-        <po.LocationWrapper>
-          {postsData && (
-            <LocationFilter
-              setCurPage={setCurPage}
-              checkedList={checkedList}
-              setCheckedList={setCheckedlist}
-            />
-          )}
-        </po.LocationWrapper>}
+        {Mobile ? null : (
+          <po.LocationWrapper>
+            {postsData && (
+              <LocationFilter
+                setCurPage={setCurPage}
+                checkedList={checkedList}
+                setCheckedList={setCheckedlist}
+              />
+            )}
+          </po.LocationWrapper>
+        )}
 
-        
         <po.PostContainer>
           <po.PostFilterContainer>
             <span>총 {totalInfoRef.current?.totalElements}개의 포스트</span>
@@ -132,7 +137,7 @@ const Post = () => {
               <PostCardComponent posts={postsData} margin="0" width="32.2%" />
             )}
           </po.PostCardContainer>
-          
+
           {!!postsData?.length ? (
             <Pagination
               props={totalInfoRef.current as PageInfoType}

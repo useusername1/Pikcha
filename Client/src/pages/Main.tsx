@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
+import Axios from "axios";
+import axios from "../api/axiosInstance";
 import styled, { keyframes } from "styled-components";
 import FixedOnScrollUpHeader from "../components/Header/FixedOnScrollUpHeader";
 import PostCardComponent from "../components/PostCard/PostCardComponent";
@@ -9,12 +10,13 @@ import Ranking from "../components/Ranking";
 import { Link } from "react-router-dom";
 import { HiOutlineChevronDoubleRight as DoubleArrowIcon } from "react-icons/hi";
 import Footer from "../components/Footer";
-import { useRecoilState } from "recoil";
-import { LoginState } from "../recoil/state";
+import { useRecoilValue } from "recoil";
+import { UserDataAtomFamily } from "../recoil/auth";
 import { ArrayPlaceType, ArrayPostType } from "../utils/d";
 import { useMediaQuery } from "react-responsive";
 import MainMobile from "./MainResponsive";
-import { CardBox, InfoBox, ImgContainer ,Card } from "./MainResponsive";
+import { CardBox, InfoBox, ImgContainer, Card } from "./MainResponsive";
+import Chat from "../components/Chat";
 
 const GoRight = keyframes`
   0% {
@@ -25,13 +27,10 @@ const GoRight = keyframes`
   }
 `;
 
-
 const Body = styled.div`
   height: 100%;
-  width: 100vw;
   padding: 20px 0 70px 0;
   background-color: hsl(222, 24%, 98%);
-  
 `;
 
 const MainSubTitle = styled.h3`
@@ -92,134 +91,139 @@ const BodyContent = styled.div`
 `;
 
 interface AttractionType {
-  attractionId:number,
-  attractionName:string,
-  fixedImage:string,
-  postId:number,
-  isSaved: boolean,
-  isVoted:boolean,
-  likes:number,
-  saves:number,
-  numOfPosts:number
+  attractionId: number;
+  attractionName: string;
+  fixedImage: string;
+  postId: number;
+  isSaved: boolean;
+  isVoted: boolean;
+  likes: number;
+  saves: number;
+  numOfPosts: number;
 }
 
 function Main() {
-
   const Mobile = useMediaQuery({
     query: "(max-width: 599px)",
   });
-  
+
   const [attractionData, setAttractionData] = useState<ArrayPlaceType>();
   const [postData, setPostData] = useState<ArrayPostType>();
-  const [isLogin] = useRecoilState(LoginState);
-  const memberId = localStorage.getItem("memberId");
-
-  const url1 =
-    "https://pikcha36.o-r.kr:8080/attractions/filter?page=1&size=4&sort=posts";
-  const url1_LoggedIn = `https://pikcha36.o-r.kr:8080/attractions/filter/${memberId}?page=1&size=4&sort=posts`;
-  const url2 = `https://pikcha36.o-r.kr:8080/posts/home?page=1&size=8&sort=views`;
-  const url2_LoggedIn = `https://pikcha36.o-r.kr:8080/posts/home/${memberId}?page=1&size=8&sort=views`;
+  const isLogin = useRecoilValue(UserDataAtomFamily.LOGIN_STATE);
+  const memberId = useRecoilValue(UserDataAtomFamily.MEMBER_ID);
+  const url1 = "/attractions/filter?page=1&size=4&sort=posts";
+  const url1_LoggedIn = `/attractions/filter/${memberId}?page=1&size=4&sort=posts`;
+  const url2 = `/posts/home?page=1&size=8&sort=views`;
+  const url2_LoggedIn = `/posts/home/${memberId}?page=1&size=8&sort=views`;
 
   useEffect(() => {
     const attraction_url = isLogin ? url1_LoggedIn : url1;
     const post_url = isLogin ? url2_LoggedIn : url2;
-    axios
-      .all([axios.post(attraction_url, { provinces: [] }), axios.get(post_url)])
-      .then(
-        axios.spread((res1, res2) => {
-          setAttractionData(res1.data.data);
-          setPostData(res2.data.data);
-        })
-      );
-  }, []);
-
-
+    Axios.all([
+      axios.post(attraction_url, { provinces: [] }),
+      axios.get(post_url),
+    ]).then(
+      Axios.spread((res1, res2) => {
+        setAttractionData(res1.data.data);
+        setPostData(res2.data.data);
+      })
+    );
+  }, [isLogin]);
 
   return (
     <>
-    { Mobile 
-        ? 
+      {Mobile ? (
         <>
-          <MainMobile/>
+          <MainMobile />
+          <Chat key={"chatbox"} />
+
           <CardBox>
             <InfoBox>
-            <h2>많이 다녀간 명소</h2>
-            <div><Link to="/attractions"> {'>'} 더 보러가기</Link></div>
+              <h2>많이 다녀간 명소</h2>
+              <div>
+                <Link to="/attractions"> {">"} 더 보러가기</Link>
+              </div>
             </InfoBox>
             <ImgContainer>
-            {attractionData && attractionData.map((el)=>{
-              return(
-                <>
-                <Card key={el.attractionId}>
-                  <span>{el.attractionName}</span>
-                  <img src={el.fixedImage} alt="명소 이미지"></img>
-                </Card>
-                </>
-              )
-            })}
+              {attractionData &&
+                attractionData.map((el) => {
+                  return (
+                    <>
+                      <Card key={el.attractionId}>
+                        <span>{el.attractionName}</span>
+                        <img src={el.fixedImage} alt="명소 이미지"></img>
+                      </Card>
+                    </>
+                  );
+                })}
             </ImgContainer>
           </CardBox>
           <CardBox>
             <InfoBox>
-            <h2>가장 많이 본 포스트</h2>
-            <div><Link to="/posts"> {'>'} 더 보러가기</Link></div>
+              <h2>가장 많이 본 포스트</h2>
+              <div>
+                <Link to="/posts"> {">"} 더 보러가기</Link>
+              </div>
             </InfoBox>
             <ImgContainer>
-            {postData && postData.map((el:any)=>{
-              return(
-                <>
-                <Card key={el.postId}>
-                  <span>{el.postTitle}</span>
-                  <img src={el.pictureUrl} alt="명소 이미지"></img>
-                </Card>
-                </>
-              )
-            })}
+              {postData &&
+                postData.map((el: any) => {
+                  return (
+                    <>
+                      <Card key={el.postId}>
+                        <span>{el.postTitle}</span>
+                        <img src={el.pictureUrl} alt="명소 이미지"></img>
+                      </Card>
+                    </>
+                  );
+                })}
             </ImgContainer>
           </CardBox>
           <Footer></Footer>
         </>
-      :
-      <>
-      <FixedOnScrollUpHeader />
-      <Carousel />
-      <Ranking />
-      <Body>
-        <BodyContent>
-          <MainSubTitle>많이 다녀간 명소</MainSubTitle>
-          <ViewsPlaceContainer>
-            <PlaceCardWrapper>
-              {attractionData &&
-                attractionData.map((placeInfo) => (
-                  <PlaceCard
-                    placeInfo={placeInfo}
-                    width="24%"
-                    key={placeInfo.attractionId}
-                  />
-                ))}
-            </PlaceCardWrapper>
-            <MoreLink>
-              <Link to={"/attractions"}>
-                더 많은 명소 둘러보기
-                <DoubleArrowIcon />
-              </Link>
-            </MoreLink>
-          </ViewsPlaceContainer>
-          <MainSubTitle>가장 많이 본 포스트</MainSubTitle>
-          <ViewsPostContainer>
-            {postData && (
-              <PostCardComponent posts={postData} margin="0" width="24%" />
-            )}
-          </ViewsPostContainer>
-          <MoreLink>
-            <Link to={"/posts"}>
-              더 많은 포스트 확인하기 <DoubleArrowIcon />
-            </Link>
-          </MoreLink>
-        </BodyContent>
-      </Body>
-      <Footer />
-      </>}
+      ) : (
+        <>
+          <FixedOnScrollUpHeader />
+          <Carousel />
+          <Ranking />
+          <Chat key={"chatbox"} />
+          <Body>
+            <BodyContent>
+              <MainSubTitle>많이 다녀간 명소</MainSubTitle>
+              <ViewsPlaceContainer>
+                <PlaceCardWrapper>
+                  {attractionData &&
+                    attractionData.map((placeInfo) => (
+                      <PlaceCard
+                        placeInfo={placeInfo}
+                        width="24%"
+                        key={placeInfo.attractionId}
+                      />
+                    ))}
+                </PlaceCardWrapper>
+                <MoreLink>
+                  <Link to={"/attractions"}>
+                    더 많은 명소 둘러보기
+                    <DoubleArrowIcon />
+                  </Link>
+                </MoreLink>
+              </ViewsPlaceContainer>
+              <MainSubTitle>가장 많이 본 포스트</MainSubTitle>
+              <ViewsPostContainer>
+                {postData && (
+                  <PostCardComponent posts={postData} margin="0" width="24%" />
+                )}
+              </ViewsPostContainer>
+              <MoreLink>
+                <Link to={"/posts"}>
+                  더 많은 포스트 확인하기 <DoubleArrowIcon />
+                </Link>
+              </MoreLink>
+            </BodyContent>
+          </Body>
+          <Footer />
+        </>
+      )}
     </>
   );
 }

@@ -3,10 +3,10 @@ import { useNavigate } from "react-router-dom";
 import { MdDeleteForever as DeleteIcon } from "react-icons/md";
 import { MdModeEditOutline as EditIcon } from "react-icons/md";
 import { useRecoilState } from "recoil";
-import { isEditMode, UserData } from "../../recoil/MyPageState";
-import axios from "../../utils/axiosinstance";
+import { isEditMode, UserData } from "../../recoil/myPageState";
+import axios from "../../api/axiosInstance";
 import { useState } from "react";
-import * as mpc from './MyPageComtentsStyled'
+import * as mpc from "./MyPageComtentsStyled";
 import { MyPostsType } from "../../utils/d";
 interface MyPagePostCardItemProps {
   postInfo: MyPostsType;
@@ -21,7 +21,6 @@ const MyPagePostCardItem = ({ postInfo }: MyPagePostCardItemProps) => {
   const { postId, postTitle, pictureUrl, views, likes, createdAt, modifiedAt } =
     postInfo;
   const URL_FOR_POSTS = `/posts/detail/${postId}`;
-  console.log(createdAt, modifiedAt, createdAt === modifiedAt);
 
   const handleDeleteClick = () => {
     if (window.confirm("정말 삭제하시겠습니까?")) {
@@ -35,7 +34,7 @@ const MyPagePostCardItem = ({ postInfo }: MyPagePostCardItemProps) => {
                 setUserData({
                   ...userData,
                   posts: userData.posts.filter(
-                    (el:MyPostsType) => el.postId !== postId
+                    (el: MyPostsType) => el.postId !== postId
                   ) as typeof userData.posts,
                   totalMyPosts: userData.totalMyPosts - 1,
                 }),

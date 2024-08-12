@@ -16,10 +16,11 @@ import { SearchForm, AttractionItemContent } from "./style";
 import useClickDetect from "../../hooks/useClickDetect";
 import { getfilteredAttractions } from "../../utils/utils";
 import { useRecoilState } from "recoil";
-import HeaderVisibilityState from "../../recoil/HeaderState";
+import HeaderVisibilityState from "../../recoil/headerState";
 import { AttractionsData } from "../../data/searchBarData";
 import { FiSearch as SearchIcon } from "react-icons/fi";
 import { IoCloseOutline as ResetIcon } from "react-icons/io5";
+
 const SuggestionBox = lazy(() =>
   import("./SuggestionBox").then((module) => ({
     default: module.SuggestionBox,

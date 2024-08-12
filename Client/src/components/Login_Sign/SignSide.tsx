@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import ButtonForm from "../Button";
-import axios from "../../utils/axiosinstance";
+import axios from "../../api/axiosInstance";
 import DaumPostcode from "react-daum-postcode";
 import { useRecoilState } from "recoil";
 import { setOverlay } from "../../recoil/setOverlay";
@@ -73,24 +73,17 @@ const Login = () => {
     }
     if (!signemailErr && !signpasswordErr && !phonenumberErr) {
       return axios
-        .post(
-          "/signup",
-          {
-            email: signemail,
-            password: signpassword,
-            phoneNumber: phonenumber,
-            address: address,
-            username: username,
-          },
-          {
-            withCredentials: true,
-          }
-        )
+        .post("/signup", {
+          email: signemail,
+          password: signpassword,
+          phoneNumber: phonenumber,
+          address: address,
+          username: username,
+        })
         .then((res) => {
           if (res.status === 201) {
             setOverlays(false);
             navigate(-1);
-            // window.location.replace("/login")
           }
         })
         .catch((err) => {
@@ -108,14 +101,10 @@ const Login = () => {
     }
   };
 
-  const googleLogin = () => {
-    window.location.href =
-      "https://pikcha36.o-r.kr:8080/oauth2/authorization/google";
+  const onClickBtn = (e: React.MouseEvent<HTMLDivElement>) => {
+    setOverlays(!overlays);
   };
-  const kakaoLogin = () => {
-    window.location.href =
-      "https://pikcha36.o-r.kr:8080/oauth2/authorization/kakao";
-  };
+
   return (
     <s.Wrapper>
       {openPostcode && (
@@ -139,97 +128,107 @@ const Login = () => {
         </>
       )}
       <s.Signincontainer overlay={overlays}>
-        <s.TextStyle color="#6154F8" fontSize="23px" fontweight="bold">
-          회원가입
-        </s.TextStyle>
-        <s.TextStyle color="#6154F8" fontSize="15px" fontweight="bold">
-          SNS 계정으로 가입하기
-        </s.TextStyle>
-        <s.SocitalLoginContinaer>
-          <s.OauthBtn
-            color="blue"
-            backgroundcolor="var(--black-300)"
-            hoverbackgroundcolor="var(--black-500)"
-            onClick={googleLogin}
+        <s.TopConatiner padding="10% 0 7% 0">
+          <s.TextStyle
+            color="var(--black-900)"
+            fontSize="23px"
+            fontweight="bold"
+            margin="0 0 10px 0"
           >
-            G
-          </s.OauthBtn>
-          <s.OauthBtn
-            color="black"
-            backgroundcolor="#FFE90A"
-            hoverbackgroundcolor="#FFD240"
-            onClick={kakaoLogin}
+            회원가입
+          </s.TextStyle>
+          <s.InputStyle
+            placeholder="이메일"
+            defaultValue={""}
+            onChange={handleSignEmailChange}
+            onKeyDown={onPressEnter}
+          ></s.InputStyle>
+          {signemailErr && signemail.length !== 0 ? (
+            <s.ErrMsg color="red" fontSize="12px" fontweight="normal">
+              올바른 이메일 형식이 아닙니다.
+            </s.ErrMsg>
+          ) : null}
+          <s.InputStyle
+            placeholder="비밀번호"
+            defaultValue={""}
+            onChange={handleSignPasswordChange}
+            onKeyDown={onPressEnter}
+            type="password"
+          ></s.InputStyle>
+          {signpasswordErr && signpassword.length !== 0 ? (
+            <s.ErrMsg color="red" fontSize="12px" fontweight="normal">
+              비밀번호를 8자이상 입력해주세요.
+            </s.ErrMsg>
+          ) : null}
+          <s.InputStyle
+            placeholder="비밀번호확인"
+            defaultValue={""}
+            onChange={handlePasswordConfirm}
+            onKeyDown={onPressEnter}
+            type="password"
+          ></s.InputStyle>
+          {passwordConfirm === signpassword ? null : (
+            <s.ErrMsg color="red" fontSize="12px" fontweight="normal">
+              비밀번호가 다릅니다.
+            </s.ErrMsg>
+          )}
+          <s.InputStyle
+            placeholder="전화번호(-를 포함해서 입력해주세요)"
+            defaultValue={""}
+            onChange={handlePhoneChange}
+            onKeyDown={onPressEnter}
+          ></s.InputStyle>
+          {phonenumberErr && phonenumber.length !== 0 ? (
+            <s.ErrMsg color="red" fontSize="12px" fontweight="normal">
+              올바른 전화번호 형식이 아닙니다.
+            </s.ErrMsg>
+          ) : null}
+          <s.InputStyle
+            placeholder="주소"
+            defaultValue={address}
+            onClick={handleAddress.clickInput}
+            onKeyDown={handleAddress.clickInput}
+            readOnly
+          ></s.InputStyle>
+          <s.InputStyle
+            placeholder="닉네임"
+            onChange={handleUsernameChange}
+            onKeyDown={onPressEnter}
+          ></s.InputStyle>
+          <ButtonForm
+            width="77%"
+            height="38px"
+            fontsize="15px"
+            text="가입하기"
+            color="var(--black-200)"
+            borderRadius="var(--br-s)"
+            backgroundColor="var(--black-900)"
+            hoverBackgroundColor="black"
+            type="custom"
+            margin="20px 0 0 0"
+            onClick={onClickSignin}
+          ></ButtonForm>
+        </s.TopConatiner>
+        <s.BottomTextContainer>
+          <s.TextStyle
+            color="var(--black-700)"
+            fontSize="var(--font-xs)"
+            fontweight="var(--fw-medium)"
+            margin="0 8px 0 0"
           >
-            K
-          </s.OauthBtn>
-        </s.SocitalLoginContinaer>
-        <s.InputStyle
-          placeholder="이메일"
-          defaultValue={""}
-          onChange={handleSignEmailChange}
-          onKeyDown={onPressEnter}
-        ></s.InputStyle>
-        {signemailErr && signemail.length !== 0 ? (
-          <s.ErrMsg color="red" fontSize="12px" fontweight="normal">
-            올바른 이메일 형식이 아닙니다.
-          </s.ErrMsg>
-        ) : null}
-        <s.InputStyle
-          placeholder="비밀번호"
-          defaultValue={""}
-          onChange={handleSignPasswordChange}
-          onKeyDown={onPressEnter}
-          type="password"
-        ></s.InputStyle>
-        {signpasswordErr && signpassword.length !== 0 ? (
-          <s.ErrMsg color="red" fontSize="12px" fontweight="normal">
-            비밀번호를 8자이상 입력해주세요.
-          </s.ErrMsg>
-        ) : null}
-        <s.InputStyle
-          placeholder="비밀번호확인"
-          defaultValue={""}
-          onChange={handlePasswordConfirm}
-          onKeyDown={onPressEnter}
-          type="password"
-        ></s.InputStyle>
-        {passwordConfirm === signpassword ? null : (
-          <s.ErrMsg color="red" fontSize="12px" fontweight="normal">
-            비밀번호가 다릅니다.
-          </s.ErrMsg>
-        )}
-        <s.InputStyle
-          placeholder="전화번호(-를 포함해서 입력해주세요)"
-          defaultValue={""}
-          onChange={handlePhoneChange}
-          onKeyDown={onPressEnter}
-        ></s.InputStyle>
-        {phonenumberErr && phonenumber.length !== 0 ? (
-          <s.ErrMsg color="red" fontSize="12px" fontweight="normal">
-            올바른 전화번호 형식이 아닙니다.
-          </s.ErrMsg>
-        ) : null}
-        <s.InputStyle
-          placeholder="주소"
-          defaultValue={address}
-          onClick={handleAddress.clickInput}
-          onKeyDown={handleAddress.clickInput}
-          readOnly
-        ></s.InputStyle>
-        <s.InputStyle
-          placeholder="닉네임"
-          onChange={handleUsernameChange}
-          onKeyDown={onPressEnter}
-        ></s.InputStyle>
-        <ButtonForm
-          width="90px"
-          height="35px"
-          fontsize="15px"
-          text="회원가입"
-          type="violet"
-          onClick={onClickSignin}
-          margin="50px 0 0 0"
-        ></ButtonForm>
+            이미 계정이 있으신가요?
+          </s.TextStyle>
+          <s.TextStyle
+            color="var(--black-700)"
+            fontSize="var(--font-xs)"
+            fontweight="var(--fw-bold)"
+            textDecoration="underline"
+            cursor="pointer"
+            onClick={onClickBtn}
+          >
+            로그인하기
+          </s.TextStyle>
+        </s.BottomTextContainer>
       </s.Signincontainer>
     </s.Wrapper>
   );

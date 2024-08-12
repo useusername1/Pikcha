@@ -4,17 +4,16 @@ import { useNavigate, useParams, Link } from "react-router-dom";
 import { FaMapMarkerAlt as MarkIcon } from "react-icons/fa";
 import FixedOnScrollUpHeader from "../components/Header/FixedOnScrollUpHeader";
 import KakaoMap from "../components/KakaoMap";
-import axios from "../utils/axiosinstance";
+import axios from "../api/axiosInstance";
 import PostCardComponent from "../components/PostCard/PostCardComponent";
 import Footer from "../components/Footer";
-import { LoginState } from "../recoil/state";
+import { UserDataAtomFamily } from "../recoil/auth";
 import {
   BookmarkSavesState,
   LikesState,
   AttractionDataState,
-} from "../recoil/PlaceDetailState";
-import { useRecoilState, useSetRecoilState } from "recoil";
-import Modal from "../components/Modal";
+} from "../recoil/placeDetailState";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import Pagination from "../components/Pagination";
 import EmptyResult from "../components/EmptyResult";
 import { ArrayPostType, PageInfoType } from "../utils/d";
@@ -22,6 +21,7 @@ import FloatingMenu from "../components/FloatingMenu";
 import { useMediaQuery } from "react-responsive";
 import MobileHeader from "../components/Header/MobileHeader";
 import { MenuSideBar, MenuButton } from "../pages/MainResponsive";
+import { isModalVisible } from "../recoil/setOverlay";
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -29,7 +29,6 @@ const GlobalStyle = createGlobalStyle`
     font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
   }
 `;
-
 
 const ImageBox = styled.div`
   width: 100%;
@@ -216,28 +215,27 @@ export type PlaceData = {
 
 const PlaceDetail = (): JSX.Element => {
   let [view, setView] = useState<string>("info");
-  const scrollRefContent = useRef<HTMLDivElement>(null);
   const [fixBar, setFixBar] = useState(0);
   const [postData, setPostData] = useState<ArrayPostType>();
+  const [curPage, setCurPage] = useState(1);
   const [attractionData, setAttractionData] =
     useRecoilState(AttractionDataState); // 명소 정보 저장
-  const [isLogin] = useRecoilState(LoginState);
+  const isLogin = useRecoilValue(UserDataAtomFamily.LOGIN_STATE);
+  const memberId = useRecoilValue(UserDataAtomFamily.MEMBER_ID);
+  const setIsModal = useSetRecoilState(isModalVisible);
   const setBookmarkSaves = useSetRecoilState(BookmarkSavesState);
   const setLikes = useSetRecoilState(LikesState);
-  const [curPage, setCurPage] = useState(1);
-  const [isModalVisible, setIsModalVisible] = useState(false);
+  const scrollRefContent = useRef<HTMLDivElement>(null);
   const totalInfoRef = useRef<PageInfoType | null>(null);
-  const memberId = localStorage.getItem("memberId");
+
   const { id } = useParams();
   const url = `/attractions/${id}`;
   const url2 = `/attractions/${id}/${memberId}`;
   const url3 = `/posts/${id}?page=${curPage}&size=8`;
   const url4 = `/posts/${id}/${memberId}?page=${curPage}&size=8`;
-  console.log(fixBar);
   const ATTRACTIONS_URL = isLogin ? url2 : url;
   const POSTS_URL = isLogin ? url4 : url3;
   const navigate = useNavigate();
-
 
   const Mobile = useMediaQuery({
     query: "(max-width: 768px)",
@@ -292,7 +290,7 @@ const PlaceDetail = (): JSX.Element => {
 
   const handlePostButtonClick = () => {
     if (!isLogin) {
-      setIsModalVisible(true);
+      setIsModal(true);
       return;
     }
     navigate(`/write/${id}`);
@@ -302,20 +300,28 @@ const PlaceDetail = (): JSX.Element => {
 
   return (
     <>
-      {isModalVisible && <Modal setIsModalVisible={setIsModalVisible} />}
+      {Mobile ? (
+        <MobileHeader
+          isNavbarChecked={isNavbarChecked}
+          setIsNavbarChecked={setIsNavbarChecked}
+        ></MobileHeader>
+      ) : (
+        <FixedOnScrollUpHeader />
+      )}
 
-      {Mobile ? <MobileHeader
-        isNavbarChecked={isNavbarChecked}
-        setIsNavbarChecked={setIsNavbarChecked}
-        ></MobileHeader> : <FixedOnScrollUpHeader />}
-
-      {isNavbarChecked ? 
+      {isNavbarChecked ? (
         <MenuSideBar>
-          <Link to='/attractions'><MenuButton>명소</MenuButton></Link>
-          <Link to='/posts'><MenuButton>포스트</MenuButton></Link>
-          <Link to='/map'><MenuButton>내 주변 명소찾기</MenuButton></Link>
-        </MenuSideBar> : null}
-
+          <Link to="/attractions">
+            <MenuButton>명소</MenuButton>
+          </Link>
+          <Link to="/posts">
+            <MenuButton>포스트</MenuButton>
+          </Link>
+          <Link to="/map">
+            <MenuButton>내 주변 명소찾기</MenuButton>
+          </Link>
+        </MenuSideBar>
+      ) : null}
 
       <GlobalStyle />
       {attractionData && (
@@ -326,7 +332,7 @@ const PlaceDetail = (): JSX.Element => {
           <FloatingMenu
             inverted={fixBar < 470}
             handlePostButtonClick={handlePostButtonClick}
-            onModalVisible={setIsModalVisible}
+            onModalVisible={setIsModal}
           />
           <NavBar>
             <button

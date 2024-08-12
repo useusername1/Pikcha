@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import KakaoMap from "../components/KakaoMap";
 import { regionDummy } from "../data/regionData";
 import { useState, useEffect } from "react";
@@ -9,43 +9,43 @@ import { BsBookmarkPlus, BsFillChatLeftFill } from "react-icons/bs";
 import HiddenHeader from "../components/Header/HiddenHeader";
 import "../index.css";
 import tags from "../data/tagData";
-import axios from "../utils/axiosinstance";
+import axios from "../api/axiosInstance";
 import { GiTalk } from "react-icons/gi";
 import { useNavigate } from "react-router-dom";
-import { LoginState } from "../recoil/state";
-import { useRecoilState } from "recoil";
-import Modal from "../components/Modal";
+import { UserDataAtomFamily } from "../recoil/auth";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import { useMediaQuery } from "react-responsive";
-import * as m from './Map/Map';
+import * as m from "./Map/Map";
 import MobileHeaderBack from "../components/Header/MobileHeaderBack";
 import { MenuSideBar, MenuButton } from "./MainResponsive";
-import {Link} from 'react-router-dom';
+import { Link } from "react-router-dom";
+import { isModalVisible } from "../recoil/setOverlay";
+import encodeURLForBackgroundImage from "../utils/encodeImgURL";
 
-  interface RegionType {
-    attractionAddress:string, 
-    attractionId:number,
-    attractionName:string,
-    fixedImage:string
-  }
+interface RegionType {
+  attractionAddress: string;
+  attractionId: number;
+  attractionName: string;
+  fixedImage: string;
+}
 
-  interface ModalDataType {
-    attractionAddress:string, 
-    attractionId:number,
-    attractionName:string, 
-    fixedImage:string|undefined, 
-    isSaved:boolean,
-    isVoted:boolean,
-    likes:number,
-    numOfPosts:number,
-    postIdAndUrls: string|number[]
-  }
+interface ModalDataType {
+  attractionAddress: string;
+  attractionId: number;
+  attractionName: string;
+  fixedImage: string | undefined;
+  isSaved: boolean;
+  isVoted: boolean;
+  likes: number;
+  numOfPosts: number;
+  postIdAndUrls: string | number[];
+}
 
-  interface RegionDummyType {
-    Post:string
-  }
+interface RegionDummyType {
+  Post: string;
+}
 
 const Map = () => {
-
   const Mobile = useMediaQuery({
     query: "(max-width: 768px)",
   });
@@ -57,13 +57,22 @@ const Map = () => {
   const [modalData, setModalData] = useState<any>("");
   const [modalDataId, setModalDataId] = useState<number>(1);
   const [wholeData, setWholeData] = useState<any>();
-  const navigate = useNavigate();
   const [filterOrPosition, setFilterOrPosition] = useState<boolean>(false);
-  const [isLogin] = useRecoilState(LoginState);
+  const isLogin = useRecoilValue(UserDataAtomFamily.LOGIN_STATE);
+  const memberId = useRecoilValue(UserDataAtomFamily.MEMBER_ID);
+  const setIsModal = useSetRecoilState(isModalVisible);
   const [isVoted, setIsVoted] = useState<boolean>();
   const [isLiked, setIsLiked] = useState<boolean>();
-  const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
-  const memberId = localStorage.getItem("memberId");
+  const navigate = useNavigate();
+
+  const regionURLList = useMemo(
+    () =>
+      regionList?.map((el: RegionType) =>
+        encodeURLForBackgroundImage(el.fixedImage)
+      ),
+    [regionList]
+  );
+
   const url = "/attractions/maps?page=1&size=104&sort=posts";
   const url2 = `/attractions/${modalDataId}`;
   const url3 = `/attractions/${modalDataId}/${memberId}`;
@@ -72,33 +81,32 @@ const Map = () => {
   const ATTRACTIONS_URL = isLogin ? url3 : url2;
 
   const handleClickLiked = () => {
-    if(isLogin){
+    if (isLogin) {
       axios.post(URL_FOR_LIKES).then((res) => {
         setIsVoted(res.data.data.isVoted);
         return;
-      }); 
-    }else{
-      setIsModalVisible(true);
+      });
+    } else {
+      setIsModal(true);
     }
-  }
+  };
 
   const handleClickSaved = () => {
-    if(isLogin){
+    if (isLogin) {
       axios.post(URL_FOR_SAVES).then((res) => {
         setIsLiked(res.data.data.isSaved);
         return;
       });
-    }else{
-      setIsModalVisible(true)
+    } else {
+      setIsModal(true);
     }
-  }
+  };
 
   useEffect(() => {
-    axios.get(ATTRACTIONS_URL)
-    .then((res)=>{
-      setIsVoted(res.data.data.isVoted)
-      setIsLiked(res.data.data.isSaved)
-    })
+    axios.get(ATTRACTIONS_URL).then((res) => {
+      setIsVoted(res.data.data.isVoted);
+      setIsLiked(res.data.data.isSaved);
+    });
 
     if (regionFilter === "전체") {
       axios
@@ -128,92 +136,96 @@ const Map = () => {
 
   const [isNavbarChecked, setIsNavbarChecked] = useState<boolean>(false);
 
-
   return (
     <>
-      {isModalVisible && 
-      <Modal setIsModalVisible={setIsModalVisible} />}
-      {Mobile? <MobileHeaderBack
-            isNavbarChecked={isNavbarChecked}
-            setIsNavbarChecked={setIsNavbarChecked}
-            ></MobileHeaderBack>:<HiddenHeader></HiddenHeader> }
-              {isNavbarChecked ? 
-          <MenuSideBar>
-            <Link to='/attractions'><MenuButton>명소</MenuButton></Link>
-            <Link to='/posts'><MenuButton>포스트</MenuButton></Link>
-            <Link to='/map'><MenuButton>내 주변 명소찾기</MenuButton></Link>
-          </MenuSideBar> : null}
-      
+      {Mobile ? (
+        <MobileHeaderBack
+          isNavbarChecked={isNavbarChecked}
+          setIsNavbarChecked={setIsNavbarChecked}
+        ></MobileHeaderBack>
+      ) : (
+        <HiddenHeader></HiddenHeader>
+      )}
+      {isNavbarChecked ? (
+        <MenuSideBar>
+          <Link to="/attractions">
+            <MenuButton>명소</MenuButton>
+          </Link>
+          <Link to="/posts">
+            <MenuButton>포스트</MenuButton>
+          </Link>
+          <Link to="/map">
+            <MenuButton>내 주변 명소찾기</MenuButton>
+          </Link>
+        </MenuSideBar>
+      ) : null}
 
       <m.Container>
-        {Mobile ? null :<m.PlaceList>
-          <m.DropDown>
-            <button
-              onClick={() => {
-                setDropdownView(!dropdownView);
-              }}
-            >
-              <div>{regionFilter}</div>
-              <div>
-                <RiArrowDropDownLine
-                  size="30"
-                  color="#6255F8"
-                ></RiArrowDropDownLine>
-              </div>
-            </button>
-            {dropdownView ? (
-              <m.SelectList>
-                {regionDummy.map((el: RegionDummyType, index: number) => {
+        {Mobile ? null : (
+          <m.PlaceList>
+            <m.DropDown>
+              <button
+                onClick={() => {
+                  setDropdownView(!dropdownView);
+                }}
+              >
+                <div>{regionFilter}</div>
+                <div>
+                  <RiArrowDropDownLine
+                    size="30"
+                    color="#6255F8"
+                  ></RiArrowDropDownLine>
+                </div>
+              </button>
+              {dropdownView ? (
+                <m.SelectList>
+                  {regionDummy.map((el: RegionDummyType, index: number) => {
+                    return (
+                      <button
+                        key={index}
+                        onClick={() => {
+                          setRegionFilter(el.Post);
+                          setDropdownView(false);
+                        }}
+                      >
+                        {el.Post}
+                      </button>
+                    );
+                  })}
+                </m.SelectList>
+              ) : null}
+            </m.DropDown>
+            <m.PlaceComponent>
+              {regionList !== undefined &&
+                regionList.map((el: RegionType, index: number) => {
                   return (
-                    <button
-                      key={index}
+                    <m.Place
                       onClick={() => {
-                        setRegionFilter(el.Post);
-                        setDropdownView(false);
+                        setDetailModal(true);
+                        handleModalData(el.attractionId);
+                        setModalDataId(el.attractionId);
+                        setFilterOrPosition(false);
                       }}
+                      imgUrl={regionURLList[index]}
+                      key={el.attractionId}
                     >
-                      {el.Post}
-                    </button>
+                      <div>{el.attractionName}</div>
+                      <p>
+                        <FaMapMarkerAlt size="10"></FaMapMarkerAlt>
+                        {el.attractionAddress}
+                      </p>
+                    </m.Place>
                   );
                 })}
-              </m.SelectList>
-            ) : null}
-          </m.DropDown>
-          <m.PlaceComponent>
-            {regionList !== undefined &&
-              regionList.map((el: RegionType , index: number) => {
-                return (
-                  <m.Place
-                    onClick={() => {
-                      setDetailModal(true);
-                      handleModalData(el.attractionId);
-                      setModalDataId(el.attractionId);
-                      setFilterOrPosition(false);
-                    }}
-                    imgUrl={el.fixedImage}
-                    key={el.attractionId}
-                  >
-                    <div>{el.attractionName}</div>
-                    <p>
-                      <FaMapMarkerAlt size="10"></FaMapMarkerAlt>
-                      {el.attractionAddress}
-                    </p>
-                  </m.Place>
-                );
-              })}
-          </m.PlaceComponent>
-        </m.PlaceList>}
+            </m.PlaceComponent>
+          </m.PlaceList>
+        )}
 
-
-
-        {Mobile ? 
-          null :
-          detailModal ?
-        (
+        {Mobile ? null : detailModal ? (
           <m.PlaceDetailModal>
             <m.PlaceDetailModalHeader>
               <div>
-                <img src={modalData.fixedImage} alt={'modalImg'}></img>
+                <img src={modalData.fixedImage} alt={"modalImg"}></img>
               </div>
               <div>
                 <p>서울 명소</p>
@@ -224,13 +236,13 @@ const Map = () => {
                         ? "var(--pink-heart)"
                         : "var(--black-400)"
                     }
-                    ></AiOutlineHeart>
+                  ></AiOutlineHeart>
                   {/* <p>{ modalData.likes }</p> */}
                 </div>
                 <div onClick={handleClickSaved}>
-                  <BsBookmarkPlus 
+                  <BsBookmarkPlus
                     color={isLiked ? "green" : "var(--black-400)"}
-                    ></BsBookmarkPlus>
+                  ></BsBookmarkPlus>
                   {/* <p>{modalData.saves}</p> */}
                 </div>
               </div>
@@ -263,7 +275,7 @@ const Map = () => {
                         <img
                           src={el.imageUrls}
                           key={index}
-                          alt={'Img'}
+                          alt={"Img"}
                           onClick={() => {
                             navigate(`/posts/detail/${el.postId}`);
                           }}
@@ -284,10 +296,7 @@ const Map = () => {
           </m.PlaceDetailModal>
         ) : null}
 
-
-
-        {
-          Mobile? 
+        {Mobile ? (
           <KakaoMap
             width="100%"
             height="100vh"
@@ -301,8 +310,7 @@ const Map = () => {
             filterOrPosition={filterOrPosition}
             setFilterOrPosition={setFilterOrPosition}
           ></KakaoMap>
-          
-            : detailModal ?
+        ) : detailModal ? (
           <KakaoMap
             width="71%"
             height="94vh"
@@ -315,7 +323,8 @@ const Map = () => {
             modalData={modalData}
             filterOrPosition={filterOrPosition}
             setFilterOrPosition={setFilterOrPosition}
-          ></KakaoMap> : 
+          ></KakaoMap>
+        ) : (
           <KakaoMap
             width="100%"
             height="94vh"
@@ -329,13 +338,8 @@ const Map = () => {
             filterOrPosition={filterOrPosition}
             setFilterOrPosition={setFilterOrPosition}
           ></KakaoMap>
-        }
-
-
-
-
+        )}
       </m.Container>
-      
     </>
   );
 };

@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import { useRecoilState } from "recoil";
-import HeaderVisibilityState from "../../recoil/HeaderState";
+import HeaderVisibilityState from "../../recoil/headerState";
 import { Header } from ".";
 import { throttle } from "../../utils/utils";
 

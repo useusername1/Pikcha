@@ -1,6 +1,5 @@
 import styled from "styled-components";
-import OverlayR from "../components/Login_Sign/OverlayRight";
-import OverlayL from "../components/Login_Sign/OverlayLeft";
+import Overlay from "../components/Login_Sign/Overlay";
 import LoginSide from "../components/Login_Sign/LoginSide";
 import SignSide from "../components/Login_Sign/SignSide";
 import * as s from "../components/Login_Sign/LoginSignStyle";
@@ -18,8 +17,8 @@ function LoginSign() {
         <s.Wrapper>
           <SignSide />
           <LoginSide />
-          <OverlayL />
-          <OverlayR />
+          <Overlay direction="left" />
+          <Overlay direction="right" />
         </s.Wrapper>
       </Body>
     </>
