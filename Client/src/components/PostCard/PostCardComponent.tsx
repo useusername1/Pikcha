@@ -2,7 +2,6 @@ import { AiFillHeart, AiFillEye as EyeIcon } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 import { ArrayPostType } from "../../utils/d";
 import * as poc from "./PostCardStyled";
-import { useMediaQuery } from "react-responsive";
 
 const PostCardComponent = ({
   posts,
@@ -14,9 +13,6 @@ const PostCardComponent = ({
   width: string;
 }) => {
   const navigate = useNavigate();
-  const Mobile = useMediaQuery({
-    query: "(max-width: 768px)",
-  });
 
   return (
     <>
@@ -33,19 +29,18 @@ const PostCardComponent = ({
               </div>
               <div>
                 <div>
-                  {Mobile ? null : <img src={post.memberPicture}></img>}
+                  <img src={post.memberPicture}></img>
                   <div>
-                    <div style ={ Mobile ? {padding:"15px", fontSize: "16px"} : {padding: "0" }}>{post.username}</div>
-                    {Mobile ? null : <span>{post.createdAt.slice(0, 10)}</span>}
+                    <div style={{ padding: "0" }}>{post.username}</div>
+                    <span>{post.createdAt.slice(0, 10)}</span>
                   </div>
                 </div>
-                {Mobile ? null :
                 <div>
                   <EyeIcon className="eye-icon" />
                   <p>{post.views}</p>
                   <AiFillHeart className="heart-icon"></AiFillHeart>
                   <p>{post.likes}</p>
-                </div>}
+                </div>
               </div>
               <div onClick={() => navigate(`/posts/detail/${post.postId}`)}>
                 {post.postTitle}

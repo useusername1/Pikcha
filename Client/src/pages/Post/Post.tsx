@@ -8,19 +8,10 @@ import Footer from "../../components/Footer";
 import EmptyResult from "../../components/EmptyResult";
 import * as po from "./PostStyled";
 import { ArrayPostType, PageInfoType } from "../../utils/d";
-import MobileHeader from "../../components/Header/MobileHeader";
-import { useMediaQuery } from "react-responsive";
-import { MenuSideBar, MenuButton } from "../MainResponsive";
-import { Link } from "react-router-dom";
 
 const ITEM_LIMIT = 9;
 
 const Post = () => {
-  const Mobile = useMediaQuery({
-    query: "(max-width: 768px)",
-  });
-
-  const [isNavbarChecked, setIsNavbarChecked] = useState<boolean>(false);
   const [postsData, setPostsData] = useState<ArrayPostType>();
   const [curPage, setCurPage] = useState(1);
   const [checkedList, setCheckedlist] = useState<string[]>([]);
@@ -72,46 +63,23 @@ const Post = () => {
 
   return (
     <>
-      {Mobile ? (
-        <MobileHeader
-          isNavbarChecked={isNavbarChecked}
-          setIsNavbarChecked={setIsNavbarChecked}
-        ></MobileHeader>
-      ) : (
-        <div style={{ display: "fixed" }}>
-          <Header>
-            <Header.HeaderTop />
-            <Header.HeaderBody selectedMenu={1} backgroundOn={false} />
-          </Header>
-        </div>
-      )}
-
-      {isNavbarChecked ? (
-        <MenuSideBar>
-          <Link to="/attractions">
-            <MenuButton>명소</MenuButton>
-          </Link>
-          <Link to="/posts">
-            <MenuButton>포스트</MenuButton>
-          </Link>
-          <Link to="/map">
-            <MenuButton>내 주변 명소찾기</MenuButton>
-          </Link>
-        </MenuSideBar>
-      ) : null}
+      <div style={{ display: "fixed" }}>
+        <Header>
+          <Header.HeaderTop />
+          <Header.HeaderBody selectedMenu={1} backgroundOn={false} />
+        </Header>
+      </div>
 
       <po.PostWrapper>
-        {Mobile ? null : (
-          <po.LocationWrapper>
-            {postsData && (
-              <LocationFilter
-                setCurPage={setCurPage}
-                checkedList={checkedList}
-                setCheckedList={setCheckedlist}
-              />
-            )}
-          </po.LocationWrapper>
-        )}
+        <po.LocationWrapper>
+          {postsData && (
+            <LocationFilter
+              setCurPage={setCurPage}
+              checkedList={checkedList}
+              setCheckedList={setCheckedlist}
+            />
+          )}
+        </po.LocationWrapper>
 
         <po.PostContainer>
           <po.PostFilterContainer>

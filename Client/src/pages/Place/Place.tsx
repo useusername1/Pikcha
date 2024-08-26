@@ -11,9 +11,6 @@ import { UserDataAtomFamily } from "../../recoil/auth";
 import EmptyResult from "../../components/EmptyResult";
 import * as pl from "./PlaceStyled";
 import { ArrayPlaceType, PageInfoType, PageSessionType } from "../../utils/d";
-import { useMediaQuery } from "react-responsive";
-import MobileHeader from "../../components/Header/MobileHeader";
-import { MenuSideBar, MenuButton } from "../MainResponsive";
 
 const sortList: { kor: string; eng: string }[] = [
   {
@@ -51,7 +48,6 @@ const Place = () => {
 
   const [sort, setSort] = useState(() => (pageDataArr ? pageDataArr.sort : 0));
   const [placesData, setPlacesData] = useState<ArrayPlaceType>();
-  const [isNavbarChecked, setIsNavbarChecked] = useState<boolean>(false);
   const isLogin = useRecoilValue(UserDataAtomFamily.LOGIN_STATE);
   const memberId = useRecoilValue(UserDataAtomFamily.MEMBER_ID);
   const totalInfoRef = useRef<PageInfoType | null>(null);
@@ -63,9 +59,7 @@ const Place = () => {
     () => new URLSearchParams(search).get("keyword"),
     [search]
   );
-  const Mobile = useMediaQuery({
-    query: "(max-width: 768px)",
-  });
+
   curPageRef.current = {
     curPage: curPage,
     sort: sort,
@@ -112,47 +106,25 @@ const Place = () => {
 
   return (
     <>
-      {Mobile ? (
-        <MobileHeader
-          isNavbarChecked={isNavbarChecked}
-          setIsNavbarChecked={setIsNavbarChecked}
-        ></MobileHeader>
-      ) : (
-        <div>
-          <Header headerColor="var(--black-200)">
-            <Header.HeaderTop />
-            <Header.HeaderBody
-              defaultValue={searchValue ? searchValue : undefined}
-              selectedMenu={0}
-            />
-          </Header>
-        </div>
-      )}
-      {isNavbarChecked ? (
-        <MenuSideBar>
-          <Link to="/attractions">
-            <MenuButton>명소</MenuButton>
-          </Link>
-          <Link to="/posts">
-            <MenuButton>포스트</MenuButton>
-          </Link>
-          <Link to="/map">
-            <MenuButton>내 주변 명소찾기</MenuButton>
-          </Link>
-        </MenuSideBar>
-      ) : null}
+      <div>
+        <Header headerColor="var(--black-200)">
+          <Header.HeaderTop />
+          <Header.HeaderBody
+            defaultValue={searchValue ? searchValue : undefined}
+            selectedMenu={0}
+          />
+        </Header>
+      </div>
       <pl.PlaceWrapper>
-        {Mobile ? null : (
-          <pl.LocationWrapper>
-            {placesData && (
-              <LocationFilter
-                setCurPage={setCurPage}
-                checkedList={checkedList}
-                setCheckedList={setCheckedlist}
-              />
-            )}
-          </pl.LocationWrapper>
-        )}
+        <pl.LocationWrapper>
+          {placesData && (
+            <LocationFilter
+              setCurPage={setCurPage}
+              checkedList={checkedList}
+              setCheckedList={setCheckedlist}
+            />
+          )}
+        </pl.LocationWrapper>
         <pl.PlaceContainer>
           <pl.PlaceFilterContainer>
             {searchValue ? (

@@ -18,9 +18,6 @@ import Pagination from "../components/Pagination";
 import EmptyResult from "../components/EmptyResult";
 import { ArrayPostType, PageInfoType } from "../utils/d";
 import FloatingMenu from "../components/FloatingMenu";
-import { useMediaQuery } from "react-responsive";
-import MobileHeader from "../components/Header/MobileHeader";
-import { MenuSideBar, MenuButton } from "../pages/MainResponsive";
 import { isModalVisible } from "../recoil/setOverlay";
 
 const GlobalStyle = createGlobalStyle`
@@ -237,10 +234,6 @@ const PlaceDetail = (): JSX.Element => {
   const POSTS_URL = isLogin ? url4 : url3;
   const navigate = useNavigate();
 
-  const Mobile = useMediaQuery({
-    query: "(max-width: 768px)",
-  });
-
   useEffect(() => {
     axios.get(ATTRACTIONS_URL).then((res) => {
       setAttractionData(res.data.data);
@@ -296,33 +289,9 @@ const PlaceDetail = (): JSX.Element => {
     navigate(`/write/${id}`);
   };
 
-  const [isNavbarChecked, setIsNavbarChecked] = useState<boolean>(false);
-
   return (
     <>
-      {Mobile ? (
-        <MobileHeader
-          isNavbarChecked={isNavbarChecked}
-          setIsNavbarChecked={setIsNavbarChecked}
-        ></MobileHeader>
-      ) : (
-        <FixedOnScrollUpHeader />
-      )}
-
-      {isNavbarChecked ? (
-        <MenuSideBar>
-          <Link to="/attractions">
-            <MenuButton>명소</MenuButton>
-          </Link>
-          <Link to="/posts">
-            <MenuButton>포스트</MenuButton>
-          </Link>
-          <Link to="/map">
-            <MenuButton>내 주변 명소찾기</MenuButton>
-          </Link>
-        </MenuSideBar>
-      ) : null}
-
+      <FixedOnScrollUpHeader />
       <GlobalStyle />
       {attractionData && (
         <>

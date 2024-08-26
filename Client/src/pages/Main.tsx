@@ -13,9 +13,6 @@ import Footer from "../components/Footer";
 import { useRecoilValue } from "recoil";
 import { UserDataAtomFamily } from "../recoil/auth";
 import { ArrayPlaceType, ArrayPostType } from "../utils/d";
-import { useMediaQuery } from "react-responsive";
-import MainMobile from "./MainResponsive";
-import { CardBox, InfoBox, ImgContainer, Card } from "./MainResponsive";
 import Chat from "../components/Chat";
 
 const GoRight = keyframes`
@@ -103,10 +100,6 @@ interface AttractionType {
 }
 
 function Main() {
-  const Mobile = useMediaQuery({
-    query: "(max-width: 599px)",
-  });
-
   const [attractionData, setAttractionData] = useState<ArrayPlaceType>();
   const [postData, setPostData] = useState<ArrayPostType>();
   const isLogin = useRecoilValue(UserDataAtomFamily.LOGIN_STATE);
@@ -132,98 +125,45 @@ function Main() {
 
   return (
     <>
-      {Mobile ? (
-        <>
-          <MainMobile />
-          <Chat key={"chatbox"} />
-
-          <CardBox>
-            <InfoBox>
-              <h2>많이 다녀간 명소</h2>
-              <div>
-                <Link to="/attractions"> {">"} 더 보러가기</Link>
-              </div>
-            </InfoBox>
-            <ImgContainer>
+      <FixedOnScrollUpHeader />
+      <Carousel />
+      <Ranking />
+      <Chat key={"chatbox"} />
+      <Body>
+        <BodyContent>
+          <MainSubTitle>많이 다녀간 명소</MainSubTitle>
+          <ViewsPlaceContainer>
+            <PlaceCardWrapper>
               {attractionData &&
-                attractionData.map((el) => {
-                  return (
-                    <>
-                      <Card key={el.attractionId}>
-                        <span>{el.attractionName}</span>
-                        <img src={el.fixedImage} alt="명소 이미지"></img>
-                      </Card>
-                    </>
-                  );
-                })}
-            </ImgContainer>
-          </CardBox>
-          <CardBox>
-            <InfoBox>
-              <h2>가장 많이 본 포스트</h2>
-              <div>
-                <Link to="/posts"> {">"} 더 보러가기</Link>
-              </div>
-            </InfoBox>
-            <ImgContainer>
-              {postData &&
-                postData.map((el: any) => {
-                  return (
-                    <>
-                      <Card key={el.postId}>
-                        <span>{el.postTitle}</span>
-                        <img src={el.pictureUrl} alt="명소 이미지"></img>
-                      </Card>
-                    </>
-                  );
-                })}
-            </ImgContainer>
-          </CardBox>
-          <Footer></Footer>
-        </>
-      ) : (
-        <>
-          <FixedOnScrollUpHeader />
-          <Carousel />
-          <Ranking />
-          <Chat key={"chatbox"} />
-          <Body>
-            <BodyContent>
-              <MainSubTitle>많이 다녀간 명소</MainSubTitle>
-              <ViewsPlaceContainer>
-                <PlaceCardWrapper>
-                  {attractionData &&
-                    attractionData.map((placeInfo) => (
-                      <PlaceCard
-                        placeInfo={placeInfo}
-                        width="24%"
-                        key={placeInfo.attractionId}
-                      />
-                    ))}
-                </PlaceCardWrapper>
-                <MoreLink>
-                  <Link to={"/attractions"}>
-                    더 많은 명소 둘러보기
-                    <DoubleArrowIcon />
-                  </Link>
-                </MoreLink>
-              </ViewsPlaceContainer>
-              <MainSubTitle>가장 많이 본 포스트</MainSubTitle>
-              <ViewsPostContainer>
-                {postData && (
-                  <PostCardComponent posts={postData} margin="0" width="24%" />
-                )}
-              </ViewsPostContainer>
-              <MoreLink>
-                <Link to={"/posts"}>
-                  더 많은 포스트 확인하기 <DoubleArrowIcon />
-                </Link>
-              </MoreLink>
-            </BodyContent>
-          </Body>
-          <Footer />
-        </>
-      )}
+                attractionData.map((placeInfo) => (
+                  <PlaceCard
+                    placeInfo={placeInfo}
+                    width="24%"
+                    key={placeInfo.attractionId}
+                  />
+                ))}
+            </PlaceCardWrapper>
+            <MoreLink>
+              <Link to={"/attractions"}>
+                더 많은 명소 둘러보기
+                <DoubleArrowIcon />
+              </Link>
+            </MoreLink>
+          </ViewsPlaceContainer>
+          <MainSubTitle>가장 많이 본 포스트</MainSubTitle>
+          <ViewsPostContainer>
+            {postData && (
+              <PostCardComponent posts={postData} margin="0" width="24%" />
+            )}
+          </ViewsPostContainer>
+          <MoreLink>
+            <Link to={"/posts"}>
+              더 많은 포스트 확인하기 <DoubleArrowIcon />
+            </Link>
+          </MoreLink>
+        </BodyContent>
+      </Body>
+      <Footer />
     </>
   );
 }

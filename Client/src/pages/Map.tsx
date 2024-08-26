@@ -14,11 +14,7 @@ import { GiTalk } from "react-icons/gi";
 import { useNavigate } from "react-router-dom";
 import { UserDataAtomFamily } from "../recoil/auth";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { useMediaQuery } from "react-responsive";
 import * as m from "./Map/Map";
-import MobileHeaderBack from "../components/Header/MobileHeaderBack";
-import { MenuSideBar, MenuButton } from "./MainResponsive";
-import { Link } from "react-router-dom";
 import { isModalVisible } from "../recoil/setOverlay";
 import encodeURLForBackgroundImage from "../utils/encodeImgURL";
 
@@ -46,10 +42,6 @@ interface RegionDummyType {
 }
 
 const Map = () => {
-  const Mobile = useMediaQuery({
-    query: "(max-width: 768px)",
-  });
-
   const [dropdownView, setDropdownView] = useState<boolean>(false);
   const [regionFilter, setRegionFilter] = useState("전체");
   const [detailModal, setDetailModal] = useState<boolean>(false);
@@ -134,94 +126,69 @@ const Map = () => {
     });
   };
 
-  const [isNavbarChecked, setIsNavbarChecked] = useState<boolean>(false);
-
   return (
     <>
-      {Mobile ? (
-        <MobileHeaderBack
-          isNavbarChecked={isNavbarChecked}
-          setIsNavbarChecked={setIsNavbarChecked}
-        ></MobileHeaderBack>
-      ) : (
-        <HiddenHeader></HiddenHeader>
-      )}
-      {isNavbarChecked ? (
-        <MenuSideBar>
-          <Link to="/attractions">
-            <MenuButton>명소</MenuButton>
-          </Link>
-          <Link to="/posts">
-            <MenuButton>포스트</MenuButton>
-          </Link>
-          <Link to="/map">
-            <MenuButton>내 주변 명소찾기</MenuButton>
-          </Link>
-        </MenuSideBar>
-      ) : null}
-
+      <HiddenHeader></HiddenHeader>
       <m.Container>
-        {Mobile ? null : (
-          <m.PlaceList>
-            <m.DropDown>
-              <button
-                onClick={() => {
-                  setDropdownView(!dropdownView);
-                }}
-              >
-                <div>{regionFilter}</div>
-                <div>
-                  <RiArrowDropDownLine
-                    size="30"
-                    color="#6255F8"
-                  ></RiArrowDropDownLine>
-                </div>
-              </button>
-              {dropdownView ? (
-                <m.SelectList>
-                  {regionDummy.map((el: RegionDummyType, index: number) => {
-                    return (
-                      <button
-                        key={index}
-                        onClick={() => {
-                          setRegionFilter(el.Post);
-                          setDropdownView(false);
-                        }}
-                      >
-                        {el.Post}
-                      </button>
-                    );
-                  })}
-                </m.SelectList>
-              ) : null}
-            </m.DropDown>
-            <m.PlaceComponent>
-              {regionList !== undefined &&
-                regionList.map((el: RegionType, index: number) => {
+        <m.PlaceList>
+          <m.DropDown>
+            <button
+              onClick={() => {
+                setDropdownView(!dropdownView);
+              }}
+            >
+              <div>{regionFilter}</div>
+              <div>
+                <RiArrowDropDownLine
+                  size="30"
+                  color="#6255F8"
+                ></RiArrowDropDownLine>
+              </div>
+            </button>
+            {dropdownView ? (
+              <m.SelectList>
+                {regionDummy.map((el: RegionDummyType, index: number) => {
                   return (
-                    <m.Place
+                    <button
+                      key={index}
                       onClick={() => {
-                        setDetailModal(true);
-                        handleModalData(el.attractionId);
-                        setModalDataId(el.attractionId);
-                        setFilterOrPosition(false);
+                        setRegionFilter(el.Post);
+                        setDropdownView(false);
                       }}
-                      imgUrl={regionURLList[index]}
-                      key={el.attractionId}
                     >
-                      <div>{el.attractionName}</div>
-                      <p>
-                        <FaMapMarkerAlt size="10"></FaMapMarkerAlt>
-                        {el.attractionAddress}
-                      </p>
-                    </m.Place>
+                      {el.Post}
+                    </button>
                   );
                 })}
-            </m.PlaceComponent>
-          </m.PlaceList>
-        )}
+              </m.SelectList>
+            ) : null}
+          </m.DropDown>
+          <m.PlaceComponent>
+            {regionList !== undefined &&
+              regionList.map((el: RegionType, index: number) => {
+                return (
+                  <m.Place
+                    onClick={() => {
+                      setDetailModal(true);
+                      handleModalData(el.attractionId);
+                      setModalDataId(el.attractionId);
+                      setFilterOrPosition(false);
+                    }}
+                    imgUrl={regionURLList[index]}
+                    key={el.attractionId}
+                  >
+                    <div>{el.attractionName}</div>
+                    <p>
+                      <FaMapMarkerAlt size="10"></FaMapMarkerAlt>
+                      {el.attractionAddress}
+                    </p>
+                  </m.Place>
+                );
+              })}
+          </m.PlaceComponent>
+        </m.PlaceList>
 
-        {Mobile ? null : detailModal ? (
+        {detailModal ? (
           <m.PlaceDetailModal>
             <m.PlaceDetailModalHeader>
               <div>
@@ -296,21 +263,7 @@ const Map = () => {
           </m.PlaceDetailModal>
         ) : null}
 
-        {Mobile ? (
-          <KakaoMap
-            width="100%"
-            height="100vh"
-            dataList={regionList}
-            position="absolute"
-            left="0"
-            regionFilter={regionFilter}
-            component="map"
-            dataset={wholeData}
-            modalData={modalData}
-            filterOrPosition={filterOrPosition}
-            setFilterOrPosition={setFilterOrPosition}
-          ></KakaoMap>
-        ) : detailModal ? (
+        {detailModal ? (
           <KakaoMap
             width="71%"
             height="94vh"
