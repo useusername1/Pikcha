@@ -8,8 +8,8 @@ import {
 import { HiOutlineSearch as SearchIcon } from "react-icons/hi";
 import { MdOutlineLogout as GoOutIcon } from "react-icons/md";
 import { FaRegWindowMinimize as WindowMinIcon } from "react-icons/fa";
-import { ReactComponent as PikchaIcon } from "../../../src/data/LogoLetter.svg";
-import { ReactComponent as Logo } from "../../../src/data/Logo.svg";
+import { ReactComponent as PikchaIcon } from "../../../src/assets/LogoLetter.svg";
+import { ReactComponent as Logo } from "../../../src/assets/Logo.svg";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import {
   ChatStatus,

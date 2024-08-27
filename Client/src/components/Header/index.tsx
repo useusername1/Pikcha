@@ -15,7 +15,7 @@ import { useRecoilValue } from "recoil";
 import { UserDataAtomFamily } from "../../recoil/auth";
 import axios from "../../api/axiosInstance";
 import ButtonForm from "../Button";
-import { ReactComponent as Logo } from "../../data/Logo.svg";
+import { ReactComponent as Logo } from "../../assets/Logo.svg";
 import { storeLocation } from "../../utils/storeLocation";
 import useLogout from "../../hooks/useLogout";
 const SearchBar = lazy(() => import("./SearchBar"));

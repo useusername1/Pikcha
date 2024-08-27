@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { ReactComponent as NoSearchResultIcon } from "../data/NoSearchResult.svg";
+import { ReactComponent as NoSearchResultIcon } from "../assets/NoSearchResult.svg";
 
 const Notification = styled.div`
   display: flex;

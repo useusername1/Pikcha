@@ -1,5 +1,6 @@
 import { CgClose } from "react-icons/cg";
 import { Dispatch, SetStateAction } from "react";
+import writeGuideGif from "../../assets/WriteGuide.gif";
 import * as wp from "../../pages/Write_EditPost/Write_EditPostStyled";
 
 const WriteGuide = ({
@@ -20,7 +21,7 @@ const WriteGuide = ({
                 onClick={() => setIsWriteGuideModal(false)}
               />
             </wp.WriteGuideModalGuideText>
-            <img src={process.env.PUBLIC_URL + "/WriteGuide.gif"} />
+            <img src={writeGuideGif} />
           </wp.WriteGuideModalContainer>
         </wp.WriteGuideModalWrapper>
       </wp.WriteGuideModalBackground>

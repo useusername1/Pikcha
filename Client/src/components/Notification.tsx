@@ -1,5 +1,5 @@
-import { ReactComponent as NoAddressIcon } from "../data/NoAddressillustration.svg";
-import { ReactComponent as NotFoundIcon } from "../data/NotFound.svg";
+import { ReactComponent as NoAddressIcon } from "../assets/NoAddressillustration.svg";
+import { ReactComponent as NotFoundIcon } from "../assets/NotFound.svg";
 import styled, { keyframes } from "styled-components";
 const Move = keyframes`
   0% {
