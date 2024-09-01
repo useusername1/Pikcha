@@ -11,8 +11,8 @@ import {
   onlineNumberOfUserState,
 } from "../recoil/chatState";
 import { UserDataAtomFamily } from "../recoil/auth";
-import { chatDatatype } from "../components/Chat/Chat";
 import { flushSync } from "react-dom";
+import { chatDatatype } from "../@types/chat.types";
 
 function useWebsocket(
   url: string,

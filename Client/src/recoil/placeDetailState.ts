@@ -1,5 +1,4 @@
 import { atom } from "recoil";
-import { PlaceData } from "../pages/PlaceDetail";
 
 export const BookmarkSavesState = atom<boolean>({
   key: "BookmarkSaves",
@@ -15,3 +14,15 @@ export const AttractionDataState = atom<PlaceData>({
   key: "attractionData",
   default: undefined,
 });
+
+export type PlaceData = {
+  attractionId: number | undefined;
+  attractionAddress: string | undefined;
+  attractionDescription: string | undefined;
+  attractionName: string | undefined;
+  fixedImage: string | undefined;
+  isSaved: boolean;
+  isVoted: boolean;
+  likes: number | undefined;
+  saves: number | undefined;
+};

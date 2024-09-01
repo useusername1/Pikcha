@@ -1,9 +1,10 @@
 import { atom } from "recoil";
 import {
   AlertInfo,
-  ChatPanelStatusType,
   chatDatatype,
-} from "../components/Chat/Chat";
+  ChatPanelStatusType,
+} from "../@types/chat.types";
+
 export const chatDataState = atom<chatDatatype[]>({
   key: "chatDataState",
   default: [],
