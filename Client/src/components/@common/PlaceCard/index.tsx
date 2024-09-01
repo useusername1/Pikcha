@@ -4,12 +4,12 @@ import { AiFillHeart as LikeIcon } from "react-icons/ai";
 import { BsFillBookmarkFill as BookmarkIcon } from "react-icons/bs";
 import { MdModeComment } from "react-icons/md";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { UserDataAtomFamily } from "../../../recoil/auth";
-import Axios from "../../../api/axiosInstance";
-import { getCurrentCount } from "../../../utils/utils";
+import { UserDataAtomFamily } from "~/recoil/auth";
+import { apiClient } from "~/api/axiosInstance";
+import { getCurrentCount } from "~/utils/utils";
 import * as plc from "./styled";
-import { PlaceType } from "../../../utils/d";
-import { isModalVisible } from "../../../recoil/setOverlay";
+import { PlaceType } from "~/utils/d";
+import { isModalVisible } from "~/recoil/setOverlay";
 
 const PlaceCard = ({
   placeInfo,
@@ -37,7 +37,7 @@ const PlaceCard = ({
       setIsModal(true);
       return;
     }
-    Axios.post(URL_FOR_SAVES).then((res) => {
+    apiClient.post(URL_FOR_SAVES).then((res) => {
       setCurrentBookmark(res.data.data.isSaved);
     });
   };
@@ -46,7 +46,7 @@ const PlaceCard = ({
       setIsModal(true);
       return;
     }
-    Axios.post(URL_FOR_LIKES).then((res) => {
+    apiClient.post(URL_FOR_LIKES).then((res) => {
       setCurrentLike(res.data.data.isVoted);
     });
   };

@@ -1,5 +1,5 @@
 import { useCallback } from "react";
-import Axios from "axios";
+import axios from "axios";
 import { UserDataAtomFamily } from "../recoil/auth";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import useLogout from "./useLogout";
@@ -15,7 +15,7 @@ const useRenewAccessToken = () => {
 
   const renewAccessToken = useCallback(async () => {
     try {
-      const response = await Axios.get(
+      const response = await axios.get(
         `${process.env.REACT_APP_HOST}/token/refresh/${memberId}`
       );
       const accessToken = response.data.data.accessToken;

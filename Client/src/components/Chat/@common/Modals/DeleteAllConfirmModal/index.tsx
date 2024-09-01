@@ -3,8 +3,8 @@ import {
   deleteItemsState,
   isDeleteModeState,
   showConfirmModalState,
-} from "../../../../../recoil/chatState";
-import { sendbarStyle } from "../../../ChatInputBar";
+} from "~/recoil/chatState";
+import { sendbarStyle } from "~/components/Chat/ChatInputBar";
 import { ConfirmBarDiv, CancelAllButton, DeleteAllButton } from "./styled";
 
 const DeleteAllConfirmModal = () => {

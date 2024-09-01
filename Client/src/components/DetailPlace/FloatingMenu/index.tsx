@@ -1,29 +1,30 @@
+import { apiClient } from "~/api/axiosInstance";
 import {
   MouseEventHandler,
   Dispatch,
   SetStateAction,
   useLayoutEffect,
 } from "react";
-import { FixBoxVertical, IconContainer, MarkerCount, ShareBox } from "./styled";
-import { BsShareFill, BsBookmarkFill } from "react-icons/bs";
-import { MdEditNote as NoteIcon } from "react-icons/md";
-import { AiFillHeart } from "react-icons/ai";
-import { RiKakaoTalkFill as KakaoIcon } from "react-icons/ri";
-import { AiFillFacebook as FacebookIcon } from "react-icons/ai";
-import { AiOutlineTwitter as TwitterIcon } from "react-icons/ai";
-import { BsLink45Deg as ShareAddressIcon } from "react-icons/bs";
-import { getCurrentCount } from "../../../utils/utils";
 import { useParams } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { UserDataAtomFamily } from "../../../recoil/auth";
+import useClickDetect from "~/hooks/useClickDetect";
+import { UserDataAtomFamily } from "~/recoil/auth";
 import {
   BookmarkSavesState,
   LikesState,
   AttractionDataState,
-} from "../../../recoil/placeDetailState";
-import axios from "../../../api/axiosInstance";
-import useClickDetect from "../../../hooks/useClickDetect";
-
+} from "~/recoil/placeDetailState";
+import { getCurrentCount } from "~/utils/utils";
+import { FixBoxVertical, IconContainer, ShareBox, MarkerCount } from "./styled";
+import { MdEditNote as NoteIcon } from "react-icons/md";
+import { RiKakaoTalkFill as KakaoIcon } from "react-icons/ri";
+import { AiFillFacebook as FacebookIcon, AiFillHeart } from "react-icons/ai";
+import { AiOutlineTwitter as TwitterIcon } from "react-icons/ai";
+import {
+  BsLink45Deg as ShareAddressIcon,
+  BsShareFill,
+  BsBookmarkFill,
+} from "react-icons/bs";
 interface ShareProps {
   inverted: boolean;
   handlePostButtonClick: MouseEventHandler<HTMLElement>;
@@ -68,7 +69,7 @@ const FloatingMenu = ({
       onModalVisible(true);
       return;
     }
-    axios.post(URL_FOR_SAVES).then((res) => {
+    apiClient.post(URL_FOR_SAVES).then((res) => {
       setBookmarkSaves(res.data.data.isSaved);
     });
   };
@@ -78,7 +79,7 @@ const FloatingMenu = ({
       onModalVisible(true);
       return;
     }
-    axios.post(URL_FOR_LIKES).then((res) => {
+    apiClient.post(URL_FOR_LIKES).then((res) => {
       setLikes(res.data.data.isVoted);
     });
   };

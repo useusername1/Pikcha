@@ -1,4 +1,4 @@
-import { LoginSide, SignUpSide, Overlay } from "../../components/LoginSignUp";
+import { LoginSide, SignUpSide, Overlay } from "~/components/LoginSignUp";
 import * as l from "./styled";
 
 function LoginSignUp() {

@@ -1,29 +1,28 @@
-import { useEffect, useState } from "react";
-import { useRecoilState, useSetRecoilState } from "recoil";
-import ReplyChatBubble from "../../@common/ReplyChatBubble";
-import { DeleteCheckIconWrapper } from "./styled";
+import { useState, useEffect } from "react";
+import { useSetRecoilState, useRecoilState } from "recoil";
+import { chatDatatype } from "~/@types/chat.types";
 import {
+  showConfirmModalState,
+  deleteItemsState,
+  isReplyMessageState,
+  isDeleteModeState,
+} from "~/recoil/chatState";
+import ReplyChatBubble from "../../@common/ReplyChatBubble";
+import { DividerLine } from "../../styled";
+import {
+  ChatMessageDiv,
+  ChatContentWrapper,
   ChatContentBottomWrapper,
+  ChatContentMyDiv,
   ChatContentMenu,
   ChatContentMenuItem,
-  ChatContentMyDiv,
-  ChatContentWrapper,
-  ChatMessageDiv,
   ReactionTagSpan,
 } from "../styled";
-import { DividerLine } from "../../styled";
+import { DeleteCheckIconWrapper } from "./styled";
 import { FaTrashAlt as TrashIcon, FaHeart as HeartIcon } from "react-icons/fa";
 import { HiOutlineCheckCircle as DeleteCheckIcon } from "react-icons/hi";
 import { MdSubdirectoryArrowRight as ReplyIcon } from "react-icons/md";
 import { IoMdSettings as SettingIcon } from "react-icons/io";
-import {
-  deleteItemsState,
-  isDeleteModeState,
-  isReplyMessageState,
-  showConfirmModalState,
-} from "../../../../recoil/chatState";
-import { chatDatatype } from "../../../../@types/chat.types";
-
 interface MyChatBoxProps {
   chatData: chatDatatype;
   timeStampFlagForTime: boolean;

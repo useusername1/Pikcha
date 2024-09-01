@@ -1,4 +1,4 @@
-import UnavailableNotice from "../../components/@common/UnavailableNotice";
+import UnavailableNotice from "~/components/@common/UnavailableNotice";
 import { Link } from "react-router-dom";
 import { EmptyNotificationContainer, EmptyNotificationWrapper } from "./styled";
 

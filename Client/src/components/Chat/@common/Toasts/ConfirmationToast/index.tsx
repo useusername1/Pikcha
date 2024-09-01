@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useRecoilState } from "recoil";
-import { AlertQueueState } from "../../../../../recoil/chatState";
+import { AlertQueueState } from "~/recoil/chatState";
 import { ConfirmationToastWrapper } from "./styled";
 import ToastItem from "./ConfirmationToastItem";
 

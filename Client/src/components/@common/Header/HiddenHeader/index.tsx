@@ -1,7 +1,7 @@
 import { Header } from "../DefaultHeader";
 import { IoIosArrowDown as ArrowDownIcon } from "react-icons/io";
 import { HiddenHeaderBodyWrapper, HiddenHeaderTopWrapper } from "./styled";
-import useClickDetect from "../../../../hooks/useClickDetect";
+import useClickDetect from "~/hooks/useClickDetect";
 interface HiddeHeaderProps {
   selectedMenu?: number;
 }

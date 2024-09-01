@@ -1,16 +1,16 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useMemo, useState, useRef, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import LocationFilter from "../../components/@common/LocationFilter";
-import { DefaultHeader } from "../../components/@common/Header";
-import axios from "../../api/axiosInstance";
-import PlaceCard from "../../components/@common/PlaceCard";
-import Pagination from "../../components/@common/Pagination";
-import Footer from "../../components/@common/Footer";
 import { useRecoilValue } from "recoil";
-import { UserDataAtomFamily } from "../../recoil/auth";
-import EmptyResult from "../../components/@common/EmptyResult";
+import EmptyResult from "~/components/@common/EmptyResult";
+import Footer from "~/components/@common/Footer";
+import { DefaultHeader } from "~/components/@common/Header";
+import LocationFilter from "~/components/@common/LocationFilter";
+import Pagination from "~/components/@common/Pagination";
+import PlaceCard from "~/components/@common/PlaceCard";
+import { UserDataAtomFamily } from "~/recoil/auth";
+import { ArrayPlaceType, PageInfoType, PageSessionType } from "~/utils/d";
 import * as pl from "./styled";
-import { ArrayPlaceType, PageInfoType, PageSessionType } from "../../utils/d";
+import { apiClient } from "~/api/axiosInstance";
 
 const sortList: { kor: string; eng: string }[] = [
   {
@@ -91,7 +91,7 @@ const Place = () => {
     } else {
       url = isLogin ? url2_loggedIn : url2;
     }
-    axios
+    apiClient
       .post(url, { provinces: checkedList })
       .then((res) => {
         setPlacesData(res.data.data);

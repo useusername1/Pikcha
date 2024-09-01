@@ -1,13 +1,13 @@
-import { useEffect, useState, useRef } from "react";
-import { DefaultHeader } from "../../components/@common/Header";
-import Pagination from "../../components/@common/Pagination";
-import Footer from "../../components/@common/Footer";
-import PostCardComponent from "../../components/@common/PostCard";
-import LocationFilter from "../../components/@common/LocationFilter";
-import EmptyResult from "../../components/@common/EmptyResult";
-import axios from "../../api/axiosInstance";
+import { useState, useRef, useEffect } from "react";
+import EmptyResult from "~/components/@common/EmptyResult";
+import Footer from "~/components/@common/Footer";
+import { DefaultHeader } from "~/components/@common/Header";
+import LocationFilter from "~/components/@common/LocationFilter";
+import Pagination from "~/components/@common/Pagination";
+import PostCard from "~/components/@common/PostCard";
+import { ArrayPostType, PageInfoType } from "~/utils/d";
 import * as po from "./styled";
-import { ArrayPostType, PageInfoType } from "../../utils/d";
+import { apiClient } from "~/api/axiosInstance";
 
 const ITEM_LIMIT = 9;
 
@@ -35,7 +35,7 @@ const Post = () => {
   ];
 
   useEffect(() => {
-    axios
+    apiClient
       .post(`/posts/filter?page=${curPage}&size=${ITEM_LIMIT}&sort=${sort}`, {
         provinces: checkedList,
       })
@@ -48,7 +48,7 @@ const Post = () => {
 
   const handleSortPlace = (sort: string) => {
     setSort(sort);
-    axios
+    apiClient
       .post(`/posts/filter?page=${curPage}&size=${ITEM_LIMIT}&sort=${sort}`, {
         provinces: checkedList,
       })
@@ -102,7 +102,7 @@ const Post = () => {
 
           <po.PostCardContainer>
             {postsData && (
-              <PostCardComponent posts={postsData} margin="0" width="32.2%" />
+              <PostCard posts={postsData} margin="0" width="32.2%" />
             )}
           </po.PostCardContainer>
 

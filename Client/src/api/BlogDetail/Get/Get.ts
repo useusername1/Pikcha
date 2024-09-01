@@ -1,5 +1,5 @@
-import axios from "../../axiosInstance";
-import { ArrayCommentType } from "../../../utils/d";
+import { apiClient } from "~/api/axiosInstance";
+import { ArrayCommentType } from "~/utils/d";
 
 export const getPost = async (
   postId: string | undefined,
@@ -10,7 +10,7 @@ export const getPost = async (
     const url = isLogin
       ? `/posts/details/${postId}/${memberId}`
       : `/posts/details/${postId}`;
-    const response = await axios.get(url);
+    const response = await apiClient.get(url);
     return response.data.data;
   } catch (error) {
     console.error(error);
@@ -38,7 +38,7 @@ export const getPost = async (
 
 export const getPostCommentList = async (id: string | undefined) => {
   let result: ArrayCommentType = [];
-  await axios
+  await apiClient
     .get(`/comments/listof/${id}`)
     .then((res) => {
       result = res.data.data;

@@ -1,21 +1,21 @@
-import { useEffect, useRef, useState } from "react";
+import { useState, useRef, useEffect } from "react";
+import { AiOutlineShareAlt, AiFillEye, AiFillHeart } from "react-icons/ai";
+import { useParams, useNavigate } from "react-router-dom";
+import { useSetRecoilState, useRecoilValue } from "recoil";
+import { deletePostHandler } from "~/api/BlogDetail/Delete/Delete";
+import { getPost, getPostCommentList } from "~/api/BlogDetail/Get/Get";
+import { handleLikePost } from "~/api/BlogDetail/Post/Post";
+import Footer from "~/components/@common/Footer";
+import { DefaultHeader } from "~/components/@common/Header";
+import { AddComment, Comment } from "~/components/DetailPost";
+import { UserDataAtomFamily } from "~/recoil/auth";
+import { isModalVisible } from "~/recoil/setOverlay";
+import { PostDetailType, ArrayCommentType } from "~/utils/d";
+import { getCurrentCount } from "~/utils/utils";
+import * as dp from "./styled";
+import { FaRegCommentDots } from "react-icons/fa";
 import { MdModeEdit, MdDelete, MdPlace } from "react-icons/md";
 import { RxDoubleArrowLeft } from "react-icons/rx";
-import { AiFillHeart, AiFillEye, AiOutlineShareAlt } from "react-icons/ai";
-import { FaRegCommentDots } from "react-icons/fa";
-import { useNavigate, useParams } from "react-router-dom";
-import { useRecoilValue, useSetRecoilState } from "recoil";
-import { UserDataAtomFamily } from "../../recoil/auth";
-import { DefaultHeader } from "../../components/@common/Header";
-import Footer from "../../components/@common/Footer";
-import * as dp from "./styled";
-import { ArrayCommentType, PostDetailType } from "../../utils/d";
-import { AddComment, Comment } from "../../components/DetailPost";
-import { deletePostHandler } from "../../api/BlogDetail/Delete/Delete";
-import { getPost, getPostCommentList } from "../../api/BlogDetail/Get/Get";
-import { handleLikePost } from "../../api/BlogDetail/Post/Post";
-import { isModalVisible } from "../../recoil/setOverlay";
-import { getCurrentCount } from "../../utils/utils";
 
 const DetailPost = () => {
   const [post, setPost] = useState<PostDetailType>();

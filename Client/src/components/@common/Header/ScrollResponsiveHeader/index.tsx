@@ -1,8 +1,8 @@
 import { useEffect, useRef } from "react";
 import { useRecoilState } from "recoil";
-import HeaderVisibilityState from "../../../../recoil/headerState";
+import HeaderVisibilityState from "~/recoil/headerState";
 import { Header } from "../DefaultHeader";
-import { throttle } from "../../../../utils/utils";
+import { throttle } from "~/utils/utils";
 
 interface FixedHeaderOnScrollUpProps {
   defaultValue?: string;

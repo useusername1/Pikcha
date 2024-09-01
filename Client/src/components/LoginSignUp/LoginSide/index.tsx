@@ -1,16 +1,16 @@
-import React, { useState } from "react";
-import Button from "../../@common/Button";
-import axios from "../../../api/axiosInstance";
+import { useState } from "react";
+import { flushSync } from "react-dom";
 import { useRecoilState, useSetRecoilState } from "recoil";
-import { UserDataAtomFamily } from "../../../recoil/auth";
-import { setOverlay } from "../../../recoil/setOverlay";
+import Button from "~/components/@common/Button";
+import useAuthPostMessage from "~/hooks/useAuthPostMessage";
+import useNavigateToStoredLocation from "~/hooks/useNavigateToStoredLocation";
+import { UserDataAtomFamily } from "~/recoil/auth";
+import { setOverlay } from "~/recoil/setOverlay";
 import * as l from "./styled";
 import * as shared from "../styled";
 import { FcGoogle as GoogleIcon } from "react-icons/fc";
 import { RiKakaoTalkFill as KakaoIcon } from "react-icons/ri";
-import useAuthPostMessage from "../../../hooks/useAuthPostMessage";
-import { flushSync } from "react-dom";
-import useNavigateToStoredLocation from "../../../hooks/useNavigateToStoredLocation";
+import { apiClient } from "~/api/axiosInstance";
 
 const LoginSide = () => {
   const [overlays, setOverlays] = useRecoilState<boolean>(setOverlay);
@@ -49,7 +49,7 @@ const LoginSide = () => {
       return;
     }
 
-    return axios
+    return apiClient
       .post(`/login`, {
         username: loginemail,
         password: loginpassword,

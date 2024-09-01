@@ -10,7 +10,7 @@ import ReplyChatBubble from "../@common/ReplyChatBubble";
 import { TfiClose as CloseIcon } from "react-icons/tfi";
 import { BsArrowCounterclockwise as RetryIcon } from "react-icons/bs";
 import { RxDividerVertical as DividerIcon } from "react-icons/rx";
-import { chatDatatype } from "../../../@types/chat.types";
+import { chatDatatype } from "~/@types/chat.types";
 
 interface SendChatBoxProps {
   chatBuffer: chatDatatype[];

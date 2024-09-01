@@ -1,29 +1,29 @@
-import { useCallback, useEffect, useRef } from "react";
+import { useRef, useEffect, useCallback } from "react";
 import { flushSync } from "react-dom";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import useWebsocket from "../../../hooks/useWebsocket";
-import { ChatBoxDiv, ChatBoxWrapper } from "./styled";
-import axios from "../../../api/axiosInstance";
-import Sendbar from "../ChatInputBar";
-import SendChatBox from "../MySentChatBox";
-import ChatFeed from "../ChatFeed";
+import { ChatPanelStatusType } from "~/@types/chat.types";
+import useWebsocket from "~/hooks/useWebsocket";
+import { UserDataAtomFamily } from "~/recoil/auth";
 import {
-  DeleteAllConfirmModal,
-  ConfirmDeleteModal,
-  ReportModal,
-} from "../@common/Modals";
-import { ConfirmationToast } from "../@common/Toasts";
-import ChatHeader from "../ChatHeader";
-import SearchBox from "../ChatSearchBox";
-import {
-  ShowSearchBox,
-  chatDataState,
   isDeleteModeState,
   showConfirmModalState,
   showReportModalState,
-} from "../../../recoil/chatState";
-import { UserDataAtomFamily } from "../../../recoil/auth";
-import { ChatPanelStatusType } from "../../../@types/chat.types";
+  chatDataState,
+  ShowSearchBox,
+} from "~/recoil/chatState";
+import {
+  ConfirmDeleteModal,
+  ReportModal,
+  DeleteAllConfirmModal,
+} from "../@common/Modals";
+import { ConfirmationToast } from "../@common/Toasts";
+import ChatFeed from "../ChatFeed";
+import ChatHeader from "../ChatHeader";
+import MySentChatBox from "../MySentChatBox";
+import ChatInputBar from "../ChatInputBar";
+import ChatSearchBox from "../ChatSearchBox";
+import { ChatBoxDiv, ChatBoxWrapper } from "./styled";
+import { apiClient } from "~/api/axiosInstance";
 
 const URL = `${process.env.REACT_APP_HOST}/stomp-websocket-sockjs`;
 const TOPIC = "/topic/messages"; //topic주소
@@ -63,7 +63,7 @@ const ChatPanel = ({ chatStatus }: ChatPanelProps) => {
   //enter가 join보다 먼저 응답=> enter응답 받은 후 activate
   useEffect(() => {
     if (!isLogin) return;
-    axios
+    apiClient
       .get(`/app/enter`)
       .then((res) => {
         scrollFlagRef.current = false;
@@ -101,7 +101,7 @@ const ChatPanel = ({ chatStatus }: ChatPanelProps) => {
           return;
         }
         if (entries[0].isIntersecting) {
-          axios
+          apiClient
             .get(`/app/load/${lastChatIdRef.current}`)
             .then((res) => {
               const scrollTemp =
@@ -131,7 +131,7 @@ const ChatPanel = ({ chatStatus }: ChatPanelProps) => {
       {showReportModal && <ReportModal setChatData={setChatData} />}
       <ConfirmationToast />
       {showSearchBox && (
-        <SearchBox
+        <ChatSearchBox
           lastChatIdRef={lastChatIdRef}
           chatDataMapRef={chatDataMapRef}
         />
@@ -145,7 +145,7 @@ const ChatPanel = ({ chatStatus }: ChatPanelProps) => {
           chatDataMapRef={chatDataMapRef}
         />
         {!!chatBuffer.length && (
-          <SendChatBox
+          <MySentChatBox
             chatBuffer={chatBuffer}
             setChatBuffer={setChatBuffer}
             sendChatBoxRef={sendChatBoxRef}
@@ -157,7 +157,7 @@ const ChatPanel = ({ chatStatus }: ChatPanelProps) => {
       {isDeleteMode ? (
         <DeleteAllConfirmModal />
       ) : (
-        <Sendbar
+        <ChatInputBar
           sendMessage={sendMessage}
           replyMessage={replyMessage}
           scrollIntoBottom={scrollIntoBottom}

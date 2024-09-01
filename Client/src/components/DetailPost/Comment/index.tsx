@@ -1,16 +1,16 @@
 import { useState } from "react";
+import { IoMdArrowDropup, IoMdArrowDropdown } from "react-icons/io";
 import { useParams } from "react-router-dom";
 import { useRecoilState } from "recoil";
-import { deletePostComment } from "../../../api/BlogDetail/Delete/Delete";
-import { modifiedComment } from "../../../api/BlogDetail/Patch/Patch";
-import { UserDataAtomFamily } from "../../../recoil/auth";
+import Recomment from "../Recomment";
+import { deletePostComment } from "~/api/BlogDetail/Delete/Delete";
+import { modifiedComment } from "~/api/BlogDetail/Patch/Patch";
+import { handleCommentSubmit } from "~/api/BlogDetail/Post/Post";
+import { UserDataAtomFamily } from "~/recoil/auth";
+import { isModalVisible } from "~/recoil/setOverlay";
+import { CommentType, ReCommentType } from "~/utils/d";
 import * as poc from "./styled";
 import * as shared from "../styled";
-import ReComment from "../Recomment";
-import { IoMdArrowDropdown, IoMdArrowDropup } from "react-icons/io";
-import { handleCommentSubmit } from "../../../api/BlogDetail/Post/Post";
-import { CommentType, ReCommentType } from "../../../utils/d";
-import { isModalVisible } from "../../../recoil/setOverlay";
 
 const Comment = ({
   comments,
@@ -170,7 +170,7 @@ const Comment = ({
               ) : null}
               {isMoreRecomment && commentIdx === comments.commentId
                 ? comments.children.map((recomments: ReCommentType) => (
-                    <ReComment
+                    <Recomment
                       key={recomments.commentId}
                       recomments={recomments}
                       postWriter={postWriter}

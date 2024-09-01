@@ -3,8 +3,8 @@ import { useRecoilValue } from "recoil";
 import {
   NewMessageArrivedState,
   ShowNewMesssageBoxState,
-} from "../../../../../recoil/chatState";
-import { scrollFlagRef } from "../../../ChatPanel";
+} from "~/recoil/chatState";
+import { scrollFlagRef } from "~/components/Chat/ChatPanel";
 import { NewMessageBoxWrapper } from "./styled";
 interface NewMessageBoxProps {
   chatDataMapRef: React.MutableRefObject<Map<

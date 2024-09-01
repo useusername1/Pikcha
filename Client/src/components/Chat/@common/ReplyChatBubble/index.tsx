@@ -1,9 +1,9 @@
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { ReplyMessageBoxDiv } from "./styled";
-import { ScrollTargetChatIdState } from "../../../../recoil/chatState";
-import { scrollFlagRef } from "../../ChatPanel";
-import { UserDataAtomFamily } from "../../../../recoil/auth";
-import { chatDatatype } from "../../../../@types/chat.types";
+import { ScrollTargetChatIdState } from "~/recoil/chatState";
+import { scrollFlagRef } from "~/components/Chat/ChatPanel";
+import { UserDataAtomFamily } from "~/recoil/auth";
+import { chatDatatype } from "~/@types/chat.types";
 
 interface ReplyMessageBoxProps {
   chatData: chatDatatype;

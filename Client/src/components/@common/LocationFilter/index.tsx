@@ -5,7 +5,7 @@ import {
 } from "react-icons/md";
 import { RiCloseLine } from "react-icons/ri";
 import { SelectBox, SelectContainer, SelectPost } from "./styled";
-import Districts from "../../../data/districtsData";
+import Districts from "~/data/districtsData";
 
 export default function LocationFilter({
   checkedList,

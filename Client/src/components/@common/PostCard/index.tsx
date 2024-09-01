@@ -1,6 +1,6 @@
 import { AiFillHeart, AiFillEye as EyeIcon } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
-import { ArrayPostType } from "../../../utils/d";
+import { ArrayPostType } from "~/utils/d";
 import * as poc from "./styled";
 
 const PostCardComponent = ({

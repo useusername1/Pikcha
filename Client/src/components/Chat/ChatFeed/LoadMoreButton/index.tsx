@@ -1,11 +1,10 @@
-import axios from "../../../../api/axiosInstance";
+import { apiClient } from "~/api/axiosInstance";
+import { useRecoilState } from "recoil";
+import { chatDatatype } from "~/@types/chat.types";
+import { emptyMessage } from "~/data/chatData";
+import { chatDataState } from "~/recoil/chatState";
 import { LoadMoreButtonWrapper, StyledLoadMoreButton } from "./styled";
 import { BiPlus as PlusIcon } from "react-icons/bi";
-import { useRecoilState } from "recoil";
-import { chatDataState } from "../../../../recoil/chatState";
-import { emptyMessage } from "../../ChatSearchBox/SearchedMessageItem";
-import { chatDatatype } from "../../../../@types/chat.types";
-
 //이전 chatid, 이후 chatid받기 뒤에 loadmore 추가
 interface LoadMoreButtonProps {
   chatIdRange: number[];
@@ -15,7 +14,7 @@ const LoadMoreButton = ({ chatIdRange }: LoadMoreButtonProps) => {
   const [chatData, setChatData] = useRecoilState(chatDataState);
   const [prevChatId, nextChatId] = chatIdRange.map((el) => chatData[el].chatId);
   const handleButtonClick = () => {
-    axios
+    apiClient
       .get(`/app/load?gte=${prevChatId}&lte=${nextChatId}`)
       .then((res) => {
         const loadMoreMessage: chatDatatype = {

@@ -1,4 +1,4 @@
-import { PageInfoType } from "../../../utils/d";
+import { PageInfoType } from "~/utils/d";
 
 const getPageButtonRange = (pageInfo: PageInfoType) => {
   let range: number[] = [];

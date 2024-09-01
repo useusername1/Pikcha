@@ -1,13 +1,13 @@
 import { ReactElement, useEffect, useState } from "react";
 import { useSetRecoilState } from "recoil";
-import { AlertQueueState } from "../../../../../recoil/chatState";
+import { AlertQueueState } from "~/recoil/chatState";
 import { ConfirmationToastItemContainer } from "./styled";
 import { BsCheckCircleFill as CompleteIcon } from "react-icons/bs";
 import {
   MdError as ErrorIcon,
   MdOutlineWifiOff as NetworkErrorIcon,
 } from "react-icons/md";
-import { AlertInfo, AlertMessageType } from "../../../../../@types/chat.types";
+import { AlertInfo, AlertMessageType } from "~/@types/chat.types";
 
 interface ChatToastItemProps {
   alertData: AlertInfo;

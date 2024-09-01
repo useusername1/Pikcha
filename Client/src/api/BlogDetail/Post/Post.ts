@@ -1,5 +1,5 @@
 import React, { Dispatch, SetStateAction } from "react";
-import axios from "../../axiosInstance";
+import { apiClient } from "~/api/axiosInstance";
 
 export const handleCommentSubmit = async (
   id: string | undefined,
@@ -8,7 +8,7 @@ export const handleCommentSubmit = async (
   parentId?: number | null
 ) => {
   e.preventDefault();
-  axios
+  apiClient
     .post(`/comments/upload/${id}`, {
       commentContent: addComment,
       parentId: parentId,
@@ -21,7 +21,7 @@ export const handleLikePost = (
   postId: string | undefined,
   setIsVoted: Dispatch<SetStateAction<boolean>>
 ) => {
-  axios
+  apiClient
     .post(`/posts/likes/${postId}`)
     .then((res) => setIsVoted(res.data.data.isVoted));
 };

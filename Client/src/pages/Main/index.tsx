@@ -1,16 +1,16 @@
 import { useState, useEffect } from "react";
-import Axios from "axios";
-import axios from "../../api/axiosInstance";
-import { ScrollResponsiveHeader } from "../../components/@common/Header";
-import PostCardComponent from "../../components/@common/PostCard";
-import PlaceCard from "../../components/@common/PlaceCard";
-import { Carousel, Ranking } from "../../components/Main";
-import { Link } from "react-router-dom";
-import { HiOutlineChevronDoubleRight as DoubleArrowIcon } from "react-icons/hi";
-import Footer from "../../components/@common/Footer";
 import { useRecoilValue } from "recoil";
-import { UserDataAtomFamily } from "../../recoil/auth";
-import { ArrayPlaceType, ArrayPostType } from "../../utils/d";
+import { Link } from "react-router-dom";
+import axios from "axios";
+import { apiClient } from "~/api/axiosInstance";
+import { ScrollResponsiveHeader } from "~/components/@common/Header";
+import PostCardComponent from "~/components/@common/PostCard";
+import PlaceCard from "~/components/@common/PlaceCard";
+import { Carousel, Ranking } from "~/components/Main";
+import Footer from "~/components/@common/Footer";
+import { UserDataAtomFamily } from "~/recoil/auth";
+import { ArrayPlaceType, ArrayPostType } from "~/utils/d";
+import { HiOutlineChevronDoubleRight as DoubleArrowIcon } from "react-icons/hi";
 
 import {
   Body,
@@ -35,15 +35,17 @@ function Main() {
   useEffect(() => {
     const attraction_url = isLogin ? url1_LoggedIn : url1;
     const post_url = isLogin ? url2_LoggedIn : url2;
-    Axios.all([
-      axios.post(attraction_url, { provinces: [] }),
-      axios.get(post_url),
-    ]).then(
-      Axios.spread((res1, res2) => {
-        setAttractionData(res1.data.data);
-        setPostData(res2.data.data);
-      })
-    );
+    axios
+      .all([
+        apiClient.post(attraction_url, { provinces: [] }),
+        apiClient.get(post_url),
+      ])
+      .then(
+        axios.spread((res1, res2) => {
+          setAttractionData(res1.data.data);
+          setPostData(res2.data.data);
+        })
+      );
   }, [isLogin]);
 
   return (

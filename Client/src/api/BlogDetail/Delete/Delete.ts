@@ -1,8 +1,8 @@
-import axios from "../../axiosInstance";
+import { apiClient } from "~/api/axiosInstance";
 
 export const deletePostHandler = (id: string | undefined) => {
   if (window.confirm("정말 삭제하시겠습니까?")) {
-    axios
+    apiClient
       .delete(`/posts/delete/${id}`)
       .then((res) => {
         if (res.status === 204) {
@@ -15,7 +15,7 @@ export const deletePostHandler = (id: string | undefined) => {
 
 export const deletePostComment = (commentId: number | undefined) => {
   if (window.confirm("정말 삭제하시겠습니까?")) {
-    axios
+    apiClient
       .delete(`/comments/delete/${commentId}`)
       .then((res) => {
         if (res.status === 204) {

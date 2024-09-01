@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { ChatPanelStatusType } from "../../../@types/chat.types";
+import { ChatPanelStatusType } from "~/@types/chat.types";
 
 const ChatExpandableButton = styled.button<{
   connected: boolean;

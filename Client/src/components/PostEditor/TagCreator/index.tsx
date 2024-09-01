@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import CreateTag from "../TagList";
 import * as wp from "./styled";
-import { PostTags } from "../../../recoil/writePostState";
+import { PostTags } from "~/recoil/writePostState";
 import { useRecoilState } from "recoil";
 
 function TagCreator() {

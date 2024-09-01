@@ -1,13 +1,13 @@
-import React, { useState } from "react";
-import Button from "../../@common/Button";
-import axios from "../../../api/axiosInstance";
-import DaumPostcode from "react-daum-postcode";
-import { useRecoilState } from "recoil";
-import { setOverlay } from "../../../recoil/setOverlay";
+import { useState } from "react";
 import { AiOutlineCloseCircle } from "react-icons/ai";
+import { useNavigate } from "react-router-dom";
+import { useRecoilState } from "recoil";
+import Button from "~/components/@common/Button";
+import { setOverlay } from "~/recoil/setOverlay";
+import DaumPostcode from "react-daum-postcode";
 import * as s from "./styled";
 import * as shared from "../styled";
-import { useNavigate } from "react-router-dom";
+import { apiClient } from "~/api/axiosInstance";
 
 const SignUpSide = () => {
   const [overlays, setOverlays] = useRecoilState<boolean>(setOverlay);
@@ -73,7 +73,7 @@ const SignUpSide = () => {
       return;
     }
     if (!signemailErr && !signpasswordErr && !phonenumberErr) {
-      return axios
+      return apiClient
         .post("/signup", {
           email: signemail,
           password: signpassword,

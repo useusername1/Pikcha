@@ -1,23 +1,22 @@
+import { apiClient } from "~/api/axiosInstance";
 import { useState, useRef, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
-import { useNavigate, useParams } from "react-router-dom";
-import axios from "../../api/axiosInstance";
-import { ScrollResponsiveHeader } from "../../components/@common/Header";
-import Pagination from "../../components/@common/Pagination";
-import Footer from "../../components/@common/Footer";
-import KakaoMap from "../../components/@common/KakaoMap";
-import PostCardComponent from "../../components/@common/PostCard";
-import { FloatingMenu } from "../../components/DetailPlace";
-import EmptyResult from "../../components/@common/EmptyResult";
-import { UserDataAtomFamily } from "../../recoil/auth";
+import EmptyResult from "~/components/@common/EmptyResult";
+import Footer from "~/components/@common/Footer";
+import { ScrollResponsiveHeader } from "~/components/@common/Header";
+import KakaoMap from "~/components/@common/KakaoMap";
+import Pagination from "~/components/@common/Pagination";
+import PostCardComponent from "~/components/@common/PostCard";
+import { FloatingMenu } from "~/components/DetailPlace";
+import { UserDataAtomFamily } from "~/recoil/auth";
 import {
+  AttractionDataState,
   BookmarkSavesState,
   LikesState,
-  AttractionDataState,
-} from "../../recoil/placeDetailState";
-import { isModalVisible } from "../../recoil/setOverlay";
-import { ArrayPostType, PageInfoType } from "../../utils/d";
-import { FaMapMarkerAlt as MarkIcon } from "react-icons/fa";
+} from "~/recoil/placeDetailState";
+import { isModalVisible } from "~/recoil/setOverlay";
+import { ArrayPostType, PageInfoType } from "~/utils/d";
 import {
   ImageBox,
   NavBar,
@@ -28,6 +27,7 @@ import {
   PostHeader,
   PostCardListWrapper,
 } from "./styled";
+import { FaMapMarkerAlt as MarkIcon } from "react-icons/fa";
 
 const DetailPlace = (): JSX.Element => {
   let [view, setView] = useState<string>("info");
@@ -54,7 +54,7 @@ const DetailPlace = (): JSX.Element => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get(ATTRACTIONS_URL).then((res) => {
+    apiClient.get(ATTRACTIONS_URL).then((res) => {
       setAttractionData(res.data.data);
       setLikes(res.data.data.isVoted);
       setBookmarkSaves(res.data.data.isSaved);
@@ -67,7 +67,7 @@ const DetailPlace = (): JSX.Element => {
   }, [ATTRACTIONS_URL]);
 
   useEffect(() => {
-    axios.get(POSTS_URL).then((res) => {
+    apiClient.get(POSTS_URL).then((res) => {
       setPostData(res.data.data);
       totalInfoRef.current = res.data.pageInfo;
     });

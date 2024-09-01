@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, useLayoutEffect, Fragment } from "react";
 import CarouselContent from "./CarouselContent";
-import carouselData from "../../../data/carouselData";
+import carouselData from "~/data/carouselData";
 import {
   CarouselWrapper,
   CarouselContentListContainer,

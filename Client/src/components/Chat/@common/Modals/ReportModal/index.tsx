@@ -1,11 +1,11 @@
-import axios from "../../../../../api/axiosInstance";
+import { apiClient } from "~/api/axiosInstance";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import {
   AlertQueueState,
   reportChatDataState,
   showReportModalState,
-} from "../../../../../recoil/chatState";
-import { DividerLine } from "../../../styled";
+} from "~/recoil/chatState";
+import { DividerLine } from "~/components/Chat/styled";
 import { ModalWrapper } from "../styled";
 import { RiAlarmWarningFill as AlarmIcon } from "react-icons/ri";
 
@@ -15,7 +15,7 @@ import {
   ReportLabel,
   ReportModalContainer,
 } from "./styled";
-import { chatDatatype } from "../../../../../@types/chat.types";
+import { chatDatatype } from "~/@types/chat.types";
 
 interface ReportModalProps {
   setChatData: React.Dispatch<React.SetStateAction<chatDatatype[]>>;
@@ -33,7 +33,7 @@ const ReportModal = ({ setChatData }: ReportModalProps) => {
     e.preventDefault();
     if (!reportChatData) return;
 
-    axios
+    apiClient
       .post(`/app/report/${reportChatData.chatId}`, {})
       .then((res) => {
         setChatData((p) => {

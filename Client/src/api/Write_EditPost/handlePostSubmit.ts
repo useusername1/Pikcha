@@ -1,4 +1,4 @@
-import axios from "../axiosInstance";
+import { apiClient } from "../axiosInstance";
 
 export const handlePostSubmit = async (
   title: string,
@@ -23,7 +23,7 @@ export const handlePostSubmit = async (
     content.forEach((text) => {
       formData.append("postContents", text);
     });
-    await axios
+    await apiClient
       .post(`/posts/register/${postId}`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",

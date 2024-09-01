@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { ReactComponent as NoSearchResultIcon } from "../../../assets/NoSearchResult.svg";
+import { ReactComponent as NoSearchResultIcon } from "~/assets/NoSearchResult.svg";
 
 interface EmptyResultProps {
   message?: string;

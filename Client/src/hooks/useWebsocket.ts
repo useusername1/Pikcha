@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import * as Stomp from "@stomp/stompjs";
 import SockJS from "sockjs-client";
 import { v4 as uuidv4 } from "uuid";
-import axios from "../api/axiosInstance";
+import { apiClient } from "../api/axiosInstance";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import {
   AlertQueueState,
@@ -297,7 +297,7 @@ function useWebsocket(
       memberId,
     };
     console.log(payload, "payload");
-    axios
+    apiClient
       .delete("/app/delete", {
         data: payload,
       })

@@ -1,22 +1,23 @@
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import {
-  ChatControllWrapper,
+  onlineNumberOfUserState,
+  ChatStatus,
+  ShowSearchBox,
+  NewMessageArrivedState,
+} from "~/recoil/chatState";
+import {
   ChatHeaderWrapper,
-  ChatInfoWrapper,
   LogoIconWrapper,
+  ChatInfoWrapper,
+  ChatControllWrapper,
   Tooltip,
 } from "./styled";
 import { HiOutlineSearch as SearchIcon } from "react-icons/hi";
 import { MdOutlineLogout as GoOutIcon } from "react-icons/md";
 import { FaRegWindowMinimize as WindowMinIcon } from "react-icons/fa";
-import { ReactComponent as PikchaIcon } from "../../../assets/LogoLetter.svg";
-import { ReactComponent as Logo } from "../../../assets/Logo.svg";
-import {
-  ChatStatus,
-  NewMessageArrivedState,
-  ShowSearchBox,
-  onlineNumberOfUserState,
-} from "../../../recoil/chatState";
+import { ReactComponent as PikchaIcon } from "~/assets/LogoLetter.svg";
+import { ReactComponent as Logo } from "~/assets/Logo.svg";
+
 const ChatHeader = () => {
   const onlineNumOfUsers = useRecoilValue(onlineNumberOfUserState);
   const setChatStatus = useSetRecoilState(ChatStatus);

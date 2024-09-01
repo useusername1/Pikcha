@@ -1,5 +1,5 @@
-import { ReactComponent as NoAddressIcon } from "../../../assets/NoAddressillustration.svg";
-import { ReactComponent as NotFoundIcon } from "../../../assets/NotFound.svg";
+import { ReactComponent as NoAddressIcon } from "~/assets/NoAddressillustration.svg";
+import { ReactComponent as NotFoundIcon } from "~/assets/NotFound.svg";
 import { EmptyNotificationWrapper } from "./styled";
 
 interface NotificationProps {

@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { ReCommentType } from "../../../utils/d";
-import * as shared from "../styled";
 import { useRecoilState } from "recoil";
-import { UserDataAtomFamily } from "../../../recoil/auth";
-import { deletePostComment } from "../../../api/BlogDetail/Delete/Delete";
-import { modifiedComment } from "../../../api/BlogDetail/Patch/Patch";
+import { deletePostComment } from "~/api/BlogDetail/Delete/Delete";
+import { modifiedComment } from "~/api/BlogDetail/Patch/Patch";
+import { UserDataAtomFamily } from "~/recoil/auth";
+import { ReCommentType } from "~/utils/d";
+import * as shared from "../styled";
 
 const Recomment = ({
   recomments,

@@ -1,20 +1,20 @@
-import { useState, useEffect, useMemo } from "react";
+import { apiClient } from "~/api/axiosInstance";
+import { useState, useMemo, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import KakaoMap from "../../components/@common/KakaoMap";
-import { HiddenHeader } from "../../components/@common/Header";
-import { regionDummy } from "../../data/regionData";
+import { HiddenHeader } from "~/components/@common/Header";
+import KakaoMap from "~/components/@common/KakaoMap";
+import { regionDummy } from "~/data/regionData";
+import tags from "~/data/tagData";
+import { UserDataAtomFamily } from "~/recoil/auth";
+import { isModalVisible } from "~/recoil/setOverlay";
+import encodeURLForBackgroundImage from "~/utils/encodeImgURL";
+import * as m from "./styled";
 import { BsBookmarkPlus, BsFillChatLeftFill } from "react-icons/bs";
 import { RiArrowDropDownLine } from "react-icons/ri";
 import { FaMapMarkerAlt } from "react-icons/fa";
 import { AiOutlineHeart } from "react-icons/ai";
 import { GiTalk } from "react-icons/gi";
-import tags from "../../data/tagData";
-import axios from "../../api/axiosInstance";
-import { UserDataAtomFamily } from "../../recoil/auth";
-import * as m from "./styled";
-import { isModalVisible } from "../../recoil/setOverlay";
-import encodeURLForBackgroundImage from "../../utils/encodeImgURL";
 
 interface RegionType {
   attractionAddress: string;
@@ -60,7 +60,7 @@ const Map = () => {
 
   const handleClickLiked = () => {
     if (isLogin) {
-      axios.post(URL_FOR_LIKES).then((res) => {
+      apiClient.post(URL_FOR_LIKES).then((res) => {
         setIsVoted(res.data.data.isVoted);
         return;
       });
@@ -71,7 +71,7 @@ const Map = () => {
 
   const handleClickSaved = () => {
     if (isLogin) {
-      axios.post(URL_FOR_SAVES).then((res) => {
+      apiClient.post(URL_FOR_SAVES).then((res) => {
         setIsLiked(res.data.data.isSaved);
         return;
       });
@@ -81,13 +81,13 @@ const Map = () => {
   };
 
   useEffect(() => {
-    axios.get(ATTRACTIONS_URL).then((res) => {
+    apiClient.get(ATTRACTIONS_URL).then((res) => {
       setIsVoted(res.data.data.isVoted);
       setIsLiked(res.data.data.isSaved);
     });
 
     if (regionFilter === "전체") {
-      axios
+      apiClient
         .post(url, {
           provinces: [],
         })
@@ -96,7 +96,7 @@ const Map = () => {
           setWholeData(res.data.data);
         });
     } else {
-      axios
+      apiClient
         .post(url, {
           provinces: [regionFilter],
         })
@@ -107,7 +107,7 @@ const Map = () => {
   }, [regionFilter, setDropdownView, modalData, ATTRACTIONS_URL]);
 
   const handleModalData = (dataUrl: string | number) => {
-    axios.get(`/attractions/mapdetails/${dataUrl}`).then((res) => {
+    apiClient.get(`/attractions/mapdetails/${dataUrl}`).then((res) => {
       setModalData(res.data.data);
     });
   };

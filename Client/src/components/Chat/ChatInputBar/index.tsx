@@ -1,35 +1,34 @@
-import { useState, ChangeEvent, KeyboardEvent, FormEvent, useRef } from "react";
+import { useState, useRef, ChangeEvent, FormEvent, KeyboardEvent } from "react";
 import { flushSync } from "react-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
+import { chatDatatype } from "~/@types/chat.types";
+import useClickDetect from "~/hooks/useClickDetect";
+import { UserDataAtomFamily } from "~/recoil/auth";
 import {
-  ShowNewMesssageBoxState,
-  ShowSearchBox,
   isReplyMessageState,
-} from "../../../recoil/chatState";
+  ShowSearchBox,
+  ShowNewMesssageBoxState,
+} from "~/recoil/chatState";
+import { generateRandomEmoji } from "~/utils/utils";
+import { NewMessageToast } from "../@common/Toasts";
+import { scrollFlagRef } from "../ChatPanel";
+import { DividerLine } from "../styled";
+import { ChatInputBarStyleType } from "../types";
+import {
+  SendBarFrameDiv,
+  ReplyInfoDiv,
+  ChatInputBarDiv,
+  ChatInputBarButton,
+  EmojipickerWrapper,
+} from "./styled";
 import EmojiPicker, {
   EmojiClickData,
   EmojiStyle,
   SuggestionMode,
 } from "emoji-picker-react";
-import useClickDetect from "../../../hooks/useClickDetect";
-
-import { generateRandomEmoji } from "../../../utils/utils";
-import { DividerLine } from "../styled";
-import {
-  EmojipickerWrapper,
-  ReplyInfoDiv,
-  ChatInputBarDiv,
-  SendBarFrameDiv,
-  ChatInputBarButton,
-} from "./styled";
-import { NewMessageToast } from "../@common/Toasts";
-import { scrollFlagRef } from "../ChatPanel";
 import { RiSendPlaneFill as SendIcon } from "react-icons/ri";
 import { IoClose as CloseIcon } from "react-icons/io5";
 import { TbArrowForward as ReplyIcon } from "react-icons/tb";
-import { UserDataAtomFamily } from "../../../recoil/auth";
-import { chatDatatype } from "../../../@types/chat.types";
-import { ChatInputBarStyleType } from "../types";
 
 export const sendbarStyle: ChatInputBarStyleType = {
   padding: 10,

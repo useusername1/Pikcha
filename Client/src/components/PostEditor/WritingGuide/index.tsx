@@ -1,6 +1,6 @@
 import { CgClose } from "react-icons/cg";
 import { Dispatch, SetStateAction } from "react";
-import writeGuideGif from "../../../assets/WriteGuide.gif";
+import writeGuideGif from "~/assets/WriteGuide.gif";
 import * as wp from "./styled";
 
 const WritingGuide = ({

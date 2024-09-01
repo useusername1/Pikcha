@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
-import { setOverlay } from "../../../recoil/setOverlay";
+import { setOverlay } from "~/recoil/setOverlay";
 import * as o from "./styled";
-import { ReactComponent as Logo } from "../../../assets/Logo.svg";
+import { ReactComponent as Logo } from "~/assets/Logo.svg";
 interface OverlayProps {
   direction: "left" | "right";
 }

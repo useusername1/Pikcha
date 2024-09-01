@@ -1,11 +1,11 @@
-import * as dp from "./styled";
-import Button from "../../@common/Button";
 import { useState } from "react";
-import { useRecoilState } from "recoil";
-import { UserDataAtomFamily } from "../../../recoil/auth";
 import { useParams } from "react-router-dom";
-import { handleCommentSubmit } from "../../../api/BlogDetail/Post/Post";
-import { isModalVisible } from "../../../recoil/setOverlay";
+import { useRecoilState } from "recoil";
+import { handleCommentSubmit } from "~/api/BlogDetail/Post/Post";
+import Button from "~/components/@common/Button";
+import { UserDataAtomFamily } from "~/recoil/auth";
+import { isModalVisible } from "~/recoil/setOverlay";
+import * as dp from "./styled";
 
 const AddComment = () => {
   const [addComment, setAddComment] = useState("");

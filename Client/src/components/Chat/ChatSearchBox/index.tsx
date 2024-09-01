@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
-import axios from "../../../api/axiosInstance";
+import { apiClient } from "~/api/axiosInstance";
 import { useSetRecoilState } from "recoil";
-import { ShowSearchBox } from "../../../recoil/chatState";
+import { ShowSearchBox } from "~/recoil/chatState";
 import ChatSearchTimeSelector from "./ChatSearchTimeSelector";
 import SearchedMessage from "./SearchedMessageItem";
 import {
@@ -47,7 +47,7 @@ const ChatSearchBox = ({
     setShowYMSelector(true);
     if (searchValue.length < 2) return;
     const payload = { content: searchValue, yearAndMonth: yearMonth };
-    axios
+    apiClient
       .get(`/app/search`, { params: payload })
       .then((res) => {
         setSearchedMessages(res.data.data);

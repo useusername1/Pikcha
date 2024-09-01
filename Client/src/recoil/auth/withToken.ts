@@ -3,7 +3,7 @@ import { UserDataAtomFamily } from "./atoms";
 import {
   calculateTokenRemainingTime,
   getAccesstokenExpiration,
-} from "../../utils/getTokenInfo";
+} from "~/utils/getTokenInfo";
 
 //39분 10초로 설정
 const TOKEN_RENEWAL_THRESHOLD = 39 * 60;

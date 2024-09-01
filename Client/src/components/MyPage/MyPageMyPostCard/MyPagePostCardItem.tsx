@@ -1,13 +1,13 @@
-import { getTime } from "../../../utils/utils";
+import { useState } from "react";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { useNavigate } from "react-router-dom";
+import { getTime } from "~/utils/utils";
+import { isEditMode, UserData } from "~/recoil/myPageState";
+import { MyPostsType } from "~/utils/d";
+import { apiClient } from "~/api/axiosInstance";
 import { MdDeleteForever as DeleteIcon } from "react-icons/md";
 import { MdModeEditOutline as EditIcon } from "react-icons/md";
-import { useRecoilState, useRecoilValue } from "recoil";
-import { isEditMode, UserData } from "../../../recoil/myPageState";
-import axios from "../../../api/axiosInstance";
-import { useState } from "react";
 import * as mpc from "./styled";
-import { MyPostsType } from "../../../utils/d";
 interface MyPagePostCardItemProps {
   postInfo: MyPostsType;
 }
@@ -24,7 +24,7 @@ const MyPagePostCardItem = ({ postInfo }: MyPagePostCardItemProps) => {
 
   const handleDeleteClick = () => {
     if (window.confirm("정말 삭제하시겠습니까?")) {
-      axios
+      apiClient
         .delete(`/posts/delete/${postId}`)
         .then((res) => {
           if (res.status === 204 && userData) {

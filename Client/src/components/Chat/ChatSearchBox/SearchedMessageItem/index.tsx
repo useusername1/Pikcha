@@ -1,35 +1,13 @@
 import { flushSync } from "react-dom";
-import axios from "../../../../api/axiosInstance";
 import { useRecoilState, useSetRecoilState } from "recoil";
-import {
-  ScrollTargetChatIdState,
-  chatDataState,
-} from "../../../../recoil/chatState";
-
+import { chatDatatype } from "~/@types/chat.types";
+import { emptyMessage } from "~/data/chatData";
+import { chatDataState, ScrollTargetChatIdState } from "~/recoil/chatState";
 import { scrollFlagRef } from "../../ChatPanel";
-import { SearchedMessageContent, SearchedMessageWrapper } from "./styled";
-import { chatIdSearch } from "../utils";
 import { searchedMessageType } from "../types";
-import { chatDatatype } from "../../../../@types/chat.types";
-
-export const emptyMessage: chatDatatype = {
-  chatId: -1,
-  content: "",
-  createdAt: "",
-  memberId: -1,
-  picture: undefined,
-  type: "CHAT",
-  username: "",
-  verifyKey: "",
-  targetContent: null,
-  targetChatId: null,
-  targetMemberId: null,
-  targetPicture: null,
-  targetUsername: null,
-  isVoted: false,
-  likes: 0,
-  isReported: false,
-};
+import { chatIdSearch } from "../utils";
+import { SearchedMessageWrapper, SearchedMessageContent } from "./styled";
+import { apiClient } from "~/api/axiosInstance";
 
 interface SearcheMessageProps {
   messageData: searchedMessageType;
@@ -63,7 +41,7 @@ const SearchedMessageItem = ({
 
     const [beforeChatIdx, nextChatIdx] =
       searchResult.targetIdIndex as Array<number>;
-    axios
+    apiClient
       .get(`/app/load?gte=${chatId}&lte=${chatData[nextChatIdx].chatId}`)
       .then((res) => {
         const loadMoreMessage: chatDatatype = {

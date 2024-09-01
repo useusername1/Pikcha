@@ -12,12 +12,12 @@ import {
 } from "./styled";
 import { Link, useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
-import { UserDataAtomFamily } from "../../../../recoil/auth";
-import axios from "../../../../api/axiosInstance";
-import Button from "../../Button";
-import { ReactComponent as Logo } from "../../../../assets/Logo.svg";
-import { storeLocation } from "../../../../utils/storeLocation";
-import useLogout from "../../../../hooks/useLogout";
+import { UserDataAtomFamily } from "~/recoil/auth";
+import { apiClient } from "~/api/axiosInstance";
+import Button from "~/components/@common/Button";
+import { ReactComponent as Logo } from "~/assets/Logo.svg";
+import { storeLocation } from "~/utils/storeLocation";
+import useLogout from "~/hooks/useLogout";
 const SearchBar = lazy(() => import("./SearchBar"));
 
 const IMG_SRC =
@@ -37,7 +37,7 @@ const HeaderTopBar = () => {
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     e.stopPropagation();
-    axios
+    apiClient
       .post(`/logout`)
       .then((_) => {
         handleLogout();

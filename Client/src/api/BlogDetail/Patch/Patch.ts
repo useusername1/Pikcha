@@ -1,7 +1,7 @@
-import axios from "../../axiosInstance";
+import { apiClient } from "~/api/axiosInstance";
 
 export const modifiedComment = (commentId: number, commentContent: string) => {
-  axios
+  apiClient
     .patch(`/comments/edit/${commentId}`, {
       commentContent: commentContent,
     })

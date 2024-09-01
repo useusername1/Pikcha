@@ -1,9 +1,9 @@
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
-import { ChatStatus, NewMessageArrivedState } from "../../../recoil/chatState";
+import { ChatStatus, NewMessageArrivedState } from "~/recoil/chatState";
 import { ChatExpandableButton } from "./styled";
 import { BsFillChatLeftDotsFill as ChatIcon } from "react-icons/bs";
-import { UserDataAtomFamily } from "../../../recoil/auth";
-import { isModalVisible } from "../../../recoil/setOverlay";
+import { UserDataAtomFamily } from "~/recoil/auth";
+import { isModalVisible } from "~/recoil/setOverlay";
 
 const ChatButton = () => {
   const isLogin = useRecoilValue(UserDataAtomFamily.LOGIN_STATE);

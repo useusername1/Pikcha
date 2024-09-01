@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction, useRef, useState } from "react";
 import { AiOutlineCloudUpload as UploadIcon } from "react-icons/ai";
 import { useRecoilState } from "recoil";
-import { PostContent, PostPreviewList } from "../../../recoil/writePostState";
+import { PostContent, PostPreviewList } from "~/recoil/writePostState";
 import * as wp from "./styled";
 
 function ImageUploader({

@@ -1,30 +1,29 @@
+import { apiClient } from "~/api/axiosInstance";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import axios from "../../../../api/axiosInstance";
-import ReplyChatBubble from "../../@common/ReplyChatBubble";
-import { ChatProfileWrapper, UsernameDiv } from "./styled";
+import { chatDatatype } from "~/@types/chat.types";
 import {
+  isDeleteModeState,
+  showReportModalState,
+  isReplyMessageState,
+  reportChatDataState,
+} from "~/recoil/chatState";
+import ReplyChatBubble from "../../@common/ReplyChatBubble";
+import { DividerLine } from "../../styled";
+import {
+  ChatMessageDiv,
+  ChatContentWrapper,
   ChatContentBottomWrapper,
   ChatContentDiv,
   ChatContentMenu,
   ChatContentMenuItem,
-  ChatContentWrapper,
-  ChatMessageDiv,
   ReactionTagSpan,
 } from "../styled";
-import { DividerLine } from "../../styled";
+import { ChatProfileWrapper, UsernameDiv } from "./styled";
 import { FaHeart as HeartIcon } from "react-icons/fa";
 import {
   MdReport as ReportIcon,
   MdSubdirectoryArrowRight as ReplyIcon,
 } from "react-icons/md";
-import {
-  isDeleteModeState,
-  isReplyMessageState,
-  reportChatDataState,
-  showReportModalState,
-} from "../../../../recoil/chatState";
-import { chatDatatype } from "../../../../@types/chat.types";
-
 interface MyChatBoxProps {
   chatData: chatDatatype;
   timeStampFlagForTime: boolean;
@@ -61,7 +60,7 @@ const OtherChatBox = ({
     setIsReplyMessage(chatData);
   };
   const handleHeartClick = () => {
-    axios
+    apiClient
       .post(`/app/likes/${chatData.chatId}`, {})
       .then((res) => console.log(res.data, "좋아요 반영"))
       .catch((err) => console.log(err));

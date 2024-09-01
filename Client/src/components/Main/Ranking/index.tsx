@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef, useMemo } from "react";
-import axios from "../../../api/axiosInstance";
-import { getRandomInt } from "../../../utils/utils";
+import { apiClient } from "~/api/axiosInstance";
+import { getRandomInt } from "~/utils/utils";
 import {
   RankingWrapper,
   MainRankingWrapper,
@@ -43,7 +43,7 @@ const Ranking = () => {
     []
   );
   useEffect(() => {
-    axios.get(RANKING_URL).then((res) => {
+    apiClient.get(RANKING_URL).then((res) => {
       let newRankingData = res.data.data;
       newRankingData = newRankingData.map(
         (info: RankingDataType, i: number) => ({

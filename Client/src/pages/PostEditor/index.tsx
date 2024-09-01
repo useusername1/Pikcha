@@ -1,24 +1,23 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
+import { getPost } from "~/api/BlogDetail/Get/Get";
+import { handlePostSubmit } from "~/api/Post/handlePostSubmit";
+import Button from "~/components/@common/Button";
 import {
-  PostContent,
-  PostPreviewList,
-  PostTags,
-} from "../../recoil/writePostState";
-import Button from "../../components/@common/Button";
-import {
-  ImageUploader,
-  TagCreator,
   WritingGuide,
-} from "../../components/PostEditor";
-import { handlePostSubmit } from "../../api/Write_EditPost/handlePostSubmit";
+  TagCreator,
+  ImageUploader,
+} from "~/components/PostEditor";
+import {
+  PostTags,
+  PostPreviewList,
+  PostContent,
+} from "~/recoil/writePostState";
 import { BsDot } from "react-icons/bs";
 import { MdOutlineKeyboardBackspace } from "react-icons/md";
 import { CgClose } from "react-icons/cg";
 import * as wp from "./styled";
-import { getPost } from "../../api/BlogDetail/Get/Get";
-
 interface PostEditorProps {
   mode: "edit" | "new";
 }

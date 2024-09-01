@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction, useState } from "react";
-import { ArrayMyPostsType, ArrayMySavesType } from "../../../utils/d";
-import { PageButton } from "../../@common/Pagination/styled";
+import { PageButton } from "~/components/@common/Pagination/styled";
+import { ArrayMyPostsType, ArrayMySavesType } from "~/utils/d";
 import * as mpc from "./styled";
 
 const MyPagePagination = ({

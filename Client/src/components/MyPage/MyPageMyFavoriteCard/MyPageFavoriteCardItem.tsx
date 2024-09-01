@@ -1,11 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
-import { isDeleteMode, UserData } from "../../../recoil/myPageState";
+import { isDeleteMode, UserData } from "~/recoil/myPageState";
 import { MdDeleteForever as DeleteIcon } from "react-icons/md";
-import axios from "../../../api/axiosInstance";
+import { apiClient } from "~/api/axiosInstance";
 import { useState } from "react";
 import * as mpc from "./styled";
-import { MySavesType } from "../../../utils/d";
+import { MySavesType } from "~/utils/d";
 
 interface MyPageFavoriteCardItemProps {
   attractionInfo: MySavesType;
@@ -30,7 +30,7 @@ const MyPageFavoriteCardItem = ({
     setStartDeleteAnimation(true);
     setTimeout(
       () =>
-        axios
+        apiClient
           .post(URL_FOR_SAVES)
           .then((res) => {
             if (userData) {

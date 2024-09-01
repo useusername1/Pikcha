@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
-import { SendBarFrameDiv } from "../../../ChatInputBar/styled";
-import { ChatInputBarStyleType } from "../../../types";
+import { SendBarFrameDiv } from "~/components/Chat/ChatInputBar/styled";
+import { ChatInputBarStyleType } from "~/components/Chat/types";
 
 const ConfirmBarDiv = styled(SendBarFrameDiv)<{
   styleProps: ChatInputBarStyleType;

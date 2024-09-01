@@ -7,7 +7,7 @@ import {
 import { FcInfo } from "react-icons/fc";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
-import { isModalVisible } from "../../../recoil/setOverlay";
+import { isModalVisible } from "~/recoil/setOverlay";
 
 const LoginModal = () => {
   const navigate = useNavigate();

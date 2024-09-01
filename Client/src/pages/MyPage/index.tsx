@@ -1,24 +1,21 @@
-import React, { useEffect, useState } from "react";
-import { AiTwotoneHome, AiOutlineCloseCircle } from "react-icons/ai";
-import { MdModeComment } from "react-icons/md";
-import { FaMapMarkerAlt } from "react-icons/fa";
-import { TfiPencil } from "react-icons/tfi";
-import Button from "../../components/@common/Button";
-import axios from "../../api/axiosInstance";
-import { useRecoilState, useSetRecoilState } from "recoil";
-import { UserDataAtomFamily } from "../../recoil/auth";
-import { UserData, isDeleteMode, isEditMode } from "../../recoil/myPageState";
-import { BsFillBookmarkFill } from "react-icons/bs";
-import { HiddenHeader } from "../../components/@common/Header";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import UnavailableNotice from "../../components/@common/UnavailableNotice";
-import {
-  MyPageMyPostCard,
-  MyPageMyFavoriteCard,
-} from "../../components/MyPage";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import DaumPostcode from "react-daum-postcode";
+import Button from "~/components/@common/Button";
+import { HiddenHeader } from "~/components/@common/Header";
+import UnavailableNotice from "~/components/@common/UnavailableNotice";
+import { MyPageMyPostCard, MyPageMyFavoriteCard } from "~/components/MyPage";
+import { UserDataAtomFamily } from "~/recoil/auth";
+import { isDeleteMode, UserData, isEditMode } from "~/recoil/myPageState";
+import { AiTwotoneHome, AiOutlineCloseCircle } from "react-icons/ai";
+import { BsFillBookmarkFill } from "react-icons/bs";
+import { FaMapMarkerAlt } from "react-icons/fa";
+import { MdModeComment } from "react-icons/md";
+import { TfiPencil } from "react-icons/tfi";
 import { IoChevronBackOutline as BackIcon } from "react-icons/io5";
 import * as mp from "./styled";
+import { apiClient } from "~/api/axiosInstance";
 
 const MyPage = () => {
   const [tab, setTab] = useState(0);
@@ -44,7 +41,7 @@ const MyPage = () => {
     setBookmarkDelete(false);
   }
   const getUserProfile = async () => {
-    await axios
+    await apiClient
       .get(`/users/profile/${memberId}`)
       .then(({ data: { data } }) => {
         setUserData(data);
@@ -75,7 +72,7 @@ const MyPage = () => {
 
   const editInfoSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    axios
+    apiClient
       .patch(`/users/edit/${memberId}`, {
         username: username,
         phoneNumber: phoneNumber,
@@ -90,7 +87,7 @@ const MyPage = () => {
   const deleteUser = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     if (window.confirm("정말 탈퇴하시겠습니까?")) {
-      axios
+      apiClient
         .delete(`/users/delete/${memberId}`)
         .then((res) => {
           if (res.status === 200) {

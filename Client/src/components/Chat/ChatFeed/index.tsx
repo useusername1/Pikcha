@@ -7,7 +7,7 @@ import {
   ScrollTargetChatIdState,
   ShowNewMesssageBoxState,
   chatDataState,
-} from "../../../recoil/chatState";
+} from "~/recoil/chatState";
 import LoadMoreButton from "./LoadMoreButton";
 import { scrollFlagRef } from "../ChatPanel";
 import {
@@ -15,7 +15,7 @@ import {
   UserInfoAlarmWrapper,
   ChatCreatedDateDiv,
 } from "./styled";
-import { UserDataAtomFamily } from "../../../recoil/auth";
+import { UserDataAtomFamily } from "~/recoil/auth";
 
 interface ChatFeedProps {
   deleteMessage: (message: Set<number> | number[]) => void;

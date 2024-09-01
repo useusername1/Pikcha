@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 import { DeleteCheckIconWrapper } from "./MyChatBox/styled";
-import { ChatMessageType } from "../../../@types/chat.types";
+import { ChatMessageType } from "~/@types/chat.types";
 
 const ChatMessageWrapper = styled.div`
   display: flex;
