@@ -1,7 +1,10 @@
 import { Dispatch, SetStateAction, useRef, useState } from "react";
 import { AiOutlineCloudUpload as UploadIcon } from "react-icons/ai";
-import { useRecoilState } from "recoil";
-import { PostContent, PostPreviewList } from "~/recoil/writePostState";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import {
+  editorPostContentAtom,
+  editorPreviewListAtom,
+} from "~/recoil/postEditor/atoms";
 import * as wp from "./styled";
 
 function ImageUploader({
@@ -12,8 +15,8 @@ function ImageUploader({
   const [previewText, setPreviewText] = useState("");
   const [imageUrl, setImageUrl] = useState("");
   const [imgFile, setImgFile] = useState<File>();
-  const [content, setContent] = useRecoilState(PostContent);
-  const [_, setPreviewList] = useRecoilState(PostPreviewList);
+  const [content, setContent] = useRecoilState(editorPostContentAtom);
+  const setPreviewList = useSetRecoilState(editorPreviewListAtom);
   const imgRef = useRef<HTMLInputElement>(null);
 
   const previewImg = (e: React.ChangeEvent<HTMLInputElement>) => {

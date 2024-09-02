@@ -1,18 +1,18 @@
 import { TfiClose } from "react-icons/tfi";
 import * as wp from "./styled";
 import { useRecoilState } from "recoil";
-import { PostTags } from "~/recoil/writePostState";
+import { editorTagListAtom } from "~/recoil/postEditor/atoms";
 
 function TagList() {
-  const [tags, setTags] = useRecoilState(PostTags);
+  const [tagList, setTagList] = useRecoilState(editorTagListAtom);
 
   const handleTagRemover = (selectTag: number) => {
-    setTags(tags.filter((_, tag) => selectTag !== tag));
+    setTagList(tagList.filter((_, tagIdx) => selectTag !== tagIdx));
   };
 
   return (
     <>
-      {tags.map((tag, idx) => (
+      {tagList.map((tag, idx) => (
         <wp.TagBox key={tag}>
           {tag}
           <TfiClose

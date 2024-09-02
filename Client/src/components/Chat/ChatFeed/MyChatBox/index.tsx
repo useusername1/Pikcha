@@ -2,11 +2,11 @@ import { useState, useEffect } from "react";
 import { useSetRecoilState, useRecoilState } from "recoil";
 import { chatDatatype } from "~/@types/chat.types";
 import {
-  showConfirmModalState,
-  deleteItemsState,
-  isReplyMessageState,
-  isDeleteModeState,
-} from "~/recoil/chatState";
+  showConfirmModalAtom,
+  itemsToDeleteAtom,
+  messageToReplyAtom,
+  isDeleteModeAtom,
+} from "~/recoil/chat/atoms";
 import ReplyChatBubble from "../../@common/ReplyChatBubble";
 import { DividerLine } from "../../styled";
 import {
@@ -51,10 +51,10 @@ const MyChatBox = ({
   searchTargetAnimation,
   chatDataMapRef,
 }: MyChatBoxProps) => {
-  const setShowConfirmModal = useSetRecoilState(showConfirmModalState);
-  const setDeleteItems = useSetRecoilState(deleteItemsState);
-  const setIsReplyMessage = useSetRecoilState(isReplyMessageState);
-  const [isDeleteMode, setIsDeleteMode] = useRecoilState(isDeleteModeState);
+  const setShowConfirmModal = useSetRecoilState(showConfirmModalAtom);
+  const setItemsToDelete = useSetRecoilState(itemsToDeleteAtom);
+  const setMessageToReply = useSetRecoilState(messageToReplyAtom);
+  const [isDeleteMode, setIsDeleteMode] = useRecoilState(isDeleteModeAtom);
   const [isDeleteChecked, setIsDeleteChecked] = useState(false);
   useEffect(() => {
     if (isDeleteMode) {
@@ -64,15 +64,15 @@ const MyChatBox = ({
 
   const handleDeleteClick = (chatId: number) => {
     if (!isDeleteMode) {
-      setDeleteItems(new Set([chatId]));
+      setItemsToDelete(new Set([chatId]));
       setShowConfirmModal(true);
       return;
     }
     setIsDeleteChecked((p) => !p);
     if (!isDeleteChecked) {
-      setDeleteItems((p) => new Set(p.add(chatId)));
+      setItemsToDelete((p) => new Set(p.add(chatId)));
     } else {
-      setDeleteItems((p) => {
+      setItemsToDelete((p) => {
         p.delete(chatId);
         return new Set(p);
       });
@@ -82,7 +82,7 @@ const MyChatBox = ({
     setIsDeleteMode(true);
   };
   const handleReplyClick = () => {
-    setIsReplyMessage(chatData);
+    setMessageToReply(chatData);
   };
   return (
     <ChatMessageDiv

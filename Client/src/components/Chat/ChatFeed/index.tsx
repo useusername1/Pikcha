@@ -3,11 +3,11 @@ import OtherChatBox from "./OtherChatBox";
 import { Fragment, useCallback, useEffect, useRef, useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import {
-  NewMessageArrivedState,
-  ScrollTargetChatIdState,
-  ShowNewMesssageBoxState,
-  chatDataState,
-} from "~/recoil/chatState";
+  incomingMessageAtom,
+  scrollTargetChatIdAtom,
+  showNewMessageToastAtom,
+  chatDataAtom,
+} from "~/recoil/chat/atoms";
 import LoadMoreButton from "./LoadMoreButton";
 import { scrollFlagRef } from "../ChatPanel";
 import {
@@ -36,11 +36,11 @@ const ChatFeed = ({
   chatDataMapRef,
 }: ChatFeedProps) => {
   const [showChatDate, setShowChatDate] = useState(false);
-  const chatData = useRecoilValue(chatDataState);
-  const scrollTargetChatId = useRecoilValue(ScrollTargetChatIdState);
-  const newMessageArrived = useRecoilValue(NewMessageArrivedState);
+  const chatData = useRecoilValue(chatDataAtom);
+  const scrollTargetChatId = useRecoilValue(scrollTargetChatIdAtom);
+  const incomingMessage = useRecoilValue(incomingMessageAtom);
   const myMemberId = useRecoilValue(UserDataAtomFamily.MEMBER_ID);
-  const setShowNewMessageBox = useSetRecoilState(ShowNewMesssageBoxState);
+  const setShowNewMessageBox = useSetRecoilState(showNewMessageToastAtom);
   const scrollPositionRef = useRef<number | undefined>(undefined);
   const timeoutIdRef = useRef<NodeJS.Timeout | null>(null);
   const newMessageObserverRef = useRef<IntersectionObserver | null>(null);
@@ -67,7 +67,7 @@ const ChatFeed = ({
   );
 
   useEffect(() => {
-    if (!newMessageArrived) return;
+    if (!incomingMessage) return;
     if (
       (chatBoxRef.current as HTMLDivElement).scrollHeight -
         (chatBoxRef.current as HTMLDivElement).scrollTop -
@@ -76,16 +76,16 @@ const ChatFeed = ({
     ) {
       scrollFlagRef.current = false; //created by script
       chatDataMapRef.current
-        ?.get(newMessageArrived.message.chatId)
+        ?.get(incomingMessage.message.chatId)
         ?.node.scrollIntoView();
     } else {
       setShowNewMessageBox(true);
       newMessage(
-        chatDataMapRef.current?.get(newMessageArrived.message.chatId)
+        chatDataMapRef.current?.get(incomingMessage.message.chatId)
           ?.node as HTMLDivElement
       );
     }
-  }, [newMessageArrived]); //새 메시지 도착 시 이동
+  }, [incomingMessage]); //새 메시지 도착 시 이동
 
   function getMap() {
     if (!chatDataMapRef.current) {

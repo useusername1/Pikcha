@@ -1,19 +1,19 @@
 import React, { useState } from "react";
 import CreateTag from "../TagList";
 import * as wp from "./styled";
-import { PostTags } from "~/recoil/writePostState";
+import { editorTagListAtom } from "~/recoil/postEditor/atoms";
 import { useRecoilState } from "recoil";
 
 function TagCreator() {
   const [tag, setTag] = useState<string>("");
-  const [tags, setTags] = useRecoilState(PostTags);
+  const [tagList, setTagList] = useRecoilState(editorTagListAtom);
 
   const tagMakeHandler = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       if (tag === "" || tag === " ") setTag("");
-      else if (tags.length >= 5)
+      else if (tagList.length >= 5)
         alert("태그는 5개 이하까지만 사용할 수 있습니다.");
-      else setTags([...tags, tag]);
+      else setTagList([...tagList, tag]);
       setTag("");
     }
   };
@@ -25,7 +25,7 @@ function TagCreator() {
         value={tag}
         onKeyUp={(e) => tagMakeHandler(e)}
         onChange={(e) => setTag(e.target.value)}
-        placeholder={tags.length ? "" : "태그를 입력해주세요!"}
+        placeholder={tagList.length ? "" : "태그를 입력해주세요!"}
       />
     </wp.TagWrapper>
   );

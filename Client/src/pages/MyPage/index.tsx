@@ -7,7 +7,11 @@ import { HiddenHeader } from "~/components/@common/Header";
 import UnavailableNotice from "~/components/@common/UnavailableNotice";
 import { MyPageMyPostCard, MyPageMyFavoriteCard } from "~/components/MyPage";
 import { UserDataAtomFamily } from "~/recoil/auth";
-import { isDeleteMode, UserData, isEditMode } from "~/recoil/myPageState";
+import {
+  isMyPageDeleteModeAtom,
+  myPageUserDataAtom,
+  isMypageEditModeAtom,
+} from "~/recoil/mypage/atoms";
 import { AiTwotoneHome, AiOutlineCloseCircle } from "react-icons/ai";
 import { BsFillBookmarkFill } from "react-icons/bs";
 import { FaMapMarkerAlt } from "react-icons/fa";
@@ -26,9 +30,11 @@ const MyPage = () => {
     address: "",
     phoneNumber: "",
   });
-  const [bookmarkDelete, setBookmarkDelete] = useRecoilState(isDeleteMode);
-  const [userData, setUserData] = useRecoilState(UserData);
-  const [editPosts, setEditPosts] = useRecoilState(isEditMode);
+  const [isDeleteMode, setIsDeleteMode] = useRecoilState(
+    isMyPageDeleteModeAtom
+  );
+  const [userData, setUserData] = useRecoilState(myPageUserDataAtom);
+  const [isEditMode, setIsEditMode] = useRecoilState(isMypageEditModeAtom);
   const [memberId, setMemberId] = useRecoilState(UserDataAtomFamily.MEMBER_ID);
   const setLoggedUser = useSetRecoilState(UserDataAtomFamily.LOGGED_USER);
   const setIsLogin = useSetRecoilState(UserDataAtomFamily.LOGIN_STATE);
@@ -38,7 +44,7 @@ const MyPage = () => {
   const { username, address, phoneNumber } = inputs;
 
   if (userData?.saves.length === 0) {
-    setBookmarkDelete(false);
+    setIsDeleteMode(false);
   }
   const getUserProfile = async () => {
     await apiClient
@@ -57,7 +63,7 @@ const MyPage = () => {
 
   useEffect(() => {
     getUserProfile();
-    return () => setBookmarkDelete(false);
+    return () => setIsDeleteMode(false);
   }, [memberId]);
 
   const handleTabMenuBar = (
@@ -66,8 +72,8 @@ const MyPage = () => {
   ) => {
     e.preventDefault();
     setTab(idx);
-    setBookmarkDelete(false);
-    setEditPosts(false);
+    setIsDeleteMode(false);
+    setIsEditMode(false);
   };
 
   const editInfoSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -104,10 +110,10 @@ const MyPage = () => {
   };
 
   const handleBookMarkDeleteClick = () => {
-    setBookmarkDelete((p) => !p);
+    setIsDeleteMode((p) => !p);
   };
   const handleEditPostList = () => {
-    setEditPosts((p) => !p);
+    setIsEditMode((p) => !p);
   };
   const tabMenuBarList = [
     {
@@ -127,11 +133,11 @@ const MyPage = () => {
                   포스트
                 </span>
                 <mp.EditButton
-                  EditPosts={editPosts}
+                  isEditMode={isEditMode}
                   className="edit-posts"
                   onClick={handleEditPostList}
                 >
-                  {editPosts ? `편집 완료` : `편집`}
+                  {isEditMode ? `편집 완료` : `편집`}
                 </mp.EditButton>{" "}
               </mp.MyPageMainTopBar>
               <MyPageMyPostCard posts={userData.posts} limit={5} />
@@ -162,11 +168,11 @@ const MyPage = () => {
                   즐겨찾기
                 </span>
                 <mp.DeleteButton
-                  BookMarkDelete={bookmarkDelete}
+                  isDeleteMode={isDeleteMode}
                   className="delete-bookmark"
                   onClick={handleBookMarkDeleteClick}
                 >
-                  {bookmarkDelete ? "삭제 완료" : "삭제"}
+                  {isDeleteMode ? "삭제 완료" : "삭제"}
                 </mp.DeleteButton>{" "}
               </mp.MyPageMainTopBar>
               <MyPageMyFavoriteCard saves={userData.saves} limit={6} />

@@ -1,11 +1,11 @@
-export type AlertMessageType =
+export type ToastMessageType =
   | "REPORT_COMPLETE"
   | "CHECK_NETWORK"
   | "DELETE_ERROR";
 
-export interface AlertInfo {
+export interface ToastInfo {
   id: number;
-  message: AlertMessageType;
+  message: ToastMessageType;
 }
 
 export type ChatPanelStatusType = "EXITED" | "MINIMIZED" | "JOINED";

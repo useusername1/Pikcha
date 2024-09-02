@@ -5,10 +5,10 @@ import { chatDatatype } from "~/@types/chat.types";
 import useClickDetect from "~/hooks/useClickDetect";
 import { UserDataAtomFamily } from "~/recoil/auth";
 import {
-  isReplyMessageState,
-  ShowSearchBox,
-  ShowNewMesssageBoxState,
-} from "~/recoil/chatState";
+  messageToReplyAtom,
+  showSearchBoxAtom,
+  showNewMessageToastAtom,
+} from "~/recoil/chat/atoms";
 import { generateRandomEmoji } from "~/utils/utils";
 import { NewMessageToast } from "../@common/Toasts";
 import { scrollFlagRef } from "../ChatPanel";
@@ -58,14 +58,14 @@ const ChatInputBar = ({
     isVisible: showEmoji,
     setIsVisible: setShowEmoji,
   } = useClickDetect();
-  const [isReplyMessage, setIsReplyMessage] =
-    useRecoilState(isReplyMessageState);
   const [text, setText] = useState("");
   const [rowNum, setRowNum] = useState(1);
   const [emoji, setEmoji] = useState("🙂");
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
-  const showSearchBox = useRecoilValue(ShowSearchBox);
-  const showNewMessageBox = useRecoilValue(ShowNewMesssageBoxState);
+  const [isReplyMessage, setIsReplyMessage] =
+    useRecoilState(messageToReplyAtom);
+  const showSearchBox = useRecoilValue(showSearchBoxAtom);
+  const showNewMessageToast = useRecoilValue(showNewMessageToastAtom);
   const memberId = useRecoilValue(UserDataAtomFamily.MEMBER_ID);
 
   const handleInputChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
@@ -170,7 +170,7 @@ const ChatInputBar = ({
       <SendBarFrameDiv
         styleProps={sendbarStyle}
         showSearchBox={showSearchBox}
-        showNewMessageBox={showNewMessageBox}
+        showNewMessageToast={showNewMessageToast}
       >
         <NewMessageToast chatDataMapRef={chatDataMapRef} />
         {isReplyMessage !== null && (

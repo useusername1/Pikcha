@@ -1,23 +1,23 @@
 import { useEffect } from "react";
 import { useRecoilState } from "recoil";
-import { AlertQueueState } from "~/recoil/chatState";
+import { toastQueueAtom } from "~/recoil/chat/atoms";
 import { ConfirmationToastWrapper } from "./styled";
 import ToastItem from "./ConfirmationToastItem";
 
 const ConfirmationToast = () => {
-  const [alertQueueState, setAlertQueueState] = useRecoilState(AlertQueueState);
+  const [toastQueue, setToastQueue] = useRecoilState(toastQueueAtom);
 
   useEffect(() => {
-    setAlertQueueState((p) => {
+    setToastQueue((p) => {
       if (p.length > 3) return [...p.slice(0, p.length - 1)];
       return p;
     });
-  }, [alertQueueState]);
+  }, [toastQueue]);
 
   return (
     <>
       <ConfirmationToastWrapper>
-        {alertQueueState.map((el) => (
+        {toastQueue.map((el) => (
           <ToastItem key={el.id} alertData={el} />
         ))}
       </ConfirmationToastWrapper>

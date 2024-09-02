@@ -8,7 +8,7 @@ const FavoriteCardWrapper = styled.div`
 `;
 
 const FavoriteCardContainer = styled.div<{
-  DeleteMode: boolean;
+  isDeleteMode: boolean;
   startAnimation: boolean;
 }>`
   position: relative;
@@ -44,7 +44,7 @@ const FavoriteCardContainer = styled.div<{
     }
   }
   :hover::after {
-    display: ${(props) => (props.DeleteMode ? "block" : "none")};
+    display: ${(props) => (props.isDeleteMode ? "block" : "none")};
     position: absolute;
     content: "";
     z-index: var(--zi-two);
@@ -61,7 +61,7 @@ const FavoriteCardContainer = styled.div<{
   :hover {
     box-shadow: 5px 2px 21px 5px rgba(242, 242, 242, 0.57);
     svg {
-      display: ${(props) => (props.DeleteMode ? "block" : "none")};
+      display: ${(props) => (props.isDeleteMode ? "block" : "none")};
     }
   }
 `;

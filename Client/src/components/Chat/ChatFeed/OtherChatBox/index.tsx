@@ -2,11 +2,11 @@ import { apiClient } from "~/api/axiosInstance";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { chatDatatype } from "~/@types/chat.types";
 import {
-  isDeleteModeState,
-  showReportModalState,
-  isReplyMessageState,
-  reportChatDataState,
-} from "~/recoil/chatState";
+  isDeleteModeAtom,
+  showReportModalAtom,
+  messageToReplyAtom,
+  messageToReportAtom,
+} from "~/recoil/chat/atoms";
 import ReplyChatBubble from "../../@common/ReplyChatBubble";
 import { DividerLine } from "../../styled";
 import {
@@ -52,10 +52,10 @@ const OtherChatBox = ({
   searchTargetAnimation,
   chatDataMapRef,
 }: MyChatBoxProps) => {
-  const isDeleteMode = useRecoilValue(isDeleteModeState);
-  const setShowReportModal = useSetRecoilState(showReportModalState);
-  const setIsReplyMessage = useSetRecoilState(isReplyMessageState);
-  const setReportChatData = useSetRecoilState(reportChatDataState);
+  const isDeleteMode = useRecoilValue(isDeleteModeAtom);
+  const setShowReportModal = useSetRecoilState(showReportModalAtom);
+  const setIsReplyMessage = useSetRecoilState(messageToReplyAtom);
+  const setReportChatData = useSetRecoilState(messageToReportAtom);
   const handleReplyClick = () => {
     setIsReplyMessage(chatData);
   };

@@ -1,5 +1,5 @@
 import { selectorFamily } from "recoil";
-import { TUserData, UserStateKeys } from "./types";
+import { TUserData, UserStateKeys } from "~/@types/auth.types";
 
 export const withUserDefaultFamily = selectorFamily<
   TUserData[UserStateKeys],

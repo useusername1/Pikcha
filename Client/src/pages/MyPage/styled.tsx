@@ -265,7 +265,7 @@ export const MyPageMainTopBar = styled.div`
   }
 `;
 
-export const EditButton = styled.button<{ EditPosts: boolean }>`
+export const EditButton = styled.button<{ isEditMode: boolean }>`
   display: inline-flex;
   align-items: center;
   border: none;
@@ -275,11 +275,11 @@ export const EditButton = styled.button<{ EditPosts: boolean }>`
   transition: all 0.3s ease;
   padding: 7px 8px 5px;
 
-  color: ${(props) => (props.EditPosts ? "var(--black-800)" : "#33b864")};
+  color: ${(props) => (props.isEditMode ? "var(--black-800)" : "#33b864")};
 
   :hover {
     background-color: ${(props) =>
-      props.EditPosts ? "var(--black-600)" : "#33b864"};
+      props.isEditMode ? "var(--black-600)" : "#33b864"};
     opacity: 0.8;
     border-radius: 10px;
     color: white;
@@ -287,7 +287,7 @@ export const EditButton = styled.button<{ EditPosts: boolean }>`
 `;
 
 export const DeleteButton = styled.button<{
-  BookMarkDelete?: boolean;
+  isDeleteMode?: boolean;
   EditPosts?: boolean;
 }>`
   display: inline-flex;
@@ -299,12 +299,12 @@ export const DeleteButton = styled.button<{
   transition: all 0.3s ease;
   padding: 7px 8px 5px;
 
-  color: ${(props) => (props.BookMarkDelete ? "var(--black-800)" : "red")};
+  color: ${(props) => (props.isDeleteMode ? "var(--black-800)" : "red")};
   opacity: 0.7;
 
   :hover {
     background-color: ${(props) =>
-      props.BookMarkDelete ? "var(--black-600)" : "red"};
+      props.isDeleteMode ? "var(--black-600)" : "red"};
     opacity: 0.8;
     border-radius: 10px;
     color: white;

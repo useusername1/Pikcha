@@ -1,6 +1,6 @@
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { ReplyMessageBoxDiv } from "./styled";
-import { ScrollTargetChatIdState } from "~/recoil/chatState";
+import { scrollTargetChatIdAtom } from "~/recoil/chat/atoms";
 import { scrollFlagRef } from "~/components/Chat/ChatPanel";
 import { UserDataAtomFamily } from "~/recoil/auth";
 import { chatDatatype } from "~/@types/chat.types";
@@ -22,7 +22,7 @@ const ReplyChatBubble = ({
   chatDataMapRef,
 }: ReplyMessageBoxProps) => {
   const memberId = useRecoilValue(UserDataAtomFamily.MEMBER_ID);
-  const setScrollTargetChatId = useSetRecoilState(ScrollTargetChatIdState);
+  const setScrollTargetChatId = useSetRecoilState(scrollTargetChatIdAtom);
   const handleClick = () => {
     if (!chatDataMapRef) return;
     scrollFlagRef.current = false;

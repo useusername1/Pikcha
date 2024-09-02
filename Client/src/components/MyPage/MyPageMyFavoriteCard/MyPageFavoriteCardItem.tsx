@@ -1,11 +1,14 @@
 import { useNavigate } from "react-router-dom";
-import { useRecoilState } from "recoil";
-import { isDeleteMode, UserData } from "~/recoil/myPageState";
+import { useRecoilState, useRecoilValue } from "recoil";
+import {
+  isMyPageDeleteModeAtom,
+  myPageUserDataAtom,
+} from "~/recoil/mypage/atoms";
 import { MdDeleteForever as DeleteIcon } from "react-icons/md";
 import { apiClient } from "~/api/axiosInstance";
 import { useState } from "react";
-import * as mpc from "./styled";
 import { MySavesType } from "~/utils/d";
+import * as mpc from "./styled";
 
 interface MyPageFavoriteCardItemProps {
   attractionInfo: MySavesType;
@@ -14,8 +17,8 @@ const MyPageFavoriteCardItem = ({
   attractionInfo,
 }: MyPageFavoriteCardItemProps) => {
   const navigate = useNavigate();
-  const [BookmarkDelete, setBookmarkDelete] = useRecoilState(isDeleteMode);
-  const [userData, setUserData] = useRecoilState(UserData);
+  const isDeleteMode = useRecoilValue(isMyPageDeleteModeAtom);
+  const [userData, setUserData] = useRecoilState(myPageUserDataAtom);
   const [startDeleteAnimation, setStartDeleteAnimation] = useState(false);
   const {
     attractionId,
@@ -50,7 +53,7 @@ const MyPageFavoriteCardItem = ({
   return (
     <>
       <mpc.FavoriteCardContainer
-        DeleteMode={BookmarkDelete}
+        isDeleteMode={isDeleteMode}
         startAnimation={startDeleteAnimation}
       >
         <mpc.AttractionImage

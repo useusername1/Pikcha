@@ -7,7 +7,7 @@ import KakaoMap from "~/components/@common/KakaoMap";
 import { regionDummy } from "~/data/regionData";
 import tags from "~/data/tagData";
 import { UserDataAtomFamily } from "~/recoil/auth";
-import { isModalVisible } from "~/recoil/setOverlay";
+import { isLoginModalVisibleAtom } from "~/recoil/modal/atoms";
 import encodeURLForBackgroundImage from "~/utils/encodeImgURL";
 import * as m from "./styled";
 import { BsBookmarkPlus, BsFillChatLeftFill } from "react-icons/bs";
@@ -38,7 +38,7 @@ const Map = () => {
   const [filterOrPosition, setFilterOrPosition] = useState<boolean>(false);
   const isLogin = useRecoilValue(UserDataAtomFamily.LOGIN_STATE);
   const memberId = useRecoilValue(UserDataAtomFamily.MEMBER_ID);
-  const setIsModal = useSetRecoilState(isModalVisible);
+  const setIsLoginModalVisible = useSetRecoilState(isLoginModalVisibleAtom);
   const [isVoted, setIsVoted] = useState<boolean>();
   const [isLiked, setIsLiked] = useState<boolean>();
   const navigate = useNavigate();
@@ -65,7 +65,7 @@ const Map = () => {
         return;
       });
     } else {
-      setIsModal(true);
+      setIsLoginModalVisible(true);
     }
   };
 
@@ -76,7 +76,7 @@ const Map = () => {
         return;
       });
     } else {
-      setIsModal(true);
+      setIsLoginModalVisible(true);
     }
   };
 

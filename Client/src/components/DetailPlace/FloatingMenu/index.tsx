@@ -10,10 +10,10 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import useClickDetect from "~/hooks/useClickDetect";
 import { UserDataAtomFamily } from "~/recoil/auth";
 import {
-  BookmarkSavesState,
-  LikesState,
-  AttractionDataState,
-} from "~/recoil/placeDetailState";
+  isDetailPlaceBookmarkedAtom,
+  isDetailPlaceLikedAtom,
+  detailPlaceDataAtom,
+} from "~/recoil/detailPlace/atoms";
 import { getCurrentCount } from "~/utils/utils";
 import { FixBoxVertical, IconContainer, ShareBox, MarkerCount } from "./styled";
 import { MdEditNote as NoteIcon } from "react-icons/md";
@@ -36,9 +36,11 @@ const FloatingMenu = ({
   handlePostButtonClick,
   onModalVisible,
 }: ShareProps) => {
-  const [bookmarkSaves, setBookmarkSaves] = useRecoilState(BookmarkSavesState); //로컬 북마트 상태 저장
-  const [likes, setLikes] = useRecoilState(LikesState);
-  const attractionData = useRecoilValue(AttractionDataState);
+  const [isBookmarked, setIsBookmarked] = useRecoilState(
+    isDetailPlaceBookmarkedAtom
+  ); //로컬 북마트 상태 저장
+  const [isLiked, setIsLiked] = useRecoilState(isDetailPlaceLikedAtom);
+  const detailPlaceData = useRecoilValue(detailPlaceDataAtom);
   const [isLogin] = useRecoilState(UserDataAtomFamily.LOGIN_STATE);
   const {
     ref,
@@ -70,7 +72,7 @@ const FloatingMenu = ({
       return;
     }
     apiClient.post(URL_FOR_SAVES).then((res) => {
-      setBookmarkSaves(res.data.data.isSaved);
+      setIsBookmarked(res.data.data.isSaved);
     });
   };
 
@@ -80,7 +82,7 @@ const FloatingMenu = ({
       return;
     }
     apiClient.post(URL_FOR_LIKES).then((res) => {
-      setLikes(res.data.data.isVoted);
+      setIsLiked(res.data.data.isVoted);
     });
   };
   return (
@@ -140,26 +142,26 @@ const FloatingMenu = ({
         <IconContainer onClick={() => handleClickBookmark()}>
           <BsBookmarkFill
             className="bookmark-icon"
-            fill={bookmarkSaves ? "var(--black-800)" : "var(--black-400)"}
+            fill={isBookmarked ? "var(--black-800)" : "var(--black-400)"}
           />
           <MarkerCount>
             {getCurrentCount(
-              attractionData.saves,
-              attractionData.isSaved,
-              bookmarkSaves
+              detailPlaceData.saves,
+              detailPlaceData.isSaved,
+              isBookmarked
             )}
           </MarkerCount>
         </IconContainer>
         <IconContainer onClick={() => handleClickLikes()}>
           <AiFillHeart
             className="heart-icon"
-            color={likes === true ? "var(--pink-heart)" : "var(--black-400)"}
+            color={isLiked === true ? "var(--pink-heart)" : "var(--black-400)"}
           />
           <MarkerCount>
             {getCurrentCount(
-              attractionData.likes,
-              attractionData.isVoted,
-              likes
+              detailPlaceData.likes,
+              detailPlaceData.isVoted,
+              isLiked
             )}
           </MarkerCount>
         </IconContainer>

@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import { apiClient } from "~/api/axiosInstance";
 import { useSetRecoilState } from "recoil";
-import { ShowSearchBox } from "~/recoil/chatState";
+import { showSearchBoxAtom } from "~/recoil/chat/atoms";
 import ChatSearchTimeSelector from "./ChatSearchTimeSelector";
 import SearchedMessage from "./SearchedMessageItem";
 import {
@@ -32,7 +32,7 @@ const ChatSearchBox = ({
   chatDataMapRef,
 }: ChatSearchBoxProps) => {
   const [searchValue, setSearchValue] = useState("");
-  const setShowSearchBox = useSetRecoilState(ShowSearchBox);
+  const setShowSearchBox = useSetRecoilState(showSearchBoxAtom);
 
   const [searchedMessages, setSearchedMessages] = useState<
     searchedMessageType[] | null

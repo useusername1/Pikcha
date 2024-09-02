@@ -11,7 +11,7 @@ const MyPagePostCardWrapper = styled.div`
 `;
 
 const MyPagePostCardItemWrapper = styled.div<{
-  EditMode: boolean;
+  isEditMode: boolean;
   startTransition: boolean;
 }>`
   position: relative;
@@ -32,7 +32,7 @@ const MyPagePostCardItemWrapper = styled.div<{
     box-shadow: 5px 2px 21px 5px rgba(242, 242, 242, 0.57);
   }
   :hover::after {
-    display: ${(props) => (props.EditMode ? "block" : "none")};
+    display: ${(props) => (props.isEditMode ? "block" : "none")};
     position: absolute;
     content: "";
     transform: translateX(-4px);

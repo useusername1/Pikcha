@@ -15,8 +15,8 @@ import { useNavigate } from "react-router-dom";
 import { SearchForm, AttractionItemContent } from "./styled";
 import useClickDetect from "~/hooks/useClickDetect";
 import { getfilteredAttractions } from "~/utils/utils";
-import { useRecoilState } from "recoil";
-import HeaderVisibilityState from "~/recoil/headerState";
+import { useRecoilValue } from "recoil";
+import { headerVisibilityAtom } from "~/recoil/header/atoms";
 import { AttractionsData } from "~/data/searchBarData";
 import { FiSearch as SearchIcon } from "react-icons/fi";
 import { IoCloseOutline as ResetIcon } from "react-icons/io5";
@@ -39,7 +39,7 @@ const SearchBar = ({ defaultValue = "" }: SearchBarProps) => {
   const { ref, isVisible, setIsVisible } = useClickDetect();
   const inputRef = useRef<HTMLInputElement | null>(null);
   const searchValueRef = useRef<string>("");
-  const [showHeader, setShowHeader] = useRecoilState(HeaderVisibilityState);
+  const headerVisiblity = useRecoilValue(headerVisibilityAtom);
 
   const { trimmedSearchValue, filteredAttractions, numOfFilteredAttractions } =
     useMemo(() => {
@@ -71,8 +71,8 @@ const SearchBar = ({ defaultValue = "" }: SearchBarProps) => {
   }, [isVisible]);
 
   useEffect(() => {
-    if (!showHeader) setIsVisible(false);
-  }, [showHeader]);
+    if (!headerVisiblity) setIsVisible(false);
+  }, [headerVisiblity]);
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setInputValue((e.target as HTMLInputElement).value);

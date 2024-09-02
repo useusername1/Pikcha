@@ -7,20 +7,22 @@ import {
 import { FcInfo } from "react-icons/fc";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
-import { isModalVisible } from "~/recoil/setOverlay";
+import { isLoginModalVisibleAtom } from "~/recoil/modal/atoms";
 
 const LoginModal = () => {
   const navigate = useNavigate();
-  const [isModal, setIsModal] = useRecoilState(isModalVisible);
+  const [isLoginModalVisible, setIsLoginModalVisible] = useRecoilState(
+    isLoginModalVisibleAtom
+  );
   const HandleLoginModalViewer = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    setIsModal(false);
+    setIsLoginModalVisible(false);
     navigate(`/login`);
   };
 
   return (
     <>
-      {isModal ? (
+      {isLoginModalVisible ? (
         <ModalBackground>
           <Container>
             <ContainerInfo>
@@ -34,7 +36,9 @@ const LoginModal = () => {
             </ContainerInfo>
             <ContainerButton>
               <button onClick={HandleLoginModalViewer}>확인</button>
-              <button onClick={() => setIsModal(false)}>취소</button>
+              <button onClick={() => setIsLoginModalVisible(false)}>
+                취소
+              </button>
             </ContainerButton>
           </Container>
         </ModalBackground>

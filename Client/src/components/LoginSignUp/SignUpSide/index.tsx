@@ -3,14 +3,15 @@ import { AiOutlineCloseCircle } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import Button from "~/components/@common/Button";
-import { setOverlay } from "~/recoil/setOverlay";
+import { isOverlayLeftAtom } from "~/recoil/loginSignUp/atoms";
 import DaumPostcode from "react-daum-postcode";
 import * as s from "./styled";
 import * as shared from "../styled";
 import { apiClient } from "~/api/axiosInstance";
 
 const SignUpSide = () => {
-  const [overlays, setOverlays] = useRecoilState<boolean>(setOverlay);
+  const [isOverlayLeft, setIsOverlayLeft] =
+    useRecoilState<boolean>(isOverlayLeftAtom);
   const [signemail, setSignEmail] = useState<string>("");
   const [signpassword, setSignPassword] = useState<string>("");
   const [passwordConfirm, setPasswordConfirm] = useState<string>("");
@@ -83,7 +84,7 @@ const SignUpSide = () => {
         })
         .then((res) => {
           if (res.status === 201) {
-            setOverlays(false);
+            setIsOverlayLeft(false);
             navigate(-1);
           }
         })
@@ -96,14 +97,14 @@ const SignUpSide = () => {
 
   const onPressEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
-      if (overlays === true) {
+      if (isOverlayLeft === true) {
         signHandle();
       }
     }
   };
 
   const onClickBtn = (e: React.MouseEvent<HTMLDivElement>) => {
-    setOverlays(!overlays);
+    setIsOverlayLeft(!isOverlayLeft);
   };
 
   return (
@@ -128,7 +129,7 @@ const SignUpSide = () => {
           </s.CloseButton>
         </>
       )}
-      <shared.Signincontainer overlay={overlays}>
+      <shared.Signincontainer overlay={isOverlayLeft}>
         <shared.TopConatiner padding="10% 0 7% 0">
           <shared.TextStyle
             color="var(--black-900)"

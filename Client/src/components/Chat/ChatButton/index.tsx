@@ -1,19 +1,19 @@
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
-import { ChatStatus, NewMessageArrivedState } from "~/recoil/chatState";
+import { chatStatusAtom, incomingMessageAtom } from "~/recoil/chat/atoms";
 import { ChatExpandableButton } from "./styled";
 import { BsFillChatLeftDotsFill as ChatIcon } from "react-icons/bs";
 import { UserDataAtomFamily } from "~/recoil/auth";
-import { isModalVisible } from "~/recoil/setOverlay";
+import { isLoginModalVisibleAtom } from "~/recoil/modal/atoms";
 
 const ChatButton = () => {
   const isLogin = useRecoilValue(UserDataAtomFamily.LOGIN_STATE);
-  const [chatStatus, setChatStatus] = useRecoilState(ChatStatus);
-  const newMessageArrived = useRecoilValue(NewMessageArrivedState);
-  const setIsModal = useSetRecoilState(isModalVisible);
+  const [chatStatus, setChatStatus] = useRecoilState(chatStatusAtom);
+  const incomingMessage = useRecoilValue(incomingMessageAtom);
+  const setIsLoginModalVisible = useSetRecoilState(isLoginModalVisibleAtom);
 
   const handleButtonClick = () => {
     if (!isLogin) {
-      setIsModal(true);
+      setIsLoginModalVisible(true);
       return;
     }
     setChatStatus("JOINED");
@@ -27,9 +27,9 @@ const ChatButton = () => {
         chatStatus={chatStatus}
       >
         <ChatIcon />
-        {!!newMessageArrived?.count && (
+        {!!incomingMessage?.count && (
           <span>
-            {newMessageArrived.count > 99 ? "99+" : newMessageArrived.count}
+            {incomingMessage.count > 99 ? "99+" : incomingMessage.count}
           </span>
         )}
       </ChatExpandableButton>

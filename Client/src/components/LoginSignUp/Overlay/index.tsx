@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
-import { setOverlay } from "~/recoil/setOverlay";
+import { isOverlayLeftAtom } from "~/recoil/loginSignUp/atoms";
 import * as o from "./styled";
 import { ReactComponent as Logo } from "~/assets/Logo.svg";
 interface OverlayProps {
@@ -10,11 +10,11 @@ const imageUrl =
   "https://lh3.googleusercontent.com/d/1G4EUcTwL5eH9r-lGmrV3bohOtomnTBW6";
 
 const Overlay = ({ direction }: OverlayProps) => {
-  const overlays = useRecoilValue<boolean>(setOverlay);
+  const isOverlayLeft = useRecoilValue<boolean>(isOverlayLeftAtom);
   const navigate = useNavigate();
 
   return (
-    <o.StyledOverlay overlay={overlays} isLeft={direction === "left"}>
+    <o.StyledOverlay overlay={isOverlayLeft} isLeft={direction === "left"}>
       <img src={imageUrl}></img>
       <o.LogoContainer>
         <Logo

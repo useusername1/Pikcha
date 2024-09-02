@@ -11,11 +11,11 @@ import PostCardComponent from "~/components/@common/PostCard";
 import { FloatingMenu } from "~/components/DetailPlace";
 import { UserDataAtomFamily } from "~/recoil/auth";
 import {
-  AttractionDataState,
-  BookmarkSavesState,
-  LikesState,
-} from "~/recoil/placeDetailState";
-import { isModalVisible } from "~/recoil/setOverlay";
+  detailPlaceDataAtom,
+  isDetailPlaceBookmarkedAtom,
+  isDetailPlaceLikedAtom,
+} from "~/recoil/detailPlace/atoms";
+import { isLoginModalVisibleAtom } from "~/recoil/modal/atoms";
 import { ArrayPostType, PageInfoType } from "~/utils/d";
 import {
   ImageBox,
@@ -35,12 +35,14 @@ const DetailPlace = (): JSX.Element => {
   const [postData, setPostData] = useState<ArrayPostType>();
   const [curPage, setCurPage] = useState(1);
   const [attractionData, setAttractionData] =
-    useRecoilState(AttractionDataState); // 명소 정보 저장
-  const isLogin = useRecoilValue(UserDataAtomFamily.LOGIN_STATE);
+    useRecoilState(detailPlaceDataAtom); // 명소 정보 저장
+  const isLoggedIn = useRecoilValue(UserDataAtomFamily.LOGIN_STATE);
   const memberId = useRecoilValue(UserDataAtomFamily.MEMBER_ID);
-  const setIsModal = useSetRecoilState(isModalVisible);
-  const setBookmarkSaves = useSetRecoilState(BookmarkSavesState);
-  const setLikes = useSetRecoilState(LikesState);
+  const setIsLoginModalVisible = useSetRecoilState(isLoginModalVisibleAtom);
+  const setIsDetailPlaceBookmarked = useSetRecoilState(
+    isDetailPlaceBookmarkedAtom
+  );
+  const setIsDetailPlaceLiked = useSetRecoilState(isDetailPlaceLikedAtom);
   const scrollRefContent = useRef<HTMLDivElement>(null);
   const totalInfoRef = useRef<PageInfoType | null>(null);
 
@@ -49,15 +51,15 @@ const DetailPlace = (): JSX.Element => {
   const url2 = `/attractions/${id}/${memberId}`;
   const url3 = `/posts/${id}?page=${curPage}&size=8`;
   const url4 = `/posts/${id}/${memberId}?page=${curPage}&size=8`;
-  const ATTRACTIONS_URL = isLogin ? url2 : url;
-  const POSTS_URL = isLogin ? url4 : url3;
+  const ATTRACTIONS_URL = isLoggedIn ? url2 : url;
+  const POSTS_URL = isLoggedIn ? url4 : url3;
   const navigate = useNavigate();
 
   useEffect(() => {
     apiClient.get(ATTRACTIONS_URL).then((res) => {
       setAttractionData(res.data.data);
-      setLikes(res.data.data.isVoted);
-      setBookmarkSaves(res.data.data.isSaved);
+      setIsDetailPlaceLiked(res.data.data.isVoted);
+      setIsDetailPlaceBookmarked(res.data.data.isSaved);
     });
     window.addEventListener("scroll", handleScroll);
 
@@ -101,8 +103,8 @@ const DetailPlace = (): JSX.Element => {
   };
 
   const handlePostButtonClick = () => {
-    if (!isLogin) {
-      setIsModal(true);
+    if (!isLoggedIn) {
+      setIsLoginModalVisible(true);
       return;
     }
     navigate(`/write/${id}`);
@@ -119,7 +121,7 @@ const DetailPlace = (): JSX.Element => {
           <FloatingMenu
             inverted={fixBar < 470}
             handlePostButtonClick={handlePostButtonClick}
-            onModalVisible={setIsModal}
+            onModalVisible={setIsLoginModalVisible}
           />
           <NavBar>
             <button

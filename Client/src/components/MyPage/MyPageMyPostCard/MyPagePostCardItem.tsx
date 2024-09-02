@@ -2,7 +2,10 @@ import { useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { useNavigate } from "react-router-dom";
 import { getTime } from "~/utils/utils";
-import { isEditMode, UserData } from "~/recoil/myPageState";
+import {
+  isMypageEditModeAtom,
+  myPageUserDataAtom,
+} from "~/recoil/mypage/atoms";
 import { MyPostsType } from "~/utils/d";
 import { apiClient } from "~/api/axiosInstance";
 import { MdDeleteForever as DeleteIcon } from "react-icons/md";
@@ -14,9 +17,9 @@ interface MyPagePostCardItemProps {
 
 const MyPagePostCardItem = ({ postInfo }: MyPagePostCardItemProps) => {
   const navigate = useNavigate();
-  const editPosts = useRecoilValue(isEditMode);
+  const isEditMode = useRecoilValue(isMypageEditModeAtom);
   const [startDeleteAnimation, setStartDeleteAnimation] = useState(false);
-  const [userData, setUserData] = useRecoilState(UserData);
+  const [userData, setUserData] = useRecoilState(myPageUserDataAtom);
 
   const { postId, postTitle, pictureUrl, views, likes, createdAt, modifiedAt } =
     postInfo;
@@ -48,7 +51,7 @@ const MyPagePostCardItem = ({ postInfo }: MyPagePostCardItemProps) => {
 
   return (
     <mpc.MyPagePostCardItemWrapper
-      EditMode={editPosts}
+      isEditMode={isEditMode}
       startTransition={startDeleteAnimation}
     >
       <mpc.PostImg src={pictureUrl} onClick={() => navigate(URL_FOR_POSTS)} />
@@ -59,7 +62,7 @@ const MyPagePostCardItem = ({ postInfo }: MyPagePostCardItemProps) => {
           <span>{`좋아요 ${likes}`}</span>
         </mpc.PostTextInfoBottom>
       </mpc.MyPagePostTextInfoLeftContainer>
-      {editPosts ? (
+      {isEditMode ? (
         <mpc.IconWrapper>
           <EditIcon
             className="edit-icon"

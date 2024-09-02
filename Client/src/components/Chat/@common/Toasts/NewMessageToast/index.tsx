@@ -1,9 +1,9 @@
 import { useRecoilValue } from "recoil";
 
 import {
-  NewMessageArrivedState,
-  ShowNewMesssageBoxState,
-} from "~/recoil/chatState";
+  incomingMessageAtom,
+  showNewMessageToastAtom,
+} from "~/recoil/chat/atoms";
 import { scrollFlagRef } from "~/components/Chat/ChatPanel";
 import { NewMessageBoxWrapper } from "./styled";
 interface NewMessageBoxProps {
@@ -16,26 +16,26 @@ interface NewMessageBoxProps {
   > | null>;
 }
 const NewMessageToast = ({ chatDataMapRef }: NewMessageBoxProps) => {
-  const newMessageArrived = useRecoilValue(NewMessageArrivedState);
-  const showNewMessageBox = useRecoilValue(ShowNewMesssageBoxState);
+  const incomingMessage = useRecoilValue(incomingMessageAtom);
+  const showNewMessageToast = useRecoilValue(showNewMessageToastAtom);
 
   const handleClick = () => {
-    if (newMessageArrived) {
+    if (incomingMessage) {
       scrollFlagRef.current = false;
       chatDataMapRef.current
-        ?.get(newMessageArrived.message.chatId)
+        ?.get(incomingMessage.message.chatId)
         ?.node.scrollIntoView();
     }
   };
   return (
     <NewMessageBoxWrapper
-      showNewMessageBox={showNewMessageBox}
+      showNewMessageBox={showNewMessageToast}
       onClick={handleClick}
     >
-      <img src={newMessageArrived?.message.picture} alt="user profile" />
+      <img src={incomingMessage?.message.picture} alt="user profile" />
       <div className="message-content">
-        <span className="username">{newMessageArrived?.message.username}</span>
-        <span className="message">{newMessageArrived?.message.content}</span>
+        <span className="username">{incomingMessage?.message.username}</span>
+        <span className="message">{incomingMessage?.message.content}</span>
       </div>
     </NewMessageBoxWrapper>
   );

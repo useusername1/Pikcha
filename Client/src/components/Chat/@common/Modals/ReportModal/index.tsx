@@ -1,10 +1,10 @@
 import { apiClient } from "~/api/axiosInstance";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import {
-  AlertQueueState,
-  reportChatDataState,
-  showReportModalState,
-} from "~/recoil/chatState";
+  toastQueueAtom,
+  messageToReportAtom,
+  showReportModalAtom,
+} from "~/recoil/chat/atoms";
 import { DividerLine } from "~/components/Chat/styled";
 import { ModalWrapper } from "../styled";
 import { RiAlarmWarningFill as AlarmIcon } from "react-icons/ri";
@@ -21,10 +21,10 @@ interface ReportModalProps {
   setChatData: React.Dispatch<React.SetStateAction<chatDatatype[]>>;
 }
 const ReportModal = ({ setChatData }: ReportModalProps) => {
-  const setShowReportModal = useSetRecoilState(showReportModalState);
+  const setShowReportModal = useSetRecoilState(showReportModalAtom);
   const [reportChatData, setReportChatData] =
-    useRecoilState(reportChatDataState);
-  const setAlertQueue = useSetRecoilState(AlertQueueState);
+    useRecoilState(messageToReportAtom);
+  const setToastQueue = useSetRecoilState(toastQueueAtom);
   const handleCancelClick = () => {
     setReportChatData(null);
     setShowReportModal(false);
@@ -46,7 +46,7 @@ const ReportModal = ({ setChatData }: ReportModalProps) => {
             ...p.slice(index + 1),
           ];
         });
-        setAlertQueue((p) => [
+        setToastQueue((p) => [
           {
             id: Math.random(),
             message: "REPORT_COMPLETE",

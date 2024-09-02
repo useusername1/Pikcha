@@ -2,7 +2,7 @@ import { flushSync } from "react-dom";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { chatDatatype } from "~/@types/chat.types";
 import { emptyMessage } from "~/data/chatData";
-import { chatDataState, ScrollTargetChatIdState } from "~/recoil/chatState";
+import { chatDataAtom, scrollTargetChatIdAtom } from "~/recoil/chat/atoms";
 import { scrollFlagRef } from "../../ChatPanel";
 import { searchedMessageType } from "../types";
 import { chatIdSearch } from "../utils";
@@ -26,8 +26,8 @@ const SearchedMessageItem = ({
   lastChatIdRef,
   chatDataMapRef,
 }: SearcheMessageProps) => {
-  const [chatData, setChatData] = useRecoilState(chatDataState);
-  const setScrollTargetChatId = useSetRecoilState(ScrollTargetChatIdState);
+  const [chatData, setChatData] = useRecoilState(chatDataAtom);
+  const setScrollTargetChatId = useSetRecoilState(scrollTargetChatIdAtom);
   const handleSearchedMessageClick = (chatId: number) => {
     scrollFlagRef.current = false;
     //1.chatData에 존재하는 경우

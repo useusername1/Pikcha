@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { getPost } from "~/api/BlogDetail/Get/Get";
 import { handlePostSubmit } from "~/api/Post/handlePostSubmit";
 import Button from "~/components/@common/Button";
@@ -10,10 +10,10 @@ import {
   ImageUploader,
 } from "~/components/PostEditor";
 import {
-  PostTags,
-  PostPreviewList,
-  PostContent,
-} from "~/recoil/writePostState";
+  editorTagListAtom,
+  editorPreviewListAtom,
+  editorPostContentAtom,
+} from "~/recoil/postEditor/atoms";
 import { BsDot } from "react-icons/bs";
 import { MdOutlineKeyboardBackspace } from "react-icons/md";
 import { CgClose } from "react-icons/cg";
@@ -24,15 +24,16 @@ interface PostEditorProps {
 
 function PostEditor({ mode }: PostEditorProps) {
   const [title, setTitle] = useState("");
-  const [tags, setTags] = useRecoilState(PostTags);
-  const [postPreviewList, setPostPreviewList] = useRecoilState(PostPreviewList);
-  const [content] = useRecoilState(PostContent);
+  const [tagList, setTagList] = useRecoilState(editorTagListAtom);
+  const [postPreviewList, setPostPreviewList] = useRecoilState(
+    editorPreviewListAtom
+  );
+  const postContent = useRecoilValue(editorPostContentAtom);
   const [imgFiles, setImgFiles] = useState<File[]>([]);
   const [showImageUploader, setShowImageUploader] = useState(false);
   const [isWriteGuideModal, setIsWriteGuideModal] = useState(true);
   const { postId } = useParams();
   const navigate = useNavigate();
-  console.log(postPreviewList, "이거 확인!!!!!");
 
   useEffect(() => {
     if (mode === "edit") {
@@ -43,7 +44,7 @@ function PostEditor({ mode }: PostEditorProps) {
         );
         console.log(result, previewContents, "result,previewContents");
         setTitle(result.postTitle);
-        setTags(result.postHashTags);
+        setTagList(result.postHashTags);
         setPostPreviewList((preview) => [...preview, previewContents]);
       };
       getData();
@@ -74,7 +75,13 @@ function PostEditor({ mode }: PostEditorProps) {
 
   const actionPostSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    const post = await handlePostSubmit(title, tags, imgFiles, content, postId);
+    const post = await handlePostSubmit(
+      title,
+      tagList,
+      imgFiles,
+      postContent,
+      postId
+    );
     navigate(`/posts/detail/${post}`);
   };
 
@@ -145,7 +152,6 @@ function PostEditor({ mode }: PostEditorProps) {
           </div>
           {postPreviewList &&
             postPreviewList.map((previews, index) => {
-              console.log(previews, index, "이것도 확인하자");
               return (
                 <wp.PreviewContentContainer key={index}>
                   <wp.PreviewImgContainer>

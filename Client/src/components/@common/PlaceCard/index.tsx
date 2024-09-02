@@ -1,15 +1,15 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { AiFillHeart as LikeIcon } from "react-icons/ai";
-import { BsFillBookmarkFill as BookmarkIcon } from "react-icons/bs";
-import { MdModeComment } from "react-icons/md";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { UserDataAtomFamily } from "~/recoil/auth";
 import { apiClient } from "~/api/axiosInstance";
+import { isLoginModalVisibleAtom } from "~/recoil/modal/atoms";
+import { UserDataAtomFamily } from "~/recoil/auth";
 import { getCurrentCount } from "~/utils/utils";
 import * as plc from "./styled";
 import { PlaceType } from "~/utils/d";
-import { isModalVisible } from "~/recoil/setOverlay";
+import { AiFillHeart as LikeIcon } from "react-icons/ai";
+import { BsFillBookmarkFill as BookmarkIcon } from "react-icons/bs";
+import { MdModeComment } from "react-icons/md";
 
 const PlaceCard = ({
   placeInfo,
@@ -21,7 +21,7 @@ const PlaceCard = ({
   const [currentBookmark, setCurrentBookmark] = useState(placeInfo.isSaved); //로컬 북마트 상태 저장
   const [currentLike, setCurrentLike] = useState(placeInfo.isVoted);
   const isLogin = useRecoilValue(UserDataAtomFamily.LOGIN_STATE);
-  const setIsModal = useSetRecoilState(isModalVisible);
+  const setIsLoginModalVisible = useSetRecoilState(isLoginModalVisibleAtom);
   const navigate = useNavigate();
   const {
     attractionId,
@@ -34,7 +34,7 @@ const PlaceCard = ({
   const URL_FOR_LIKES = `/attractions/likes/${attractionId}`;
   const handleBookmarkClick = () => {
     if (!isLogin) {
-      setIsModal(true);
+      setIsLoginModalVisible(true);
       return;
     }
     apiClient.post(URL_FOR_SAVES).then((res) => {
@@ -43,7 +43,7 @@ const PlaceCard = ({
   };
   const handleLikeClick = () => {
     if (!isLogin) {
-      setIsModal(true);
+      setIsLoginModalVisible(true);
       return;
     }
     apiClient.post(URL_FOR_LIKES).then((res) => {

@@ -1,17 +1,17 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import { handleCommentSubmit } from "~/api/BlogDetail/Post/Post";
 import Button from "~/components/@common/Button";
 import { UserDataAtomFamily } from "~/recoil/auth";
-import { isModalVisible } from "~/recoil/setOverlay";
+import { isLoginModalVisibleAtom } from "~/recoil/modal/atoms";
 import * as dp from "./styled";
 
 const AddComment = () => {
   const [addComment, setAddComment] = useState("");
   const [isLogin] = useRecoilState(UserDataAtomFamily.LOGIN_STATE);
   const { id } = useParams();
-  const [_, setIsModal] = useRecoilState(isModalVisible);
+  const setIsLoginModalVisible = useSetRecoilState(isLoginModalVisibleAtom);
 
   return (
     <dp.AddCommentWrapper isLogin={isLogin}>
@@ -30,7 +30,7 @@ const AddComment = () => {
           value={addComment}
           onChange={(e) => setAddComment(e.target.value)}
           onClick={() => {
-            if (!isLogin) setIsModal(true);
+            if (!isLogin) setIsLoginModalVisible(true);
           }}
         />
         {isLogin ? (

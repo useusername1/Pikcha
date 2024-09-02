@@ -1,9 +1,9 @@
 import { useRecoilState, useSetRecoilState } from "recoil";
 import {
-  deleteItemsState,
-  isDeleteModeState,
-  showConfirmModalState,
-} from "~/recoil/chatState";
+  itemsToDeleteAtom,
+  isDeleteModeAtom,
+  showConfirmModalAtom,
+} from "~/recoil/chat/atoms";
 import { DeleteModalContainer } from "./styled";
 import { ModalWrapper } from "../styled";
 import { HiExclamationTriangle as ExclamaionIcon } from "react-icons/hi2";
@@ -12,9 +12,9 @@ interface ConfirmDeleteModalProps {
   deleteMessage: (message: Set<number> | number[]) => void;
 }
 const ConfirmDeleteModal = ({ deleteMessage }: ConfirmDeleteModalProps) => {
-  const setShowConfirmModal = useSetRecoilState(showConfirmModalState);
-  const [isDeleteMode, setIsDeleteMode] = useRecoilState(isDeleteModeState);
-  const [deleteItems, setDeleteItems] = useRecoilState(deleteItemsState);
+  const setShowConfirmModal = useSetRecoilState(showConfirmModalAtom);
+  const [isDeleteMode, setIsDeleteMode] = useRecoilState(isDeleteModeAtom);
+  const [deleteItems, setDeleteItems] = useRecoilState(itemsToDeleteAtom);
   const handleCancelClick = () => {
     if (!isDeleteMode) setDeleteItems(new Set());
     setShowConfirmModal(false);

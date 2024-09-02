@@ -1,16 +1,16 @@
 import { useRecoilState, useSetRecoilState } from "recoil";
 import {
-  deleteItemsState,
-  isDeleteModeState,
-  showConfirmModalState,
-} from "~/recoil/chatState";
+  itemsToDeleteAtom,
+  isDeleteModeAtom,
+  showConfirmModalAtom,
+} from "~/recoil/chat/atoms";
 import { sendbarStyle } from "~/components/Chat/ChatInputBar";
 import { ConfirmBarDiv, CancelAllButton, DeleteAllButton } from "./styled";
 
 const DeleteAllConfirmModal = () => {
-  const setShowConfirmModal = useSetRecoilState(showConfirmModalState);
-  const setIsDeleteMode = useSetRecoilState(isDeleteModeState);
-  const [deleteItems, setDeleteItems] = useRecoilState(deleteItemsState);
+  const setShowConfirmModal = useSetRecoilState(showConfirmModalAtom);
+  const setIsDeleteMode = useSetRecoilState(isDeleteModeAtom);
+  const [deleteItems, setDeleteItems] = useRecoilState(itemsToDeleteAtom);
   const handleButtonClick = () => {
     setShowConfirmModal(true);
   };

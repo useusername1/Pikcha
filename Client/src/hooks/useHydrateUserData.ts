@@ -1,10 +1,7 @@
 import { useRecoilCallback, useResetRecoilState } from "recoil";
-import {
-  UserDataAtomFamily,
-  withUserDefaultFamily,
-  UserStateKeys,
-} from "../recoil/auth";
+import { UserDataAtomFamily, withUserDefaultFamily } from "../recoil/auth";
 import { useCallback } from "react";
+import { UserStateKeys } from "~/@types/auth.types";
 
 const useHydrateUserData = () => {
   const resetLogInState = useResetRecoilState(UserDataAtomFamily.LOGIN_STATE);

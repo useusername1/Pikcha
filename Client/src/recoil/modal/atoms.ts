@@ -1,13 +1,8 @@
 import { atom } from "recoil";
-import { storeLocation } from "../utils/storeLocation";
+import { storeLocation } from "~/utils/storeLocation";
 
-export const setOverlay = atom({
-  key: "setOverlay",
-  default: false,
-});
-
-export const isModalVisible = atom({
-  key: "isModalVisible",
+export const isLoginModalVisibleAtom = atom({
+  key: "isLoginModalVisibleAtom",
   default: false,
   effects: [
     ({ onSet }) => {
@@ -19,3 +14,4 @@ export const isModalVisible = atom({
     },
   ],
 });
+//isModalVisible=>isLoginModalVisible

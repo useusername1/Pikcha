@@ -5,15 +5,16 @@ import Button from "~/components/@common/Button";
 import useAuthPostMessage from "~/hooks/useAuthPostMessage";
 import useNavigateToStoredLocation from "~/hooks/useNavigateToStoredLocation";
 import { UserDataAtomFamily } from "~/recoil/auth";
-import { setOverlay } from "~/recoil/setOverlay";
-import * as l from "./styled";
-import * as shared from "../styled";
+import { isOverlayLeftAtom } from "~/recoil/loginSignUp/atoms";
+import { apiClient } from "~/api/axiosInstance";
 import { FcGoogle as GoogleIcon } from "react-icons/fc";
 import { RiKakaoTalkFill as KakaoIcon } from "react-icons/ri";
-import { apiClient } from "~/api/axiosInstance";
+import * as l from "./styled";
+import * as shared from "../styled";
 
 const LoginSide = () => {
-  const [overlays, setOverlays] = useRecoilState<boolean>(setOverlay);
+  const [isOverlayLeft, setIsOverlayLeft] =
+    useRecoilState<boolean>(isOverlayLeftAtom);
   const [loginemail, setLoginEmail] = useState<string>("");
   const [loginpassword, setLoginPassword] = useState<string>("");
   const [loginemailErr, setLoginEmailErr] = useState<boolean>(true);
@@ -61,7 +62,7 @@ const LoginSide = () => {
             setIslogin(true);
             setLoggedUser(email);
             setMemberId(memberId);
-            setOverlays(false);
+            setIsOverlayLeft(false);
             setAuth(accessToken);
           });
           postLogin();
@@ -76,14 +77,14 @@ const LoginSide = () => {
 
   const onPressEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
-      if (overlays === false) {
+      if (isOverlayLeft === false) {
         loginHandle();
       }
     }
   };
 
   const onClickBtn = (e: React.MouseEvent<HTMLDivElement>) => {
-    setOverlays(!overlays);
+    setIsOverlayLeft(!isOverlayLeft);
   };
 
   const googleLogin = () => {
@@ -94,7 +95,7 @@ const LoginSide = () => {
   };
 
   return (
-    <l.Logincontainer overlay={overlays}>
+    <l.Logincontainer overlay={isOverlayLeft}>
       <shared.TopConatiner>
         <l.LoginHeaderContainer>
           <shared.TextStyle

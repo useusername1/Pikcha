@@ -5,11 +5,11 @@ import { v4 as uuidv4 } from "uuid";
 import { apiClient } from "../api/axiosInstance";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import {
-  AlertQueueState,
-  NewMessageArrivedState,
-  chatDataState,
-  onlineNumberOfUserState,
-} from "../recoil/chatState";
+  toastQueueAtom,
+  incomingMessageAtom,
+  chatDataAtom,
+  chatMemberCountAtom,
+} from "../recoil/chat/atoms";
 import { UserDataAtomFamily } from "../recoil/auth";
 import { flushSync } from "react-dom";
 import { chatDatatype } from "../@types/chat.types";
@@ -25,17 +25,17 @@ function useWebsocket(
     }
   > | null>
 ) {
-  const setChatData = useSetRecoilState(chatDataState);
   const [chatBuffer, setChatBuffer] = useState<Array<chatDatatype>>([]);
-  const clientRef = useRef<Stomp.Client | null>(null);
+  const setChatMemberCount = useSetRecoilState(chatMemberCountAtom);
+  const setIncomingMessage = useSetRecoilState(incomingMessageAtom);
+  const setToastQueue = useSetRecoilState(toastQueueAtom);
+  const setChatData = useSetRecoilState(chatDataAtom);
+  const accessToken = useRecoilValue(UserDataAtomFamily.AUTH_TOKEN);
+  const memberId = useRecoilValue(UserDataAtomFamily.MEMBER_ID);
+  const isLogin = useRecoilValue(UserDataAtomFamily.LOGIN_STATE);
   const subscriptionRef = useRef<Stomp.StompSubscription | null>(null);
   const lastChatIdRef = useRef<number | undefined>(undefined);
-  const setOnlineNumOfUsers = useSetRecoilState(onlineNumberOfUserState);
-  const setAlertQueue = useSetRecoilState(AlertQueueState);
-  const isLogin = useRecoilValue(UserDataAtomFamily.LOGIN_STATE);
-  const setNewMessageArrived = useSetRecoilState(NewMessageArrivedState);
-  const memberId = useRecoilValue(UserDataAtomFamily.MEMBER_ID);
-  const accessToken = useRecoilValue(UserDataAtomFamily.AUTH_TOKEN);
+  const clientRef = useRef<Stomp.Client | null>(null);
 
   /*likes-,delete-,report-*/
   useEffect(() => {
@@ -91,7 +91,7 @@ function useWebsocket(
       }
       case "LEAVE":
       case "JOIN": {
-        setOnlineNumOfUsers(parsedMessage.numberOfUsers);
+        setChatMemberCount(parsedMessage.numberOfUsers);
         const payload = {
           chatId: -1,
           content: "",
@@ -150,7 +150,7 @@ function useWebsocket(
             );
           });
         } else {
-          setNewMessageArrived((p) => ({
+          setIncomingMessage((p) => ({
             message: parsedMessage,
             count: p ? p.count + 1 : 1,
           }));
@@ -166,7 +166,7 @@ function useWebsocket(
               : p
           );
         } else {
-          setNewMessageArrived((p) => ({
+          setIncomingMessage((p) => ({
             message: parsedMessage,
             count: p ? p.count + 1 : 1,
           }));
@@ -306,7 +306,7 @@ function useWebsocket(
       })
       .catch((err) => {
         console.log(err);
-        setAlertQueue((p) => [
+        setToastQueue((p) => [
           {
             id: Math.random(),
             message: "DELETE_ERROR",

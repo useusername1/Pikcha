@@ -100,7 +100,7 @@ const ChatInputBarButton = styled.div<{
 const SendBarFrameDiv = styled.div<{
   styleProps: ChatInputBarStyleType;
   showSearchBox?: boolean;
-  showNewMessageBox?: boolean;
+  showNewMessageToast?: boolean;
 }>`
   --sb-padding: ${(props) => `${props.styleProps.padding}px`};
   --sb-lineheight: ${(props) => `${props.styleProps.lineheight}px`};

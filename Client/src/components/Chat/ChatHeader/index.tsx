@@ -1,10 +1,10 @@
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import {
-  onlineNumberOfUserState,
-  ChatStatus,
-  ShowSearchBox,
-  NewMessageArrivedState,
-} from "~/recoil/chatState";
+  chatMemberCountAtom,
+  chatStatusAtom,
+  showSearchBoxAtom,
+  incomingMessageAtom,
+} from "~/recoil/chat/atoms";
 import {
   ChatHeaderWrapper,
   LogoIconWrapper,
@@ -19,11 +19,10 @@ import { ReactComponent as PikchaIcon } from "~/assets/LogoLetter.svg";
 import { ReactComponent as Logo } from "~/assets/Logo.svg";
 
 const ChatHeader = () => {
-  const onlineNumOfUsers = useRecoilValue(onlineNumberOfUserState);
-  const setChatStatus = useSetRecoilState(ChatStatus);
-  const setShowSearchBox = useSetRecoilState(ShowSearchBox);
-  const showSearchBox = useRecoilValue(ShowSearchBox);
-  const setNewMessageArrived = useSetRecoilState(NewMessageArrivedState);
+  const [showSearchBox, setShowSearchBox] = useRecoilState(showSearchBoxAtom);
+  const onlineNumOfUsers = useRecoilValue(chatMemberCountAtom);
+  const setChatStatus = useSetRecoilState(chatStatusAtom);
+  const setNewMessageArrived = useSetRecoilState(incomingMessageAtom);
   const handleMinClick = () => {
     setNewMessageArrived((p) => (!p ? p : { ...p, count: 0 }));
     setChatStatus("MINIMIZED");

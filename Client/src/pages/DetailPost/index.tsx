@@ -9,7 +9,7 @@ import Footer from "~/components/@common/Footer";
 import { DefaultHeader } from "~/components/@common/Header";
 import { AddComment, Comment } from "~/components/DetailPost";
 import { UserDataAtomFamily } from "~/recoil/auth";
-import { isModalVisible } from "~/recoil/setOverlay";
+import { isLoginModalVisibleAtom } from "~/recoil/modal/atoms";
 import { PostDetailType, ArrayCommentType } from "~/utils/d";
 import { getCurrentCount } from "~/utils/utils";
 import * as dp from "./styled";
@@ -21,7 +21,7 @@ const DetailPost = () => {
   const [post, setPost] = useState<PostDetailType>();
   const [commentList, setCommentList] = useState<ArrayCommentType>();
   const [isVoted, setIsVoted] = useState(false);
-  const setIsModal = useSetRecoilState(isModalVisible);
+  const setIsLoginModalVisible = useSetRecoilState(isLoginModalVisibleAtom);
   const isLogin = useRecoilValue(UserDataAtomFamily.LOGIN_STATE);
   const memberId = useRecoilValue(UserDataAtomFamily.MEMBER_ID);
   const { postId } = useParams();
@@ -146,7 +146,7 @@ const DetailPost = () => {
                 <AiFillHeart
                   onClick={() =>
                     !memberId
-                      ? setIsModal(true)
+                      ? setIsLoginModalVisible(true)
                       : handleLikePost(postId, setIsVoted)
                   }
                   color={isVoted ? "red" : "grey"}

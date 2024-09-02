@@ -5,12 +5,12 @@ import { ChatPanelStatusType } from "~/@types/chat.types";
 import useWebsocket from "~/hooks/useWebsocket";
 import { UserDataAtomFamily } from "~/recoil/auth";
 import {
-  isDeleteModeState,
-  showConfirmModalState,
-  showReportModalState,
-  chatDataState,
-  ShowSearchBox,
-} from "~/recoil/chatState";
+  isDeleteModeAtom,
+  showConfirmModalAtom,
+  showReportModalAtom,
+  chatDataAtom,
+  showSearchBoxAtom,
+} from "~/recoil/chat/atoms";
 import {
   ConfirmDeleteModal,
   ReportModal,
@@ -50,16 +50,16 @@ const ChatPanel = ({ chatStatus }: ChatPanelProps) => {
     lastChatIdRef,
   } = useWebsocket(URL, TOPIC, chatDataMapRef);
 
-  const isDeleteMode = useRecoilValue(isDeleteModeState); //삭제모드
-  const showConfirmModal = useRecoilValue(showConfirmModalState); //삭제승인 모달
-  const showReportModal = useRecoilValue(showReportModalState); //신고 모달
-  const setChatData = useSetRecoilState(chatDataState);
+  const isDeleteMode = useRecoilValue(isDeleteModeAtom); //삭제모드
+  const showConfirmModal = useRecoilValue(showConfirmModalAtom); //삭제승인 모달
+  const showReportModal = useRecoilValue(showReportModalAtom); //신고 모달
+  const setChatData = useSetRecoilState(chatDataAtom);
   const isLogin = useRecoilValue(UserDataAtomFamily.LOGIN_STATE);
   const sendChatBoxRef = useRef<HTMLDivElement | null>(null);
   const observerRef = useRef<IntersectionObserver | null>(null);
   const chatBoxRef = useRef<HTMLDivElement | null>(null);
 
-  const showSearchBox = useRecoilValue(ShowSearchBox);
+  const showSearchBox = useRecoilValue(showSearchBoxAtom);
   //enter가 join보다 먼저 응답=> enter응답 받은 후 activate
   useEffect(() => {
     if (!isLogin) return;

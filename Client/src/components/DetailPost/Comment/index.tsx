@@ -1,14 +1,14 @@
 import { useState } from "react";
-import { IoMdArrowDropup, IoMdArrowDropdown } from "react-icons/io";
 import { useParams } from "react-router-dom";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import Recomment from "../Recomment";
 import { deletePostComment } from "~/api/BlogDetail/Delete/Delete";
 import { modifiedComment } from "~/api/BlogDetail/Patch/Patch";
 import { handleCommentSubmit } from "~/api/BlogDetail/Post/Post";
 import { UserDataAtomFamily } from "~/recoil/auth";
-import { isModalVisible } from "~/recoil/setOverlay";
+import { isLoginModalVisibleAtom } from "~/recoil/modal/atoms";
 import { CommentType, ReCommentType } from "~/utils/d";
+import { IoMdArrowDropup, IoMdArrowDropdown } from "react-icons/io";
 import * as poc from "./styled";
 import * as shared from "../styled";
 
@@ -29,7 +29,7 @@ const Comment = ({
   const { recommentContent, editcommentContent } = content;
   const [isMoreRecomment, setIsMoreReomment] = useState(false);
   const [memberId] = useRecoilState(UserDataAtomFamily.MEMBER_ID);
-  const [_, setIsModal] = useRecoilState(isModalVisible);
+  const setIsLoginModalVisible = useSetRecoilState(isLoginModalVisibleAtom);
   const { id } = useParams();
 
   return (
@@ -136,7 +136,7 @@ const Comment = ({
                         : "로그인 후 사용해주세요."
                     }
                     onClick={() => {
-                      if (!memberId) setIsModal(true);
+                      if (!memberId) setIsLoginModalVisible(true);
                     }}
                   />
                   <button

@@ -1,6 +1,5 @@
 import { AtomEffect, atomFamily } from "recoil";
-
-export type ChannelName = "auth";
+import { ChannelName } from "~/@types/broadcastChannel.types";
 
 const generateChannelEffect =
   (channelName: ChannelName): AtomEffect<BroadcastChannel | null> =>
@@ -14,7 +13,7 @@ const generateChannelEffect =
     };
   };
 
-export const broadcastchannelsStateFamily = atomFamily<
+export const broadcastchannelsAtomFamily = atomFamily<
   BroadcastChannel | null,
   ChannelName
 >({
