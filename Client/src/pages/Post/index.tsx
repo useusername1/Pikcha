@@ -5,9 +5,10 @@ import { DefaultHeader } from "~/components/@common/Header";
 import LocationFilter from "~/components/@common/LocationFilter";
 import Pagination from "~/components/@common/Pagination";
 import PostCard from "~/components/@common/PostCard";
-import { ArrayPostType, PageInfoType } from "~/utils/d";
 import * as po from "./styled";
 import { apiClient } from "~/api/axiosInstance";
+import { PageInfoType } from "~/@types/page.types";
+import { ArrayPostType } from "~/@types/post.types";
 
 const ITEM_LIMIT = 9;
 

@@ -1,5 +1,5 @@
 import { atom } from "recoil";
-import { UserType } from "~/utils/d";
+import { UserType } from "./types";
 
 export const isMyPageDeleteModeAtom = atom<boolean>({
   key: "isMyPageDeleteModeAtom",

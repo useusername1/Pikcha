@@ -9,7 +9,7 @@ import PlaceCard from "~/components/@common/PlaceCard";
 import { Carousel, Ranking } from "~/components/Main";
 import Footer from "~/components/@common/Footer";
 import { UserDataAtomFamily } from "~/recoil/auth";
-import { ArrayPlaceType, ArrayPostType } from "~/utils/d";
+
 import { HiOutlineChevronDoubleRight as DoubleArrowIcon } from "react-icons/hi";
 
 import {
@@ -21,6 +21,8 @@ import {
   ViewsPlaceContainer,
   ViewsPostContainer,
 } from "./styled";
+import { ArrayPlaceType } from "~/@types/place.types";
+import { ArrayPostType } from "~/@types/post.types";
 
 function Main() {
   const [attractionData, setAttractionData] = useState<ArrayPlaceType>();

@@ -6,10 +6,10 @@ import { isLoginModalVisibleAtom } from "~/recoil/modal/atoms";
 import { UserDataAtomFamily } from "~/recoil/auth";
 import { getCurrentCount } from "~/utils/utils";
 import * as plc from "./styled";
-import { PlaceType } from "~/utils/d";
 import { AiFillHeart as LikeIcon } from "react-icons/ai";
 import { BsFillBookmarkFill as BookmarkIcon } from "react-icons/bs";
 import { MdModeComment } from "react-icons/md";
+import { PlaceType } from "~/@types/place.types";
 
 const PlaceCard = ({
   placeInfo,

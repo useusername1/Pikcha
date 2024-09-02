@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { ArrayMyPostsType } from "~/utils/d";
 import MyPagePagination from "../MyPagePagination";
 import MyPagePostCardItem from "./MyPagePostCardItem";
 import * as mp from "./styled";
+import { ArrayMyPostsType } from "../types";
 
 const MyPageMyPostCard = ({
   posts,

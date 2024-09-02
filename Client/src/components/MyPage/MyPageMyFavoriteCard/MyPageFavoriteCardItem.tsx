@@ -1,13 +1,13 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
 import {
   isMyPageDeleteModeAtom,
   myPageUserDataAtom,
 } from "~/recoil/mypage/atoms";
-import { MdDeleteForever as DeleteIcon } from "react-icons/md";
 import { apiClient } from "~/api/axiosInstance";
-import { useState } from "react";
-import { MySavesType } from "~/utils/d";
+import { MySavesType } from "../types";
+import { MdDeleteForever as DeleteIcon } from "react-icons/md";
 import * as mpc from "./styled";
 
 interface MyPageFavoriteCardItemProps {

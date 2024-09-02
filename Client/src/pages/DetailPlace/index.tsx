@@ -16,7 +16,6 @@ import {
   isDetailPlaceLikedAtom,
 } from "~/recoil/detailPlace/atoms";
 import { isLoginModalVisibleAtom } from "~/recoil/modal/atoms";
-import { ArrayPostType, PageInfoType } from "~/utils/d";
 import {
   ImageBox,
   NavBar,
@@ -28,6 +27,8 @@ import {
   PostCardListWrapper,
 } from "./styled";
 import { FaMapMarkerAlt as MarkIcon } from "react-icons/fa";
+import { ArrayPostType } from "~/@types/post.types";
+import { PageInfoType } from "~/@types/page.types";
 
 const DetailPlace = (): JSX.Element => {
   let [view, setView] = useState<string>("info");

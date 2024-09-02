@@ -1,8 +1,8 @@
 import { Dispatch, SetStateAction, FormEvent } from "react";
 import { BsThreeDots as DotsIcon } from "react-icons/bs";
-import { PageInfoType } from "~/utils/d";
 import { PagenationContainer, PagenationWrapper, PageButton } from "./styled";
 import { getPageButtonRange } from "./utils";
+import { PageInfoType } from "~/@types/page.types";
 
 const Pagination = ({
   props,

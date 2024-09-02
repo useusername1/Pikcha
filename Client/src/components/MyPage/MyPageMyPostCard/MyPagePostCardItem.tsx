@@ -6,11 +6,11 @@ import {
   isMypageEditModeAtom,
   myPageUserDataAtom,
 } from "~/recoil/mypage/atoms";
-import { MyPostsType } from "~/utils/d";
 import { apiClient } from "~/api/axiosInstance";
 import { MdDeleteForever as DeleteIcon } from "react-icons/md";
 import { MdModeEditOutline as EditIcon } from "react-icons/md";
 import * as mpc from "./styled";
+import { MyPostsType } from "../types";
 interface MyPagePostCardItemProps {
   postInfo: MyPostsType;
 }

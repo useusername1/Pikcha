@@ -1,5 +1,5 @@
+import { ArrayCommentType } from "~/@types/detailPost.types";
 import { apiClient } from "~/api/axiosInstance";
-import { ArrayCommentType } from "~/utils/d";
 
 export const getPost = async (
   postId: string | undefined,

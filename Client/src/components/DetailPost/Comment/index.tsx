@@ -7,10 +7,11 @@ import { modifiedComment } from "~/api/BlogDetail/Patch/Patch";
 import { handleCommentSubmit } from "~/api/BlogDetail/Post/Post";
 import { UserDataAtomFamily } from "~/recoil/auth";
 import { isLoginModalVisibleAtom } from "~/recoil/modal/atoms";
-import { CommentType, ReCommentType } from "~/utils/d";
 import { IoMdArrowDropup, IoMdArrowDropdown } from "react-icons/io";
 import * as poc from "./styled";
 import * as shared from "../styled";
+import { CommentType } from "~/@types/detailPost.types";
+import { ReCommentType } from "../types";
 
 const Comment = ({
   comments,

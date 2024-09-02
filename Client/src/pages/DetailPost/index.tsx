@@ -10,12 +10,13 @@ import { DefaultHeader } from "~/components/@common/Header";
 import { AddComment, Comment } from "~/components/DetailPost";
 import { UserDataAtomFamily } from "~/recoil/auth";
 import { isLoginModalVisibleAtom } from "~/recoil/modal/atoms";
-import { PostDetailType, ArrayCommentType } from "~/utils/d";
 import { getCurrentCount } from "~/utils/utils";
 import * as dp from "./styled";
 import { FaRegCommentDots } from "react-icons/fa";
 import { MdModeEdit, MdDelete, MdPlace } from "react-icons/md";
 import { RxDoubleArrowLeft } from "react-icons/rx";
+import { ArrayCommentType } from "~/@types/detailPost.types";
+import { PostDetailType } from "./types";
 
 const DetailPost = () => {
   const [post, setPost] = useState<PostDetailType>();

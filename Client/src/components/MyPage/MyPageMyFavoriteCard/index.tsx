@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { ArrayMySavesType } from "~/utils/d";
 import MyPageFavoriteCardItem from "./MyPageFavoriteCardItem";
 import MyPagePagination from "../MyPagePagination";
+import { ArrayMySavesType } from "../types";
 import * as mp from "./styled";
 
 const MyPageMyFavoriteCard = ({

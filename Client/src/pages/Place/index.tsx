@@ -8,9 +8,10 @@ import LocationFilter from "~/components/@common/LocationFilter";
 import Pagination from "~/components/@common/Pagination";
 import PlaceCard from "~/components/@common/PlaceCard";
 import { UserDataAtomFamily } from "~/recoil/auth";
-import { ArrayPlaceType, PageInfoType, PageSessionType } from "~/utils/d";
 import * as pl from "./styled";
 import { apiClient } from "~/api/axiosInstance";
+import { ArrayPlaceType, PageSessionType } from "~/@types/place.types";
+import { PageInfoType } from "~/@types/page.types";
 
 const sortList: { kor: string; eng: string }[] = [
   {

@@ -3,7 +3,7 @@ import { useRecoilState } from "recoil";
 import { deletePostComment } from "~/api/BlogDetail/Delete/Delete";
 import { modifiedComment } from "~/api/BlogDetail/Patch/Patch";
 import { UserDataAtomFamily } from "~/recoil/auth";
-import { ReCommentType } from "~/utils/d";
+import { ReCommentType } from "../types";
 import * as shared from "../styled";
 
 const Recomment = ({
