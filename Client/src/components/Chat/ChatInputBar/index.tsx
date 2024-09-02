@@ -9,7 +9,6 @@ import {
   showSearchBoxAtom,
   showNewMessageToastAtom,
 } from "~/recoil/chat/atoms";
-import { generateRandomEmoji } from "~/utils/utils";
 import { NewMessageToast } from "../@common/Toasts";
 import { scrollFlagRef } from "../ChatPanel";
 import { DividerLine } from "../styled";
@@ -29,6 +28,7 @@ import EmojiPicker, {
 import { RiSendPlaneFill as SendIcon } from "react-icons/ri";
 import { IoClose as CloseIcon } from "react-icons/io5";
 import { TbArrowForward as ReplyIcon } from "react-icons/tb";
+import generateRandomEmoji from "./utils";
 
 export const sendbarStyle: ChatInputBarStyleType = {
   padding: 10,

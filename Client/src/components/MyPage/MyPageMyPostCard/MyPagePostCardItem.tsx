@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { useNavigate } from "react-router-dom";
-import { getTime } from "~/utils/utils";
 import {
   isMypageEditModeAtom,
   myPageUserDataAtom,
@@ -11,6 +10,7 @@ import { MdDeleteForever as DeleteIcon } from "react-icons/md";
 import { MdModeEditOutline as EditIcon } from "react-icons/md";
 import * as mpc from "./styled";
 import { MyPostsType } from "../types";
+import getTime from "./utils";
 interface MyPagePostCardItemProps {
   postInfo: MyPostsType;
 }

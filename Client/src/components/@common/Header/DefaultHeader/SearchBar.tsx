@@ -14,12 +14,12 @@ import {
 import { useNavigate } from "react-router-dom";
 import { SearchForm, AttractionItemContent } from "./styled";
 import useClickDetect from "~/hooks/useClickDetect";
-import { getfilteredAttractions } from "~/utils/utils";
 import { useRecoilValue } from "recoil";
 import { headerVisibilityAtom } from "~/recoil/header/atoms";
 import { AttractionsData } from "~/data/searchBarData";
 import { FiSearch as SearchIcon } from "react-icons/fi";
 import { IoCloseOutline as ResetIcon } from "react-icons/io5";
+import getFilteredAttractions from "./utils";
 
 const SuggestionBox = lazy(() =>
   import("./SuggestionBox").then((module) => ({
@@ -54,7 +54,7 @@ const SearchBar = ({ defaultValue = "" }: SearchBarProps) => {
         .trim()
         .replace(/[`~!@#$%^&*_|+\-=?;:'"<>\\{\\}\\[\]\\\\/]/gim, " ")
         .replace(/\s\s+/g, " ");
-      const result = getfilteredAttractions(
+      const result = getFilteredAttractions(
         AttractionsData,
         trimmedSearchValue,
         MAX_SUGGEST

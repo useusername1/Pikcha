@@ -1,6 +1,5 @@
 import { useEffect, useState, useRef, useMemo } from "react";
 import { apiClient } from "~/api/axiosInstance";
-import { getRandomInt } from "~/utils/utils";
 import {
   RankingWrapper,
   MainRankingWrapper,
@@ -16,6 +15,7 @@ import { BsChevronDown as DownArrow } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import PopOver from "./PopOver";
 import ArrowIconGenerator from "./ArrowIconGenerator";
+import getRandomInt from "./utils";
 interface optionsType {
   dateStyle: "medium";
   timeStyle: "short";

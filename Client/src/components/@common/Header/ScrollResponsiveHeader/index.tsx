@@ -2,8 +2,7 @@ import { useEffect, useRef } from "react";
 import { useRecoilState } from "recoil";
 import { headerVisibilityAtom } from "~/recoil/header/atoms";
 import { Header } from "../DefaultHeader";
-import { throttle } from "~/utils/utils";
-
+import throttle from "~/utils/throttle";
 interface FixedHeaderOnScrollUpProps {
   defaultValue?: string;
 }

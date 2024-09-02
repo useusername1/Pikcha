@@ -8,13 +8,13 @@ import { regionDummy } from "~/data/regionData";
 import tags from "~/data/tagData";
 import { UserDataAtomFamily } from "~/recoil/auth";
 import { isLoginModalVisibleAtom } from "~/recoil/modal/atoms";
-import encodeURLForBackgroundImage from "~/utils/encodeImgURL";
 import * as m from "./styled";
 import { BsBookmarkPlus, BsFillChatLeftFill } from "react-icons/bs";
 import { RiArrowDropDownLine } from "react-icons/ri";
 import { FaMapMarkerAlt } from "react-icons/fa";
 import { AiOutlineHeart } from "react-icons/ai";
 import { GiTalk } from "react-icons/gi";
+import encodeURLForBackgroundImage from "./utils";
 
 interface RegionType {
   attractionAddress: string;

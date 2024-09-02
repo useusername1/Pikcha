@@ -14,7 +14,6 @@ import {
   isDetailPlaceLikedAtom,
   detailPlaceDataAtom,
 } from "~/recoil/detailPlace/atoms";
-import { getCurrentCount } from "~/utils/utils";
 import { FixBoxVertical, IconContainer, ShareBox, MarkerCount } from "./styled";
 import { MdEditNote as NoteIcon } from "react-icons/md";
 import { RiKakaoTalkFill as KakaoIcon } from "react-icons/ri";
@@ -25,6 +24,7 @@ import {
   BsShareFill,
   BsBookmarkFill,
 } from "react-icons/bs";
+import getCurrentCount from "~/utils/getCurrentCount";
 interface ShareProps {
   inverted: boolean;
   handlePostButtonClick: MouseEventHandler<HTMLElement>;

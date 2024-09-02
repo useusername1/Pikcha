@@ -4,12 +4,12 @@ import { useRecoilValue, useSetRecoilState } from "recoil";
 import { apiClient } from "~/api/axiosInstance";
 import { isLoginModalVisibleAtom } from "~/recoil/modal/atoms";
 import { UserDataAtomFamily } from "~/recoil/auth";
-import { getCurrentCount } from "~/utils/utils";
 import * as plc from "./styled";
 import { AiFillHeart as LikeIcon } from "react-icons/ai";
 import { BsFillBookmarkFill as BookmarkIcon } from "react-icons/bs";
 import { MdModeComment } from "react-icons/md";
 import { PlaceType } from "~/@types/place.types";
+import getCurrentCount from "~/utils/getCurrentCount";
 
 const PlaceCard = ({
   placeInfo,
@@ -50,6 +50,7 @@ const PlaceCard = ({
       setCurrentLike(res.data.data.isVoted);
     });
   };
+
   return (
     <>
       <plc.PlaceCardWrapper key={attractionId} width={width}>

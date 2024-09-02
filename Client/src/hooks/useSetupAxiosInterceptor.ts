@@ -3,7 +3,7 @@ import { useRecoilValue } from "recoil";
 import { UserDataAtomFamily } from "../recoil/auth";
 import { AxiosError } from "axios";
 import { apiClient } from "../api/axiosInstance";
-import { checkTokenIssue } from "../utils/checkTokenIssue";
+import { checkTokenIssue } from "./utils/checkTokenIssue";
 import { useTokenRenewalContext } from "../context/TokenRenewalContext";
 
 interface ErrorResponse {
