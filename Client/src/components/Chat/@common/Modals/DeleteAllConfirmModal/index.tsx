@@ -5,7 +5,7 @@ import {
   showConfirmModalAtom,
 } from "~/recoil/chat/atoms";
 import { sendbarStyle } from "~/components/Chat/ChatInputBar";
-import { ConfirmBarDiv, CancelAllButton, DeleteAllButton } from "./styled";
+import * as S from "./styled";
 
 const DeleteAllConfirmModal = () => {
   const setShowConfirmModal = useSetRecoilState(showConfirmModalAtom);
@@ -19,15 +19,15 @@ const DeleteAllConfirmModal = () => {
     setIsDeleteMode(false);
   };
   return (
-    <ConfirmBarDiv styleProps={sendbarStyle}>
-      <CancelAllButton onClick={handleCancelClick}>취소</CancelAllButton>
-      <DeleteAllButton
+    <S.ConfirmBarDiv styleProps={sendbarStyle}>
+      <S.CancelAllButton onClick={handleCancelClick}>취소</S.CancelAllButton>
+      <S.DeleteAllButton
         onClick={handleButtonClick}
         disabled={deleteItems.size === 0}
       >
         삭제&nbsp;<span>{deleteItems.size}</span>
-      </DeleteAllButton>
-    </ConfirmBarDiv>
+      </S.DeleteAllButton>
+    </S.ConfirmBarDiv>
   );
 };
 export default DeleteAllConfirmModal;

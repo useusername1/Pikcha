@@ -1,6 +1,6 @@
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { chatStatusAtom, incomingMessageAtom } from "~/recoil/chat/atoms";
-import { ChatExpandableButton } from "./styled";
+import * as S from "./styled";
 import { BsFillChatLeftDotsFill as ChatIcon } from "react-icons/bs";
 import { UserDataAtomFamily } from "~/recoil/auth";
 import { isLoginModalVisibleAtom } from "~/recoil/modal/atoms";
@@ -21,7 +21,7 @@ const ChatButton = () => {
 
   return (
     <>
-      <ChatExpandableButton
+      <S.ChatExpandableButton
         onClick={handleButtonClick}
         connected={false}
         chatStatus={chatStatus}
@@ -32,7 +32,7 @@ const ChatButton = () => {
             {incomingMessage.count > 99 ? "99+" : incomingMessage.count}
           </span>
         )}
-      </ChatExpandableButton>
+      </S.ChatExpandableButton>
     </>
   );
 };

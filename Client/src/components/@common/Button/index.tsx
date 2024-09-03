@@ -1,10 +1,4 @@
-import {
-  CustomButton,
-  GrayButton,
-  NoneButton,
-  VioletButton,
-  WhiteButton,
-} from "./styled";
+import * as S from "./styled";
 import { ButtonProps } from "./types";
 
 const Button = ({
@@ -25,7 +19,7 @@ const Button = ({
   return (
     <>
       {type === "violet" ? (
-        <VioletButton
+        <S.VioletButton
           width={width}
           height={height}
           fontsize={fontsize}
@@ -35,12 +29,12 @@ const Button = ({
           borderRadius={borderRadius}
         >
           {text}
-        </VioletButton>
+        </S.VioletButton>
       ) : (
         <></>
       )}
       {type === "white" ? (
-        <WhiteButton
+        <S.WhiteButton
           width={width}
           height={height}
           fontsize={fontsize}
@@ -50,12 +44,12 @@ const Button = ({
           border={border}
         >
           {text}
-        </WhiteButton>
+        </S.WhiteButton>
       ) : (
         <></>
       )}
       {type === "gray" ? (
-        <GrayButton
+        <S.GrayButton
           width={width}
           height={height}
           fontsize={fontsize}
@@ -65,12 +59,12 @@ const Button = ({
           disabled
         >
           {text}
-        </GrayButton>
+        </S.GrayButton>
       ) : (
         <></>
       )}
       {type === "none" ? (
-        <NoneButton
+        <S.NoneButton
           width={width}
           height={height}
           fontsize={fontsize}
@@ -78,12 +72,12 @@ const Button = ({
           margin={margin}
         >
           {text}
-        </NoneButton>
+        </S.NoneButton>
       ) : (
         <></>
       )}
       {type === "enabledGray" ? (
-        <GrayButton
+        <S.GrayButton
           width={width}
           height={height}
           fontsize={fontsize}
@@ -92,12 +86,12 @@ const Button = ({
           margin={margin}
         >
           {text}
-        </GrayButton>
+        </S.GrayButton>
       ) : (
         <></>
       )}
       {type === "custom" ? (
-        <CustomButton
+        <S.CustomButton
           width={width}
           height={height}
           fontsize={fontsize}
@@ -110,7 +104,7 @@ const Button = ({
           borderRadius={borderRadius}
         >
           {text}
-        </CustomButton>
+        </S.CustomButton>
       ) : (
         <></>
       )}

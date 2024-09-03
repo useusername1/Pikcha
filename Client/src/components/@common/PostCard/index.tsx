@@ -1,6 +1,6 @@
 import { AiFillHeart, AiFillEye as EyeIcon } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
-import * as poc from "./styled";
+import * as S from "./styled";
 import { ArrayPostType } from "~/@types/post.types";
 
 const PostCardComponent = ({
@@ -16,10 +16,10 @@ const PostCardComponent = ({
 
   return (
     <>
-      <poc.PostContainer margin={margin}>
+      <S.PostContainer margin={margin}>
         {posts.map((post: any) => {
           return (
-            <poc.PostCard key={post.postId} width={width}>
+            <S.PostCard key={post.postId} width={width}>
               <div>
                 <img
                   src={post.pictureUrl}
@@ -45,10 +45,10 @@ const PostCardComponent = ({
               <div onClick={() => navigate(`/posts/detail/${post.postId}`)}>
                 {post.postTitle}
               </div>
-            </poc.PostCard>
+            </S.PostCard>
           );
         })}
-      </poc.PostContainer>
+      </S.PostContainer>
     </>
   );
 };

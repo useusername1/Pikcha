@@ -7,7 +7,7 @@ const LoadMoreButtonWrapper = styled.div`
   padding: 30px 0 15px 0;
 `;
 
-const StyledLoadMoreButton = styled.button`
+const LoadMoreButton = styled.button`
   padding-left: 5px;
   display: flex;
   align-items: center;
@@ -30,4 +30,4 @@ const StyledLoadMoreButton = styled.button`
   }
 `;
 
-export { LoadMoreButtonWrapper, StyledLoadMoreButton };
+export { LoadMoreButtonWrapper, LoadMoreButton };

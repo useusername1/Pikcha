@@ -1,17 +1,17 @@
 import { LoginSide, SignUpSide, Overlay } from "~/components/LoginSignUp";
-import * as l from "./styled";
+import * as S from "./styled";
 
 function LoginSignUp() {
   return (
     <>
-      <l.LoginSignUpContainer>
-        <l.LoginSignUpWrapper>
+      <S.LoginSignUpContainer>
+        <S.LoginSignUpWrapper>
           <SignUpSide />
           <LoginSide />
           <Overlay direction="left" />
           <Overlay direction="right" />
-        </l.LoginSignUpWrapper>
-      </l.LoginSignUpContainer>
+        </S.LoginSignUpWrapper>
+      </S.LoginSignUpContainer>
     </>
   );
 }

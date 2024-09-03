@@ -4,8 +4,8 @@ import {
   isDeleteModeAtom,
   showConfirmModalAtom,
 } from "~/recoil/chat/atoms";
-import { DeleteModalContainer } from "./styled";
-import { ModalWrapper } from "../styled";
+import * as S from "./styled";
+import * as M from "../styled";
 import { HiExclamationTriangle as ExclamaionIcon } from "react-icons/hi2";
 
 interface ConfirmDeleteModalProps {
@@ -26,8 +26,8 @@ const ConfirmDeleteModal = ({ deleteMessage }: ConfirmDeleteModalProps) => {
     setIsDeleteMode(false);
   };
   return (
-    <ModalWrapper>
-      <DeleteModalContainer>
+    <M.ModalWrapper>
+      <S.DeleteModalContainer>
         <div className="modal-subject">
           <ExclamaionIcon />
           &nbsp;&nbsp;메시지 삭제
@@ -43,8 +43,8 @@ const ConfirmDeleteModal = ({ deleteMessage }: ConfirmDeleteModalProps) => {
             삭제
           </button>
         </div>
-      </DeleteModalContainer>
-    </ModalWrapper>
+      </S.DeleteModalContainer>
+    </M.ModalWrapper>
   );
 };
 export default ConfirmDeleteModal;

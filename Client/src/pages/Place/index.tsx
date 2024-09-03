@@ -8,7 +8,7 @@ import LocationFilter from "~/components/@common/LocationFilter";
 import Pagination from "~/components/@common/Pagination";
 import PlaceCard from "~/components/@common/PlaceCard";
 import { UserDataAtomFamily } from "~/recoil/auth";
-import * as pl from "./styled";
+import * as S from "./styled";
 import { apiClient } from "~/api/axiosInstance";
 import { ArrayPlaceType, PageSessionType } from "~/@types/place.types";
 import { PageInfoType } from "~/@types/page.types";
@@ -116,8 +116,8 @@ const Place = () => {
           />
         </DefaultHeader>
       </div>
-      <pl.PlaceWrapper>
-        <pl.LocationWrapper>
+      <S.PlaceWrapper>
+        <S.LocationWrapper>
           {placesData && (
             <LocationFilter
               setCurPage={setCurPage}
@@ -125,9 +125,9 @@ const Place = () => {
               setCheckedList={setCheckedlist}
             />
           )}
-        </pl.LocationWrapper>
-        <pl.PlaceContainer>
-          <pl.PlaceFilterContainer>
+        </S.LocationWrapper>
+        <S.PlaceContainer>
+          <S.PlaceFilterContainer>
             {searchValue ? (
               <span>
                 <strong
@@ -141,7 +141,7 @@ const Place = () => {
 
             <div>
               {sortList.map((sortEl, idx) => (
-                <pl.FilterButton
+                <S.FilterButton
                   className={sort === idx ? "active" : ""}
                   key={idx}
                   onClick={() => {
@@ -149,11 +149,11 @@ const Place = () => {
                   }}
                 >
                   {sortEl.kor}
-                </pl.FilterButton>
+                </S.FilterButton>
               ))}
             </div>
-          </pl.PlaceFilterContainer>
-          <pl.PlaceBox>
+          </S.PlaceFilterContainer>
+          <S.PlaceBox>
             {!totalInfoRef.current?.totalElements && searchValue && (
               <EmptyResult
                 message="다른 검색어를 입력해보세요"
@@ -178,15 +178,15 @@ const Place = () => {
                 )}
               </>
             )}
-          </pl.PlaceBox>
+          </S.PlaceBox>
           {placesData && (
             <Pagination
               props={totalInfoRef.current as PageInfoType}
               setCurPage={setCurPage}
             />
           )}
-        </pl.PlaceContainer>
-      </pl.PlaceWrapper>
+        </S.PlaceContainer>
+      </S.PlaceWrapper>
       <Footer />
     </>
   );

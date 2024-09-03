@@ -1,7 +1,7 @@
 import { ReactElement, useEffect, useState } from "react";
 import { useSetRecoilState } from "recoil";
 import { toastQueueAtom } from "~/recoil/chat/atoms";
-import { ConfirmationToastItemContainer } from "./styled";
+import * as S from "./styled";
 import { BsCheckCircleFill as CompleteIcon } from "react-icons/bs";
 import {
   MdError as ErrorIcon,
@@ -40,10 +40,10 @@ const ConfirmationToastItem = ({ alertData }: ChatToastItemProps) => {
   }, []);
 
   return (
-    <ConfirmationToastItemContainer startAnimation={startAnimation}>
+    <S.ConfirmationToastItemContainer startAnimation={startAnimation}>
       {alertIcon[alertData.message]}
       {alertMessages[alertData.message]}
-    </ConfirmationToastItemContainer>
+    </S.ConfirmationToastItemContainer>
   );
 };
 

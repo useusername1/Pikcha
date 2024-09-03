@@ -14,7 +14,7 @@ import {
   isDetailPlaceLikedAtom,
   detailPlaceDataAtom,
 } from "~/recoil/detailPlace/atoms";
-import { FixBoxVertical, IconContainer, ShareBox, MarkerCount } from "./styled";
+import * as S from "./styled";
 import { MdEditNote as NoteIcon } from "react-icons/md";
 import { RiKakaoTalkFill as KakaoIcon } from "react-icons/ri";
 import { AiFillFacebook as FacebookIcon, AiFillHeart } from "react-icons/ai";
@@ -87,8 +87,8 @@ const FloatingMenu = ({
   };
   return (
     <>
-      <FixBoxVertical inverted={inverted}>
-        <IconContainer
+      <S.FixBoxVertical inverted={inverted}>
+        <S.IconContainer
           ref={ref as React.RefObject<HTMLDivElement>}
           className="icon"
           isSelected={showSharebox}
@@ -100,7 +100,7 @@ const FloatingMenu = ({
               // handleCopyClipBoard(document.location.href);
             }}
           />
-          <ShareBox isVisible={showSharebox}>
+          <S.ShareBox isVisible={showSharebox}>
             <ShareAddressIcon
               className="shareAddress-icon"
               onClick={() => handleCopyClipBoard(document.location.href)}
@@ -133,39 +133,39 @@ const FloatingMenu = ({
                 }
               }}
             />
-          </ShareBox>
-        </IconContainer>{" "}
-        <IconContainer onClick={handlePostButtonClick}>
+          </S.ShareBox>
+        </S.IconContainer>{" "}
+        <S.IconContainer onClick={handlePostButtonClick}>
           {" "}
           <NoteIcon className="post-icon" />
-        </IconContainer>
-        <IconContainer onClick={() => handleClickBookmark()}>
+        </S.IconContainer>
+        <S.IconContainer onClick={() => handleClickBookmark()}>
           <BsBookmarkFill
             className="bookmark-icon"
             fill={isBookmarked ? "var(--black-800)" : "var(--black-400)"}
           />
-          <MarkerCount>
+          <S.MarkerCount>
             {getCurrentCount(
               detailPlaceData.saves,
               detailPlaceData.isSaved,
               isBookmarked
             )}
-          </MarkerCount>
-        </IconContainer>
-        <IconContainer onClick={() => handleClickLikes()}>
+          </S.MarkerCount>
+        </S.IconContainer>
+        <S.IconContainer onClick={() => handleClickLikes()}>
           <AiFillHeart
             className="heart-icon"
             color={isLiked === true ? "var(--pink-heart)" : "var(--black-400)"}
           />
-          <MarkerCount>
+          <S.MarkerCount>
             {getCurrentCount(
               detailPlaceData.likes,
               detailPlaceData.isVoted,
               isLiked
             )}
-          </MarkerCount>
-        </IconContainer>
-      </FixBoxVertical>
+          </S.MarkerCount>
+        </S.IconContainer>
+      </S.FixBoxVertical>
     </>
   );
 };

@@ -18,7 +18,7 @@ import { FaMapMarkerAlt } from "react-icons/fa";
 import { MdModeComment } from "react-icons/md";
 import { TfiPencil } from "react-icons/tfi";
 import { IoChevronBackOutline as BackIcon } from "react-icons/io5";
-import * as mp from "./styled";
+import * as S from "./styled";
 import { apiClient } from "~/api/axiosInstance";
 
 const MyPage = () => {
@@ -127,19 +127,19 @@ const MyPage = () => {
         <>
           {userData && userData.totalMyPosts ? (
             <>
-              <mp.MyPageMainTopBar>
+              <S.MyPageMainTopBar>
                 <span>
                   <strong>{userData && userData.totalMyPosts}</strong> 개의
                   포스트
                 </span>
-                <mp.EditButton
+                <S.EditButton
                   isEditMode={isEditMode}
                   className="edit-posts"
                   onClick={handleEditPostList}
                 >
                   {isEditMode ? `편집 완료` : `편집`}
-                </mp.EditButton>{" "}
-              </mp.MyPageMainTopBar>
+                </S.EditButton>{" "}
+              </S.MyPageMainTopBar>
               <MyPageMyPostCard posts={userData.posts} limit={5} />
             </>
           ) : (
@@ -162,19 +162,19 @@ const MyPage = () => {
         <>
           {userData && userData.totalMySaves ? (
             <>
-              <mp.MyPageMainTopBar>
+              <S.MyPageMainTopBar>
                 <span>
                   <strong>{userData && userData.totalMySaves}</strong> 개의
                   즐겨찾기
                 </span>
-                <mp.DeleteButton
+                <S.DeleteButton
                   isDeleteMode={isDeleteMode}
                   className="delete-bookmark"
                   onClick={handleBookMarkDeleteClick}
                 >
                   {isDeleteMode ? "삭제 완료" : "삭제"}
-                </mp.DeleteButton>{" "}
-              </mp.MyPageMainTopBar>
+                </S.DeleteButton>{" "}
+              </S.MyPageMainTopBar>
               <MyPageMyFavoriteCard saves={userData.saves} limit={6} />
             </>
           ) : (
@@ -228,28 +228,28 @@ const MyPage = () => {
   return (
     <>
       <HiddenHeader selectedMenu={-1} />
-      <mp.MyPageWrapper>
-        <mp.MyPageTabBarContainer>
+      <S.MyPageWrapper>
+        <S.MyPageTabBarContainer>
           {tabMenuBarList.map((menu, idx) => (
-            <mp.MyPageTabBarMenu
+            <S.MyPageTabBarMenu
               key={idx}
               onClick={(e) => handleTabMenuBar(e, idx)}
               className={tab === idx ? "onToggle" : ""}
             >
               {menu.title}
-            </mp.MyPageTabBarMenu>
+            </S.MyPageTabBarMenu>
           ))}
-        </mp.MyPageTabBarContainer>
+        </S.MyPageTabBarContainer>
         {userData && (
-          <mp.MyPageContainer>
-            <mp.MyPageUserInfo>
+          <S.MyPageContainer>
+            <S.MyPageUserInfo>
               <form>
-                <mp.LogoContainer>
+                <S.LogoContainer>
                   <span onClick={() => navigate("/")}>
                     <BackIcon />
                     홈으로 돌아가기
                   </span>
-                </mp.LogoContainer>
+                </S.LogoContainer>
                 <img src={userData.picture} alt="" />
                 <div>
                   {isEdit ? (
@@ -300,9 +300,9 @@ const MyPage = () => {
                   )}
                 </div>
                 {isEdit ? (
-                  <mp.EditSubmitButton onClick={(e) => editInfoSubmit(e)}>
+                  <S.EditSubmitButton onClick={(e) => editInfoSubmit(e)}>
                     완료
-                  </mp.EditSubmitButton>
+                  </S.EditSubmitButton>
                 ) : null}
               </form>
               <Button
@@ -314,13 +314,13 @@ const MyPage = () => {
                 margin="0"
                 fontsize="var(--font-xs)"
               />
-            </mp.MyPageUserInfo>
-            <mp.MyPageMainContainer>
+            </S.MyPageUserInfo>
+            <S.MyPageMainContainer>
               {openPostcode && (
                 <>
-                  <mp.CloseButton onClick={handleAddress.clickInput}>
+                  <S.CloseButton onClick={handleAddress.clickInput}>
                     <AiOutlineCloseCircle />
-                  </mp.CloseButton>
+                  </S.CloseButton>
                   <DaumPostcode
                     style={{
                       // display: "block",
@@ -336,10 +336,10 @@ const MyPage = () => {
                 </>
               )}
               <div>{tabMenuBarList[tab].content}</div>
-            </mp.MyPageMainContainer>
-          </mp.MyPageContainer>
+            </S.MyPageMainContainer>
+          </S.MyPageContainer>
         )}
-      </mp.MyPageWrapper>
+      </S.MyPageWrapper>
     </>
   );
 };

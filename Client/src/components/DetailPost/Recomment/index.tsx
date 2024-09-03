@@ -4,7 +4,7 @@ import { deletePostComment } from "~/api/BlogDetail/Delete/Delete";
 import { modifiedComment } from "~/api/BlogDetail/Patch/Patch";
 import { UserDataAtomFamily } from "~/recoil/auth";
 import { ReCommentType } from "../types";
-import * as shared from "../styled";
+import * as DP from "../styled";
 
 const Recomment = ({
   recomments,
@@ -22,67 +22,64 @@ const Recomment = ({
     <>
       {recomments && (
         <div key={recomments.commentId}>
-          <shared.PostCommentBox>
-            <shared.PostCommentTitle>
-              <shared.PostCommentImg
-                alt="userImg"
-                src={recomments.memberPicture}
-              />
+          <DP.PostCommentBox>
+            <DP.PostCommentTitle>
+              <DP.PostCommentImg alt="userImg" src={recomments.memberPicture} />
               <div>
-                <shared.PostCommentUserName
+                <DP.PostCommentUserName
                   writer={postWriter === recomments.memberId ? "writer" : ""}
                 >
                   {recomments.username}
-                </shared.PostCommentUserName>
-                <shared.PostCommentDate>
+                </DP.PostCommentUserName>
+                <DP.PostCommentDate>
                   {recomments.createdAt.slice(0, 4)}년{" "}
                   {recomments.createdAt.slice(5, 7)}월{" "}
                   {recomments.createdAt.slice(8, 10)}일
-                </shared.PostCommentDate>
+                </DP.PostCommentDate>
               </div>
-            </shared.PostCommentTitle>
+            </DP.PostCommentTitle>
             {memberId === recomments.memberId || memberId === 1 ? (
-              <shared.PostManageButtonContainer>
-                <shared.PostManageButton
+              <DP.PostManageButtonContainer>
+                <DP.PostManageButton
                   onClick={() => {
                     setIsRecomment(!isRecomment);
                     setRecommentIdx(recomments.commentId);
                   }}
-                ></shared.PostManageButton>
+                ></DP.PostManageButton>
                 {isEdit && recommentIdx === recomments.commentId ? (
-                  <shared.PostManageButton
+                  <DP.PostManageButton
                     onClick={() =>
                       modifiedComment(recomments.commentId, recommentContent)
                     }
                   >
                     완료
-                  </shared.PostManageButton>
+                  </DP.PostManageButton>
                 ) : (
-                  <shared.PostManageButton
+                  <DP.PostManageButton
                     onClick={() => {
                       setIsEdit(!isEdit);
                       setRecommentIdx(recomments.commentId);
                     }}
                   >
                     수정
-                  </shared.PostManageButton>
+                  </DP.PostManageButton>
                 )}
                 {isEdit && recommentIdx === recomments.commentId ? (
-                  <shared.PostManageButton onClick={() => setIsEdit(!isEdit)}>
+                  <DP.PostManageButton onClick={() => setIsEdit(!isEdit)}>
                     취소
-                  </shared.PostManageButton>
+                  </DP.PostManageButton>
                 ) : (
-                  <shared.PostManageButton
+                  <DP.PostManageButton
                     onClick={() => deletePostComment(recomments.commentId)}
                   >
                     삭제
-                  </shared.PostManageButton>
+                  </DP.PostManageButton>
                 )}
-              </shared.PostManageButtonContainer>
+              </DP.PostManageButtonContainer>
             ) : null}
-          </shared.PostCommentBox>
+          </DP.PostCommentBox>
           {isEdit && recommentIdx === recomments.commentId ? (
-            <shared.PostCommentInputContainer
+            <DP.PostCommentInputContainer
               padding="20px 40px"
               width="100%"
               height="100px"
@@ -91,7 +88,7 @@ const Recomment = ({
                 defaultValue={recomments.commentContent}
                 onChange={(e) => setRecommentContent(e.target.value)}
               ></textarea>
-            </shared.PostCommentInputContainer>
+            </DP.PostCommentInputContainer>
           ) : (
             <>{recomments.commentContent}</>
           )}

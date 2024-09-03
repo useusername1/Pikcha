@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction, FormEvent } from "react";
 import { BsThreeDots as DotsIcon } from "react-icons/bs";
-import { PagenationContainer, PagenationWrapper, PageButton } from "./styled";
+import * as S from "./styled";
 import { getPageButtonRange } from "./utils";
 import { PageInfoType } from "~/@types/page.types";
 
@@ -16,9 +16,9 @@ const Pagination = ({
     setCurPage(Number((e.target as HTMLButtonElement).value));
   };
   return (
-    <PagenationContainer>
-      <PagenationWrapper>
-        <PageButton
+    <S.PagenationContainer>
+      <S.PagenationWrapper>
+        <S.PageButton
           style={{ width: "44px", fontSize: "14px" }}
           onClick={() => {
             setCurPage((p) => p - 1);
@@ -26,22 +26,22 @@ const Pagination = ({
           disabled={props.page === 1 || props.totalPages === 0}
         >
           {"<"}
-        </PageButton>
+        </S.PageButton>
         {pageButtonRange.map((el, i) =>
           el === -1 ? (
             <DotsIcon key={i * el} />
           ) : (
-            <PageButton
+            <S.PageButton
               key={el}
               value={el}
               onClick={handleButtonClick}
               selected={el === props.page}
             >
               {el}
-            </PageButton>
+            </S.PageButton>
           )
         )}
-        <PageButton
+        <S.PageButton
           style={{ width: "44px", fontSize: "14px" }}
           onClick={() => {
             setCurPage((p) => p + 1);
@@ -49,9 +49,9 @@ const Pagination = ({
           disabled={props.page === props?.totalPages || props.totalPages === 0}
         >
           {">"}
-        </PageButton>
-      </PagenationWrapper>
-    </PagenationContainer>
+        </S.PageButton>
+      </S.PagenationWrapper>
+    </S.PagenationContainer>
   );
 };
 export default Pagination;

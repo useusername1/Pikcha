@@ -16,16 +16,7 @@ import {
   isDetailPlaceLikedAtom,
 } from "~/recoil/detailPlace/atoms";
 import { isLoginModalVisibleAtom } from "~/recoil/modal/atoms";
-import {
-  ImageBox,
-  NavBar,
-  Container,
-  LocationInfoContainer,
-  PostWrapper,
-  Post,
-  PostHeader,
-  PostCardListWrapper,
-} from "./styled";
+import * as S from "./styled";
 import { FaMapMarkerAlt as MarkIcon } from "react-icons/fa";
 import { ArrayPostType } from "~/@types/post.types";
 import { PageInfoType } from "~/@types/page.types";
@@ -116,15 +107,15 @@ const DetailPlace = (): JSX.Element => {
       <ScrollResponsiveHeader />
       {attractionData && (
         <>
-          <ImageBox>
+          <S.ImageBox>
             <img src={attractionData!.fixedImage} alt="배경이미지"></img>
-          </ImageBox>
+          </S.ImageBox>
           <FloatingMenu
             inverted={fixBar < 470}
             handlePostButtonClick={handlePostButtonClick}
             onModalVisible={setIsLoginModalVisible}
           />
-          <NavBar>
+          <S.NavBar>
             <button
               className={view === "info" ? "active" : ""}
               onClick={() => {
@@ -141,11 +132,11 @@ const DetailPlace = (): JSX.Element => {
             >
               포스트
             </button>
-          </NavBar>
-          <Container>
+          </S.NavBar>
+          <S.Container>
             <h2>{attractionData?.attractionName}</h2>
             <p>{attractionData?.attractionDescription}</p>
-            <LocationInfoContainer>
+            <S.LocationInfoContainer>
               <h3>위치 안내</h3>
               <p>
                 <MarkIcon className="mark-icon"></MarkIcon>
@@ -164,15 +155,15 @@ const DetailPlace = (): JSX.Element => {
                 setFilterOrPosition="11"
                 filterOrPosition="11"
               ></KakaoMap>
-            </LocationInfoContainer>
-          </Container>
-          <PostWrapper>
-            <Post ref={scrollRefContent}>
-              <PostHeader>
+            </S.LocationInfoContainer>
+          </S.Container>
+          <S.PostWrapper>
+            <S.Post ref={scrollRefContent}>
+              <S.PostHeader>
                 <h2>포스트</h2>
                 <button onClick={handlePostButtonClick}>포스트 작성</button>
-              </PostHeader>
-              <PostCardListWrapper>
+              </S.PostHeader>
+              <S.PostCardListWrapper>
                 {postData?.length ? (
                   <PostCardComponent
                     posts={postData}
@@ -182,15 +173,15 @@ const DetailPlace = (): JSX.Element => {
                 ) : (
                   <EmptyResult message="해당 명소에 등록된 포스트가 없습니다" />
                 )}
-              </PostCardListWrapper>
+              </S.PostCardListWrapper>
               {!!postData?.length && (
                 <Pagination
                   props={totalInfoRef.current as PageInfoType}
                   setCurPage={setCurPage}
                 />
               )}
-            </Post>
-          </PostWrapper>
+            </S.Post>
+          </S.PostWrapper>
         </>
       )}
       <Footer />

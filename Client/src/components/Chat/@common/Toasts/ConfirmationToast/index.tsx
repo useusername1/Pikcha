@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useRecoilState } from "recoil";
 import { toastQueueAtom } from "~/recoil/chat/atoms";
-import { ConfirmationToastWrapper } from "./styled";
+import * as S from "./styled";
 import ToastItem from "./ConfirmationToastItem";
 
 const ConfirmationToast = () => {
@@ -16,11 +16,11 @@ const ConfirmationToast = () => {
 
   return (
     <>
-      <ConfirmationToastWrapper>
+      <S.ConfirmationToastWrapper>
         {toastQueue.map((el) => (
           <ToastItem key={el.id} alertData={el} />
         ))}
-      </ConfirmationToastWrapper>
+      </S.ConfirmationToastWrapper>
     </>
   );
 };

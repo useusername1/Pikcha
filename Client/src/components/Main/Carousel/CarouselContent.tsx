@@ -1,12 +1,6 @@
 import { memo, useState } from "react";
 import { Link } from "react-router-dom";
-import {
-  CarouselItemContainer,
-  CarouselTextWrapper,
-  LeftCarouselTextWrapper,
-  RightCarouselTextWrapper,
-  ImageWrapper,
-} from "./styled";
+import * as S from "./styled";
 import { IoIosArrowForward as RightArrowIcon } from "react-icons/io";
 import { MdLocationOn as PinIcon } from "react-icons/md";
 import { Blurhash } from "react-blurhash";
@@ -44,8 +38,8 @@ const CarouselContent = memo(
     };
 
     return (
-      <CarouselItemContainer>
-        <ImageWrapper isLoaded={imgLoaded}>
+      <S.CarouselItemContainer>
+        <S.ImageWrapper isLoaded={imgLoaded}>
           <Blurhash
             hash={blur_hash}
             style={{ width: "100%", height: "100%" }}
@@ -56,9 +50,9 @@ const CarouselContent = memo(
             loading={id === 3 ? "eager" : "lazy"}
             onLoad={handleImgLoad}
           />
-        </ImageWrapper>
-        <CarouselTextWrapper>
-          <LeftCarouselTextWrapper
+        </S.ImageWrapper>
+        <S.CarouselTextWrapper>
+          <S.LeftCarouselTextWrapper
             isTransitionEnd={isTransitionEnd}
             textColor={color}
           >
@@ -68,8 +62,8 @@ const CarouselContent = memo(
               더 보러가기
               <RightArrowIcon className="right-arrow" />
             </Link>
-          </LeftCarouselTextWrapper>
-          <RightCarouselTextWrapper
+          </S.LeftCarouselTextWrapper>
+          <S.RightCarouselTextWrapper
             isTransitionEnd={isTransitionEnd}
             textColor={color}
           >
@@ -77,9 +71,9 @@ const CarouselContent = memo(
               <PinIcon className="location-pin" />
               {location}
             </span>
-          </RightCarouselTextWrapper>
-        </CarouselTextWrapper>
-      </CarouselItemContainer>
+          </S.RightCarouselTextWrapper>
+        </S.CarouselTextWrapper>
+      </S.CarouselItemContainer>
     );
   }
 );

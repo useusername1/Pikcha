@@ -5,10 +5,10 @@ import { DefaultHeader } from "~/components/@common/Header";
 import LocationFilter from "~/components/@common/LocationFilter";
 import Pagination from "~/components/@common/Pagination";
 import PostCard from "~/components/@common/PostCard";
-import * as po from "./styled";
 import { apiClient } from "~/api/axiosInstance";
 import { PageInfoType } from "~/@types/page.types";
 import { ArrayPostType } from "~/@types/post.types";
+import * as S from "./styled";
 
 const ITEM_LIMIT = 9;
 
@@ -71,8 +71,8 @@ const Post = () => {
         </DefaultHeader>
       </div>
 
-      <po.PostWrapper>
-        <po.LocationWrapper>
+      <S.PostWrapper>
+        <S.LocationWrapper>
           {postsData && (
             <LocationFilter
               setCurPage={setCurPage}
@@ -80,14 +80,14 @@ const Post = () => {
               setCheckedList={setCheckedlist}
             />
           )}
-        </po.LocationWrapper>
+        </S.LocationWrapper>
 
-        <po.PostContainer>
-          <po.PostFilterContainer>
+        <S.PostContainer>
+          <S.PostFilterContainer>
             <span>총 {totalInfoRef.current?.totalElements}개의 포스트</span>
             <div>
               {sortList.map((sort, idx) => (
-                <po.FilterButton
+                <S.FilterButton
                   className={onFilter === idx ? "active" : ""}
                   key={idx}
                   onClick={() => {
@@ -96,16 +96,16 @@ const Post = () => {
                   }}
                 >
                   {sort.kor}
-                </po.FilterButton>
+                </S.FilterButton>
               ))}
             </div>
-          </po.PostFilterContainer>
+          </S.PostFilterContainer>
 
-          <po.PostCardContainer>
+          <S.PostCardContainer>
             {postsData && (
               <PostCard posts={postsData} margin="0" width="32.2%" />
             )}
-          </po.PostCardContainer>
+          </S.PostCardContainer>
 
           {!!postsData?.length ? (
             <Pagination
@@ -115,8 +115,8 @@ const Post = () => {
           ) : (
             <EmptyResult message="등록된 포스트가 없습니다" />
           )}
-        </po.PostContainer>
-      </po.PostWrapper>
+        </S.PostContainer>
+      </S.PostWrapper>
       <Footer />
     </>
   );

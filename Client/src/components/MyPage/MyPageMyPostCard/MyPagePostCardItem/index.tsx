@@ -8,9 +8,9 @@ import {
 import { apiClient } from "~/api/axiosInstance";
 import { MdDeleteForever as DeleteIcon } from "react-icons/md";
 import { MdModeEditOutline as EditIcon } from "react-icons/md";
-import * as mpc from "./styled";
-import { MyPostsType } from "../types";
-import getTime from "./utils";
+import * as S from "./styled";
+import { MyPostsType } from "../../types";
+import getTime from "../utils";
 interface MyPagePostCardItemProps {
   postInfo: MyPostsType;
 }
@@ -50,35 +50,35 @@ const MyPagePostCardItem = ({ postInfo }: MyPagePostCardItemProps) => {
   };
 
   return (
-    <mpc.MyPagePostCardItemWrapper
+    <S.MyPagePostCardItemWrapper
       isEditMode={isEditMode}
       startTransition={startDeleteAnimation}
     >
-      <mpc.PostImg src={pictureUrl} onClick={() => navigate(URL_FOR_POSTS)} />
-      <mpc.MyPagePostTextInfoLeftContainer>
+      <S.PostImg src={pictureUrl} onClick={() => navigate(URL_FOR_POSTS)} />
+      <S.MyPagePostTextInfoLeftContainer>
         <h2 onClick={() => navigate(URL_FOR_POSTS)}>{postTitle}</h2>
-        <mpc.PostTextInfoBottom>
+        <S.PostTextInfoBottom>
           <span>{`조회수 ${views}`}</span>
           <span>{`좋아요 ${likes}`}</span>
-        </mpc.PostTextInfoBottom>
-      </mpc.MyPagePostTextInfoLeftContainer>
+        </S.PostTextInfoBottom>
+      </S.MyPagePostTextInfoLeftContainer>
       {isEditMode ? (
-        <mpc.IconWrapper>
+        <S.IconWrapper>
           <EditIcon
             className="edit-icon"
             onClick={() => navigate(`/edit/${postId}`)}
           />
           <DeleteIcon className="delete-icon" onClick={handleDeleteClick} />
-        </mpc.IconWrapper>
+        </S.IconWrapper>
       ) : (
-        <mpc.MyPagePostTextInfoRightContainer>
+        <S.MyPagePostTextInfoRightContainer>
           <span>{` ${getTime(createdAt)} 작성`}</span>
           {createdAt.slice(0, 16) !== modifiedAt.slice(0, 16) && (
             <span className="modifiedAt">{` ${getTime(modifiedAt)} 수정`}</span>
           )}
-        </mpc.MyPagePostTextInfoRightContainer>
+        </S.MyPagePostTextInfoRightContainer>
       )}
-    </mpc.MyPagePostCardItemWrapper>
+    </S.MyPagePostCardItemWrapper>
   );
 };
 export default MyPagePostCardItem;

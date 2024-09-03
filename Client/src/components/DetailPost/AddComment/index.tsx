@@ -5,7 +5,7 @@ import { handleCommentSubmit } from "~/api/BlogDetail/Post/Post";
 import Button from "~/components/@common/Button";
 import { UserDataAtomFamily } from "~/recoil/auth";
 import { isLoginModalVisibleAtom } from "~/recoil/modal/atoms";
-import * as dp from "./styled";
+import * as S from "./styled";
 
 const AddComment = () => {
   const [addComment, setAddComment] = useState("");
@@ -14,7 +14,7 @@ const AddComment = () => {
   const setIsLoginModalVisible = useSetRecoilState(isLoginModalVisibleAtom);
 
   return (
-    <dp.AddCommentWrapper isLogin={isLogin}>
+    <S.AddCommentWrapper isLogin={isLogin}>
       <h3>댓글 남기기</h3>
       <div>
         <img
@@ -45,7 +45,7 @@ const AddComment = () => {
           <Button type="gray" width="80px" height="35px" text="등록" />
         )}
       </div>
-    </dp.AddCommentWrapper>
+    </S.AddCommentWrapper>
   );
 };
 

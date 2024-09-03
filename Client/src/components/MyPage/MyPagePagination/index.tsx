@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction, useState } from "react";
 import { PageButton } from "~/components/@common/Pagination/styled";
-import * as mpc from "./styled";
+import * as S from "./styled";
 import { ArrayMyPostsType, ArrayMySavesType } from "../types";
 
 const MyPagePagination = ({
@@ -23,8 +23,8 @@ const MyPagePagination = ({
   }
   return (
     <>
-      <mpc.Page>
-        <mpc.Nav>
+      <S.Page>
+        <S.Nav>
           <PageButton
             style={{ width: "44px", fontSize: "14px" }}
             onClick={() => {
@@ -54,8 +54,8 @@ const MyPagePagination = ({
           >
             {">"}
           </PageButton>
-        </mpc.Nav>
-      </mpc.Page>
+        </S.Nav>
+      </S.Page>
     </>
   );
 };

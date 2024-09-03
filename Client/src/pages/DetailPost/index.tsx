@@ -10,7 +10,7 @@ import { DefaultHeader } from "~/components/@common/Header";
 import { AddComment, Comment } from "~/components/DetailPost";
 import { UserDataAtomFamily } from "~/recoil/auth";
 import { isLoginModalVisibleAtom } from "~/recoil/modal/atoms";
-import * as dp from "./styled";
+import * as S from "./styled";
 import { FaRegCommentDots } from "react-icons/fa";
 import { MdModeEdit, MdDelete, MdPlace } from "react-icons/md";
 import { RxDoubleArrowLeft } from "react-icons/rx";
@@ -75,27 +75,27 @@ const DetailPost = () => {
         <DefaultHeader.HeaderTop />
         <DefaultHeader.HeaderBody />
       </DefaultHeader>
-      <dp.DetailPostWrapper>
+      <S.DetailPostWrapper>
         {(post && post.memberId === memberId) || memberId === 1 ? (
-          <dp.PostMangeButtnContainer>
-            <dp.PostManageButton onClick={() => navigate(`/edit/${postId}`)}>
+          <S.PostMangeButtnContainer>
+            <S.PostManageButton onClick={() => navigate(`/edit/${postId}`)}>
               <MdModeEdit /> 수정
-            </dp.PostManageButton>
-            <dp.PostManageButton onClick={() => deletePostHandler(postId)}>
+            </S.PostManageButton>
+            <S.PostManageButton onClick={() => deletePostHandler(postId)}>
               <MdDelete /> 삭제
-            </dp.PostManageButton>
-          </dp.PostMangeButtnContainer>
+            </S.PostManageButton>
+          </S.PostMangeButtnContainer>
         ) : null}
-        <dp.DetailPostTitle>
+        <S.DetailPostTitle>
           <h2>{post?.postTitle}</h2>
-        </dp.DetailPostTitle>
-        <dp.DetailPostInfo>
-          <dp.DetailPostAttractionsContainer>
+        </S.DetailPostTitle>
+        <S.DetailPostInfo>
+          <S.DetailPostAttractionsContainer>
             {post?.attractionName}
             <p>
               <MdPlace /> &nbsp;{post?.attractionAddress}
             </p>
-          </dp.DetailPostAttractionsContainer>
+          </S.DetailPostAttractionsContainer>
           <div>
             <button
               onClick={() =>
@@ -107,9 +107,9 @@ const DetailPost = () => {
             </button>
             <span>{post?.createdAt.slice(0, 10)}</span>
           </div>
-        </dp.DetailPostInfo>
-        <dp.PostContentContainer>
-          <dp.PostContentBox>
+        </S.DetailPostInfo>
+        <S.PostContentContainer>
+          <S.PostContentBox>
             {postData.map((post) => (
               <div key={post.imageId}>
                 <div>
@@ -118,14 +118,14 @@ const DetailPost = () => {
                 <div>{post.content}</div>
               </div>
             ))}
-          </dp.PostContentBox>
+          </S.PostContentBox>
           <div>
             {post &&
               post.postHashTags.map((tag, idx) => (
-                <dp.TagsButton key={idx}>{tag}</dp.TagsButton>
+                <S.TagsButton key={idx}>{tag}</S.TagsButton>
               ))}
           </div>
-          <dp.PostContentBottom>
+          <S.PostContentBottom>
             <div>
               <img alt="userImg" src={post?.picture} />
               <strong>{post?.username}</strong>님의 포스트
@@ -161,13 +161,13 @@ const DetailPost = () => {
                 </span>
               </div>
             </div>
-          </dp.PostContentBottom>
-        </dp.PostContentContainer>
+          </S.PostContentBottom>
+        </S.PostContentContainer>
         {post && post.commentCount === 0 ? (
-          <dp.EmptyCommentContainer>
+          <S.EmptyCommentContainer>
             <FaRegCommentDots />
             첫번째 댓글을 남겨주세요.
-          </dp.EmptyCommentContainer>
+          </S.EmptyCommentContainer>
         ) : (
           commentList &&
           commentList.map((comments) => (
@@ -179,7 +179,7 @@ const DetailPost = () => {
           ))
         )}
         <AddComment />
-      </dp.DetailPostWrapper>
+      </S.DetailPostWrapper>
       <Footer />
     </>
   );

@@ -3,7 +3,7 @@ import { useRecoilState } from "recoil";
 import { chatDatatype } from "~/@types/chat.types";
 import { emptyMessage } from "~/data/chatData";
 import { chatDataAtom } from "~/recoil/chat/atoms";
-import { LoadMoreButtonWrapper, StyledLoadMoreButton } from "./styled";
+import * as S from "./styled";
 import { BiPlus as PlusIcon } from "react-icons/bi";
 //이전 chatid, 이후 chatid받기 뒤에 loadmore 추가
 interface LoadMoreButtonProps {
@@ -41,12 +41,12 @@ const LoadMoreButton = ({ chatIdRange }: LoadMoreButtonProps) => {
       .catch(console.log);
   };
   return (
-    <LoadMoreButtonWrapper>
-      <StyledLoadMoreButton onClick={handleButtonClick}>
+    <S.LoadMoreButtonWrapper>
+      <S.LoadMoreButton onClick={handleButtonClick}>
         더 불러오기
         <PlusIcon className="plus-icon" />
-      </StyledLoadMoreButton>
-    </LoadMoreButtonWrapper>
+      </S.LoadMoreButton>
+    </S.LoadMoreButtonWrapper>
   );
 };
 export default LoadMoreButton;

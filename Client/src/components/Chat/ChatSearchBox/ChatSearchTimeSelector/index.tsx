@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { SearchTimeSelectorWrapper } from "./styled";
+import * as S from "./styled";
 import {
   IoIosArrowBack as BackIcon,
   IoIosArrowForward as ForwardIcon,
@@ -44,11 +44,11 @@ const ChatSearchTimeSelector = ({
     getSearchResult(searchYMRef.current.join(""));
   };
   return (
-    <SearchTimeSelectorWrapper rightDisabled={rightArrowFlag}>
+    <S.SearchTimeSelectorWrapper rightDisabled={rightArrowFlag}>
       <BackIcon className="back-icon" onClick={handleBackClick} />
       {searchYMRef.current.map(Number).join(".")}
       <ForwardIcon className="forward-icon" onClick={handleForwardClick} />
-    </SearchTimeSelectorWrapper>
+    </S.SearchTimeSelectorWrapper>
   );
 };
 

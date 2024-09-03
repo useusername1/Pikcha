@@ -9,8 +9,8 @@ import { isOverlayLeftAtom } from "~/recoil/loginSignUp/atoms";
 import { apiClient } from "~/api/axiosInstance";
 import { FcGoogle as GoogleIcon } from "react-icons/fc";
 import { RiKakaoTalkFill as KakaoIcon } from "react-icons/ri";
-import * as l from "./styled";
-import * as shared from "../styled";
+import * as S from "./styled";
+import * as LSU from "../styled";
 
 const LoginSide = () => {
   const [isOverlayLeft, setIsOverlayLeft] =
@@ -95,35 +95,35 @@ const LoginSide = () => {
   };
 
   return (
-    <l.Logincontainer overlay={isOverlayLeft}>
-      <shared.TopConatiner>
-        <l.LoginHeaderContainer>
-          <shared.TextStyle
+    <S.Logincontainer overlay={isOverlayLeft}>
+      <LSU.TopConatiner>
+        <S.LoginHeaderContainer>
+          <LSU.TextStyle
             color="var(--black-900)"
             fontSize="23px"
             fontweight="bold"
           >
             로그인
-          </shared.TextStyle>
-        </l.LoginHeaderContainer>
-        <l.LoginInputContainer>
-          <shared.InputStyle
+          </LSU.TextStyle>
+        </S.LoginHeaderContainer>
+        <S.LoginInputContainer>
+          <LSU.InputStyle
             placeholder="이메일을 입력하세요."
             onChange={handleLoginEmailChange}
             onKeyDown={onPressEnter}
-          ></shared.InputStyle>
+          ></LSU.InputStyle>
           {loginemailErr && loginemail.length !== 0 ? (
-            <shared.ErrMsg color="red" fontSize="12px" fontweight="normal">
+            <LSU.ErrMsg color="red" fontSize="12px" fontweight="normal">
               올바른 이메일 형식이 아닙니다.
-            </shared.ErrMsg>
+            </LSU.ErrMsg>
           ) : null}
-          <shared.InputStyle
+          <LSU.InputStyle
             placeholder="비밀번호를 입력하세요."
             onChange={handleLoginPasswordChange}
             type="password"
             onKeyDown={onPressEnter}
-          ></shared.InputStyle>
-        </l.LoginInputContainer>
+          ></LSU.InputStyle>
+        </S.LoginInputContainer>
         <Button
           width="60%"
           height="38px"
@@ -136,33 +136,33 @@ const LoginSide = () => {
           type="custom"
           onClick={onClickLogin}
         ></Button>
-      </shared.TopConatiner>
-      <shared.TextStyle
+      </LSU.TopConatiner>
+      <LSU.TextStyle
         color="var(--black-700)"
         fontSize="var(--font-sm)"
         fontweight="var(--fw-medium)"
         divider
       >
         SNS 간편 회원가입/로그인
-      </shared.TextStyle>
-      <l.SocialLoginContainer>
-        <l.OauthBtn
+      </LSU.TextStyle>
+      <S.SocialLoginContainer>
+        <S.OauthBtn
           border="0.5px solid var(--black-400)"
           backgroundcolor="white"
           hoverbackgroundcolor="var(--black-200)"
           onClick={googleLogin}
         >
           <GoogleIcon />
-        </l.OauthBtn>
-        <l.OauthBtn
+        </S.OauthBtn>
+        <S.OauthBtn
           backgroundcolor="var(--kakao-color)"
           hoverbackgroundcolor="var(--kakao-hover)"
           onClick={kakaoLogin}
         >
           <KakaoIcon />
-        </l.OauthBtn>
-      </l.SocialLoginContainer>
-      <shared.TextStyle
+        </S.OauthBtn>
+      </S.SocialLoginContainer>
+      <LSU.TextStyle
         color="var(--black-700)"
         fontSize="var(--font-xs)"
         fontweight="var(--fw-bold)"
@@ -171,8 +171,8 @@ const LoginSide = () => {
         cursor="pointer"
       >
         이메일로 회원가입하기
-      </shared.TextStyle>
-    </l.Logincontainer>
+      </LSU.TextStyle>
+    </S.Logincontainer>
   );
 };
 

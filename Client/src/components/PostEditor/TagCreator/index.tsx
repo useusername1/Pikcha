@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import CreateTag from "../TagList";
-import * as wp from "./styled";
+import * as S from "./styled";
 import { editorTagListAtom } from "~/recoil/postEditor/atoms";
 import { useRecoilState } from "recoil";
 
@@ -18,7 +18,7 @@ function TagCreator() {
     }
   };
   return (
-    <wp.TagWrapper>
+    <S.TagWrapper>
       <CreateTag />
       <input
         type="text"
@@ -27,7 +27,7 @@ function TagCreator() {
         onChange={(e) => setTag(e.target.value)}
         placeholder={tagList.length ? "" : "태그를 입력해주세요!"}
       />
-    </wp.TagWrapper>
+    </S.TagWrapper>
   );
 }
 

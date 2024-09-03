@@ -5,7 +5,7 @@ import {
   showNewMessageToastAtom,
 } from "~/recoil/chat/atoms";
 import { scrollFlagRef } from "~/components/Chat/ChatPanel";
-import { NewMessageBoxWrapper } from "./styled";
+import * as S from "./styled";
 interface NewMessageBoxProps {
   chatDataMapRef: React.MutableRefObject<Map<
     number,
@@ -28,7 +28,7 @@ const NewMessageToast = ({ chatDataMapRef }: NewMessageBoxProps) => {
     }
   };
   return (
-    <NewMessageBoxWrapper
+    <S.NewMessageBoxWrapper
       showNewMessageBox={showNewMessageToast}
       onClick={handleClick}
     >
@@ -37,7 +37,7 @@ const NewMessageToast = ({ chatDataMapRef }: NewMessageBoxProps) => {
         <span className="username">{incomingMessage?.message.username}</span>
         <span className="message">{incomingMessage?.message.content}</span>
       </div>
-    </NewMessageBoxWrapper>
+    </S.NewMessageBoxWrapper>
   );
 };
 export default NewMessageToast;

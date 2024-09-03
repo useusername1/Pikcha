@@ -10,11 +10,7 @@ import {
 } from "~/recoil/chat/atoms";
 import LoadMoreButton from "./LoadMoreButton";
 import { scrollFlagRef } from "../ChatPanel";
-import {
-  ChatMessageWrapper,
-  UserInfoAlarmWrapper,
-  ChatCreatedDateDiv,
-} from "./styled";
+import * as S from "./styled";
 import { UserDataAtomFamily } from "~/recoil/auth";
 
 interface ChatFeedProps {
@@ -130,22 +126,22 @@ const ChatFeed = ({
   }, []);
 
   return (
-    <ChatMessageWrapper>
+    <S.ChatMessageWrapper>
       {chatData.map((el, i, arr) => {
         if (el.type === "LEAVE") {
           return (
-            <UserInfoAlarmWrapper key={Math.random()}>
+            <S.UserInfoAlarmWrapper key={Math.random()}>
               <span>{el.username}님이 나갔습니다</span>
-            </UserInfoAlarmWrapper>
+            </S.UserInfoAlarmWrapper>
           );
         } else if (el.type === "JOIN") {
           return (
-            <UserInfoAlarmWrapper key={Math.random()}>
+            <S.UserInfoAlarmWrapper key={Math.random()}>
               <span>
                 {el.username}
                 {myMemberId === el.memberId && `(나)`}님이 들어왔습니다
               </span>
-            </UserInfoAlarmWrapper>
+            </S.UserInfoAlarmWrapper>
           );
         } else if (el.type === "LOADMORE") {
           return (
@@ -170,13 +166,13 @@ const ChatFeed = ({
         return (
           <Fragment key={el.createdAt}>
             {timeStampFlagForDate && (
-              <ChatCreatedDateDiv showChatDate={showChatDate}>
+              <S.ChatCreatedDateDiv showChatDate={showChatDate}>
                 <span>
                   {new Intl.DateTimeFormat("ko", { dateStyle: "long" }).format(
                     new Date(el.createdAt)
                   )}
                 </span>
-              </ChatCreatedDateDiv>
+              </S.ChatCreatedDateDiv>
             )}
             {el.memberId === myMemberId ? (
               <MyChatBox
@@ -228,7 +224,7 @@ const ChatFeed = ({
           </Fragment>
         );
       })}
-    </ChatMessageWrapper>
+    </S.ChatMessageWrapper>
   );
 };
 export default ChatFeed;

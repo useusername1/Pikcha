@@ -17,7 +17,7 @@ import {
 import { BsDot } from "react-icons/bs";
 import { MdOutlineKeyboardBackspace } from "react-icons/md";
 import { CgClose } from "react-icons/cg";
-import * as wp from "./styled";
+import * as S from "./styled";
 interface PostEditorProps {
   mode: "edit" | "new";
 }
@@ -90,7 +90,7 @@ function PostEditor({ mode }: PostEditorProps) {
       {isWriteGuideModal ? (
         <WritingGuide setIsWriteGuideModal={setIsWriteGuideModal} />
       ) : null}
-      <wp.Header>
+      <S.Header>
         <div>
           <span>
             <BsDot color="#6255F8" />
@@ -105,10 +105,10 @@ function PostEditor({ mode }: PostEditorProps) {
           />
         </div>
         <div>미리보기</div>
-      </wp.Header>
-      <wp.Container>
-        <wp.WritePostWrapper>
-          <wp.WritePostContainer>
+      </S.Header>
+      <S.Container>
+        <S.WritePostWrapper>
+          <S.WritePostContainer>
             <div>
               <input
                 value={title}
@@ -132,8 +132,8 @@ function PostEditor({ mode }: PostEditorProps) {
             {showImageUploader ? (
               <ImageUploader setImgFiles={setImgFiles} />
             ) : null}
-          </wp.WritePostContainer>
-          <wp.HandleBackAndSubmitContainer>
+          </S.WritePostContainer>
+          <S.HandleBackAndSubmitContainer>
             <div onClick={() => navigate(-1)}>
               <MdOutlineKeyboardBackspace />
             </div>
@@ -144,31 +144,31 @@ function PostEditor({ mode }: PostEditorProps) {
               text="포스트 등록"
               onClick={(e) => actionPostSubmit(e)}
             />
-          </wp.HandleBackAndSubmitContainer>
-        </wp.WritePostWrapper>
-        <wp.PreviewContainer>
+          </S.HandleBackAndSubmitContainer>
+        </S.WritePostWrapper>
+        <S.PreviewContainer>
           <div>
             <h2>{title}</h2>
           </div>
           {postPreviewList &&
             postPreviewList.map((previews, index) => {
               return (
-                <wp.PreviewContentContainer key={index}>
-                  <wp.PreviewImgContainer>
+                <S.PreviewContentContainer key={index}>
+                  <S.PreviewImgContainer>
                     <img src={previews[0]} />
-                  </wp.PreviewImgContainer>
-                  <wp.PreviewTextContainer>
+                  </S.PreviewImgContainer>
+                  <S.PreviewTextContainer>
                     {previews[1]}
                     <CgClose
                       cursor="pointer"
                       onClick={(e) => handleRemovePreview(e, index)}
                     />
-                  </wp.PreviewTextContainer>
-                </wp.PreviewContentContainer>
+                  </S.PreviewTextContainer>
+                </S.PreviewContentContainer>
               );
             })}
-        </wp.PreviewContainer>
-      </wp.Container>
+        </S.PreviewContainer>
+      </S.Container>
     </>
   );
 }

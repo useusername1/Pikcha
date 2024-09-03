@@ -1,17 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import {
-  FooterContainer,
-  FooterText,
-  FooterWrapper,
-  FooterBottomText,
-  LogoContainer,
-  MadePeopleContainer,
-  FooterBottomContainer,
-  LinkIconContainer,
-  LinkWrapper,
-  EmailContainer,
-  ContributorLink,
-} from "./styled";
+import * as S from "./styled";
 import { BsGithub as GithubIcon } from "react-icons/bs";
 import { CgFigma as FigmaIcon } from "react-icons/cg";
 import { IoMailOutline as EmailIcon } from "react-icons/io5";
@@ -21,54 +9,54 @@ const Footer = () => {
   const navigate = useNavigate();
 
   return (
-    <FooterWrapper>
-      <FooterContainer>
-        <LogoContainer>
+    <S.FooterWrapper>
+      <S.FooterContainer>
+        <S.LogoContainer>
           <Logo onClick={() => navigate("/")} />
-        </LogoContainer>
-        <MadePeopleContainer>
+        </S.LogoContainer>
+        <S.MadePeopleContainer>
           {contributors.map((person, i) => (
-            <ContributorLink
+            <S.ContributorLink
               href={person.link}
               target="_blank"
               rel="noreferrer"
               key={i}
             >
-              <FooterText>&nbsp;{`${person.name}`}&nbsp;</FooterText>
-            </ContributorLink>
+              <S.FooterText>&nbsp;{`${person.name}`}&nbsp;</S.FooterText>
+            </S.ContributorLink>
           ))}
-        </MadePeopleContainer>
+        </S.MadePeopleContainer>
 
-        <LinkWrapper>
-          <LinkIconContainer
+        <S.LinkWrapper>
+          <S.LinkIconContainer
             href="https://github.com/codestates-seb/seb41_main_036"
             className="github-icon"
           >
             <GithubIcon />
-          </LinkIconContainer>
-          <LinkIconContainer
+          </S.LinkIconContainer>
+          <S.LinkIconContainer
             href="https://www.figma.com/file/iFs2WMfNlUTOA6ILnCljk3/main-project?node-id=0%3A1&t=FKufgjpDJAMZQ80B-1"
             className="figma-icon"
           >
             <FigmaIcon />
-          </LinkIconContainer>
-          <EmailContainer>
+          </S.LinkIconContainer>
+          <S.EmailContainer>
             <EmailIcon />
             명소 등록 & 사이트 문의 :
             <a href="mailto:pikchainc@gmail.com"> &nbsp;pikchainc@gmail.com</a>
-          </EmailContainer>
-        </LinkWrapper>
+          </S.EmailContainer>
+        </S.LinkWrapper>
         <hr />
-        <FooterBottomContainer>
-          <FooterBottomText>
+        <S.FooterBottomContainer>
+          <S.FooterBottomText>
             &copy; 2023. PIKCHA. All rights reserved.
-          </FooterBottomText>
-          <FooterBottomText>이용약관</FooterBottomText>
-          <FooterBottomText>개인정보처리방침</FooterBottomText>
-          <FooterBottomText>제휴제안</FooterBottomText>
-        </FooterBottomContainer>
-      </FooterContainer>
-    </FooterWrapper>
+          </S.FooterBottomText>
+          <S.FooterBottomText>이용약관</S.FooterBottomText>
+          <S.FooterBottomText>개인정보처리방침</S.FooterBottomText>
+          <S.FooterBottomText>제휴제안</S.FooterBottomText>
+        </S.FooterBottomContainer>
+      </S.FooterContainer>
+    </S.FooterWrapper>
   );
 };
 

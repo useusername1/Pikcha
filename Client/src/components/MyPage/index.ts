@@ -1,4 +1,4 @@
-import MyPageFavoriteCardItem from "./MyPageMyFavoriteCard/MyPageFavoriteCardItem";
+import MyPageFavoriteCardItem from "./MyPageMyFavoriteCard/MyPageFavoriteCarditem";
 import MyPagePagination from "./MyPagePagination";
 import MyPagePostCardItem from "./MyPageMyPostCard/MyPagePostCardItem";
 import MyPageMyFavoriteCard from "./MyPageMyFavoriteCard";

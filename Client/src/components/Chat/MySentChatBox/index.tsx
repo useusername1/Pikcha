@@ -1,16 +1,11 @@
-import { MessageErrorControlWrapper } from "./styled";
-import {
-  ChatContentMyDiv,
-  ChatMessageDiv,
-  ChatMessageWrapper,
-} from "../ChatFeed/styled";
-import { DividerLine } from "../styled";
-import { FlashingDots } from "../ChatIcons";
 import ReplyChatBubble from "../@common/ReplyChatBubble";
+import { FlashingDots } from "../ChatIcons";
 import { TfiClose as CloseIcon } from "react-icons/tfi";
 import { BsArrowCounterclockwise as RetryIcon } from "react-icons/bs";
 import { RxDividerVertical as DividerIcon } from "react-icons/rx";
 import { chatDatatype } from "~/@types/chat.types";
+import * as S from "./styled";
+import * as C from "../styled";
 
 interface SendChatBoxProps {
   chatBuffer: chatDatatype[];
@@ -57,9 +52,9 @@ const MySentChatBox = ({
   };
   return (
     <>
-      <ChatMessageWrapper ref={sendChatBoxRef}>
+      <C.ChatMessageWrapper ref={sendChatBoxRef}>
         {chatBuffer.map((el) => (
-          <ChatMessageDiv key={el.createdAt} type="RIGHT">
+          <C.ChatMessageDiv key={el.createdAt} type="RIGHT">
             {el.status === "SENDING" ? (
               <>
                 <FlashingDots />
@@ -71,7 +66,7 @@ const MySentChatBox = ({
                 </span>
               </>
             ) : (
-              <MessageErrorControlWrapper>
+              <S.MessageErrorControlWrapper>
                 <span>
                   <CloseIcon
                     className="close-icon"
@@ -87,21 +82,21 @@ const MySentChatBox = ({
                     onClick={() => handleRetryClick(el)}
                   />
                 </span>
-              </MessageErrorControlWrapper>
+              </S.MessageErrorControlWrapper>
             )}
 
-            <ChatContentMyDiv type="notFirst" messageType={el.type}>
+            <C.ChatContentMyDiv type="notFirst" messageType={el.type}>
               {el.targetChatId && (
                 <>
                   <ReplyChatBubble chatData={el} />
-                  <DividerLine margin="3px" color="var(--reply-borderline)" />
+                  <C.DividerLine margin="3px" color="var(--reply-borderline)" />
                 </>
               )}
               {el.content}
-            </ChatContentMyDiv>
-          </ChatMessageDiv>
+            </C.ChatContentMyDiv>
+          </C.ChatMessageDiv>
         ))}
-      </ChatMessageWrapper>
+      </C.ChatMessageWrapper>
     </>
   );
 };

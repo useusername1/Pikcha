@@ -1,21 +1,13 @@
 import { useEffect, useState, useRef, useMemo } from "react";
 import { apiClient } from "~/api/axiosInstance";
-import {
-  RankingWrapper,
-  MainRankingWrapper,
-  RankingItem,
-  RankingTitle,
-  RankingItemWrapper,
-  RankingItemContent,
-  CurrentTimeSpan,
-  PopOverWrapper,
-} from "./styled";
+import * as S from "./styled";
 import { RxDoubleArrowUp as DoubleUpIcon } from "react-icons/rx";
 import { BsChevronDown as DownArrow } from "react-icons/bs";
 import { Link } from "react-router-dom";
-import PopOver from "./PopOver";
+import Popover from "./Popover";
 import ArrowIconGenerator from "./ArrowIconGenerator";
 import getRandomInt from "./utils";
+import { TRankingData } from "./types";
 interface optionsType {
   dateStyle: "medium";
   timeStyle: "short";
@@ -25,14 +17,9 @@ const options: optionsType = {
   timeStyle: "short",
 };
 const RANKING_URL = `attractions/main/rank`;
-export interface RankingDataType {
-  attractionName: string;
-  attractionAddress: string;
-  currentRank: number;
-  rankOrder: number;
-}
+
 const Ranking = () => {
-  const [rankingData, setRankingData] = useState(Array<RankingDataType>);
+  const [rankingData, setRankingData] = useState(Array<TRankingData>);
   const [currentAttraction, setCurrentAttraction] = useState(0);
   const [startAnimation, setStartAnimation] = useState(false);
   const [showPopover, setShowPopover] = useState(false);
@@ -45,13 +32,11 @@ const Ranking = () => {
   useEffect(() => {
     apiClient.get(RANKING_URL).then((res) => {
       let newRankingData = res.data.data;
-      newRankingData = newRankingData.map(
-        (info: RankingDataType, i: number) => ({
-          ...info,
-          rankOrder: getRandomInt(i * -1, 20),
-          currentRank: i,
-        })
-      );
+      newRankingData = newRankingData.map((info: TRankingData, i: number) => ({
+        ...info,
+        rankOrder: getRandomInt(i * -1, 20),
+        currentRank: i,
+      }));
       setRankingData([...newRankingData, ...newRankingData.slice(0, 1)]);
     });
   }, []);
@@ -68,52 +53,52 @@ const Ranking = () => {
   }, []);
   return (
     <>
-      <RankingWrapper>
-        <MainRankingWrapper>
-          <RankingTitle>
+      <S.RankingWrapper>
+        <S.MainRankingWrapper>
+          <S.RankingTitle>
             지금 뜨는 곳<DoubleUpIcon className="doubleup-icon" />
-          </RankingTitle>
-          <RankingItemWrapper startAnimation={startAnimation}>
+          </S.RankingTitle>
+          <S.RankingItemWrapper startAnimation={startAnimation}>
             {rankingData &&
               rankingData
                 .slice(currentAttraction, (currentAttraction + 2) % 12)
                 .map((el) => (
-                  <RankingItem key={el.attractionName}>
+                  <S.RankingItem key={el.attractionName}>
                     <Link
                       to={`/attractions/search?keyword=${el.attractionName}`}
                     >
-                      <RankingItemContent currentRank>
+                      <S.RankingItemContent currentRank>
                         {el.currentRank + 1}
-                      </RankingItemContent>
-                      <RankingItemContent attractionName>
+                      </S.RankingItemContent>
+                      <S.RankingItemContent attractionName>
                         {el.attractionName}
-                      </RankingItemContent>
-                      <RankingItemContent address>
+                      </S.RankingItemContent>
+                      <S.RankingItemContent address>
                         {el.attractionAddress}
-                      </RankingItemContent>
-                      <RankingItemContent rankOrder>
+                      </S.RankingItemContent>
+                      <S.RankingItemContent rankOrder>
                         <ArrowIconGenerator difference={el.rankOrder} />
-                      </RankingItemContent>
+                      </S.RankingItemContent>
                     </Link>
-                  </RankingItem>
+                  </S.RankingItem>
                 ))}
-          </RankingItemWrapper>
+          </S.RankingItemWrapper>
           <DownArrow
             className="downArrow-icon"
             onMouseOver={() => setShowPopover(true)}
           />
-        </MainRankingWrapper>
-        <CurrentTimeSpan>{`${currentTime} 기준`}</CurrentTimeSpan>
+        </S.MainRankingWrapper>
+        <S.CurrentTimeSpan>{`${currentTime} 기준`}</S.CurrentTimeSpan>
 
         {showPopover && (
-          <PopOverWrapper>
-            <PopOver
+          <S.PopOverWrapper>
+            <Popover
               rankingData={rankingData}
               handleShowPopover={setShowPopover}
             />
-          </PopOverWrapper>
+          </S.PopOverWrapper>
         )}
-      </RankingWrapper>
+      </S.RankingWrapper>
     </>
   );
 };

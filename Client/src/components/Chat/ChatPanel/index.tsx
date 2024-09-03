@@ -22,7 +22,7 @@ import ChatHeader from "../ChatHeader";
 import MySentChatBox from "../MySentChatBox";
 import ChatInputBar from "../ChatInputBar";
 import ChatSearchBox from "../ChatSearchBox";
-import { ChatBoxDiv, ChatBoxWrapper } from "./styled";
+import * as S from "./styled";
 import { apiClient } from "~/api/axiosInstance";
 
 const URL = `${process.env.REACT_APP_HOST}/stomp-websocket-sockjs`;
@@ -126,7 +126,7 @@ const ChatPanel = ({ chatStatus }: ChatPanelProps) => {
     [options, chatBoxRef.current]
   );
   return (
-    <ChatBoxDiv chatStatus={chatStatus}>
+    <S.ChatBoxDiv chatStatus={chatStatus}>
       {showConfirmModal && <ConfirmDeleteModal deleteMessage={deleteMessage} />}
       {showReportModal && <ReportModal setChatData={setChatData} />}
       <ConfirmationToast />
@@ -137,7 +137,7 @@ const ChatPanel = ({ chatStatus }: ChatPanelProps) => {
         />
       )}
       <ChatHeader />
-      <ChatBoxWrapper ref={chatBoxRef}>
+      <S.ChatBoxWrapper ref={chatBoxRef}>
         <ChatFeed
           chatBoxRef={chatBoxRef}
           topChatMessage={topChatMessage}
@@ -153,7 +153,7 @@ const ChatPanel = ({ chatStatus }: ChatPanelProps) => {
             replyMessage={replyMessage}
           />
         )}
-      </ChatBoxWrapper>
+      </S.ChatBoxWrapper>
       {isDeleteMode ? (
         <DeleteAllConfirmModal />
       ) : (
@@ -164,7 +164,7 @@ const ChatPanel = ({ chatStatus }: ChatPanelProps) => {
           chatDataMapRef={chatDataMapRef}
         />
       )}
-    </ChatBoxDiv>
+    </S.ChatBoxDiv>
   );
 };
 export default ChatPanel;

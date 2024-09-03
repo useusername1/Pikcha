@@ -6,9 +6,9 @@ import {
   myPageUserDataAtom,
 } from "~/recoil/mypage/atoms";
 import { apiClient } from "~/api/axiosInstance";
-import { MySavesType } from "../types";
+import { MySavesType } from "../../types";
 import { MdDeleteForever as DeleteIcon } from "react-icons/md";
-import * as mpc from "./styled";
+import * as S from "./styled";
 
 interface MyPageFavoriteCardItemProps {
   attractionInfo: MySavesType;
@@ -52,16 +52,16 @@ const MyPageFavoriteCardItem = ({
   };
   return (
     <>
-      <mpc.FavoriteCardContainer
+      <S.FavoriteCardContainer
         isDeleteMode={isDeleteMode}
         startAnimation={startDeleteAnimation}
       >
-        <mpc.AttractionImage
+        <S.AttractionImage
           src={attractionInfo.fixedImage}
           alt="post-img"
           onClick={() => navigate(`/attractions/detail/${attractionId}`)}
         />
-        <mpc.AttractionTextInfo>
+        <S.AttractionTextInfo>
           <div>
             <h3 onClick={() => navigate(`/attractions/detail/${attractionId}`)}>
               {attractionName}
@@ -76,9 +76,9 @@ const MyPageFavoriteCardItem = ({
               <strong>{likesInfo}</strong>
             </span>
           </div>{" "}
-        </mpc.AttractionTextInfo>
+        </S.AttractionTextInfo>
         <DeleteIcon className="mypage-deleteIcon" onClick={handleDeleteClick} />
-      </mpc.FavoriteCardContainer>
+      </S.FavoriteCardContainer>
     </>
   );
 };

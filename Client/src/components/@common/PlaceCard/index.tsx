@@ -4,7 +4,7 @@ import { useRecoilValue, useSetRecoilState } from "recoil";
 import { apiClient } from "~/api/axiosInstance";
 import { isLoginModalVisibleAtom } from "~/recoil/modal/atoms";
 import { UserDataAtomFamily } from "~/recoil/auth";
-import * as plc from "./styled";
+import * as S from "./styled";
 import { AiFillHeart as LikeIcon } from "react-icons/ai";
 import { BsFillBookmarkFill as BookmarkIcon } from "react-icons/bs";
 import { MdModeComment } from "react-icons/md";
@@ -53,14 +53,14 @@ const PlaceCard = ({
 
   return (
     <>
-      <plc.PlaceCardWrapper key={attractionId} width={width}>
+      <S.PlaceCardWrapper key={attractionId} width={width}>
         <img
           referrerPolicy="no-referrer"
           alt={placeInfo.attractionName}
           src={placeInfo.fixedImage}
           onClick={() => navigate(`/attractions/detail/${attractionId}`)}
         ></img>
-        <plc.PlaceCardInfoContainer>
+        <S.PlaceCardInfoContainer>
           <div>
             <div
               onClick={() => navigate(`/attractions/detail/${attractionId}`)}
@@ -68,29 +68,29 @@ const PlaceCard = ({
               {placeInfo.attractionName}
             </div>
             <div>
-              <plc.PlaceCardTopIcon changeColor={currentBookmark}>
+              <S.PlaceCardTopIcon changeColor={currentBookmark}>
                 <BookmarkIcon
                   className="place-bookmark-icon"
                   onClick={handleBookmarkClick}
                 />
                 {getCurrentCount(savesData, isSaved, currentBookmark)}
-              </plc.PlaceCardTopIcon>
-              <plc.PlaceCardTopIcon changeColor={currentLike}>
+              </S.PlaceCardTopIcon>
+              <S.PlaceCardTopIcon changeColor={currentLike}>
                 <LikeIcon
                   className="place-like-icon"
                   onClick={handleLikeClick}
                   style={{ color: currentLike ? "red" : "grey" }}
                 />
                 {getCurrentCount(likesData, isVoted, currentLike)}
-              </plc.PlaceCardTopIcon>
+              </S.PlaceCardTopIcon>
             </div>
           </div>
           <div>
             <MdModeComment />
             &nbsp; 포스트 {placeInfo.numOfPosts}
           </div>
-        </plc.PlaceCardInfoContainer>
-      </plc.PlaceCardWrapper>
+        </S.PlaceCardInfoContainer>
+      </S.PlaceCardWrapper>
     </>
   );
 };

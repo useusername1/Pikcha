@@ -1,5 +1,5 @@
 import { TfiClose } from "react-icons/tfi";
-import * as wp from "./styled";
+import * as S from "./styled";
 import { useRecoilState } from "recoil";
 import { editorTagListAtom } from "~/recoil/postEditor/atoms";
 
@@ -13,7 +13,7 @@ function TagList() {
   return (
     <>
       {tagList.map((tag, idx) => (
-        <wp.TagBox key={tag}>
+        <S.TagBox key={tag}>
           {tag}
           <TfiClose
             cursor="pointer"
@@ -21,7 +21,7 @@ function TagList() {
             fontWeight="bold"
             onClick={() => handleTagRemover(idx)}
           />
-        </wp.TagBox>
+        </S.TagBox>
       ))}
     </>
   );

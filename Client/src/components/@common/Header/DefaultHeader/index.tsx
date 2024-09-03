@@ -1,15 +1,5 @@
 import { lazy, ReactNode, MouseEventHandler } from "react";
-import {
-  HeaderWrapper,
-  HeaderTop,
-  HeaderTopMenu,
-  HeaderBody,
-  HeaderBodyMenu,
-  HeaderBodyMenuItem,
-  HeaderBodyWrapper,
-  SearchBarWrapper,
-  Profile,
-} from "./styled";
+import * as S from "./styled";
 import { Link, useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { UserDataAtomFamily } from "~/recoil/auth";
@@ -46,8 +36,8 @@ const HeaderTopBar = () => {
   };
 
   return (
-    <HeaderTop>
-      <HeaderTopMenu>
+    <S.HeaderTop>
+      <S.HeaderTopMenu>
         {isLogin ? (
           <>
             <li>
@@ -83,8 +73,8 @@ const HeaderTopBar = () => {
             ></Button>
           </li>
         )}
-      </HeaderTopMenu>
-    </HeaderTop>
+      </S.HeaderTopMenu>
+    </S.HeaderTop>
   );
 };
 interface HeaderBodyProps {
@@ -104,46 +94,46 @@ const HeaderBodyBar = ({
   const navigate = useNavigate();
 
   return (
-    <HeaderBodyWrapper backgroundOn={backgroundOn}>
-      <HeaderBody>
+    <S.HeaderBodyWrapper backgroundOn={backgroundOn}>
+      <S.HeaderBody>
         <Link
           to="/"
           style={{ height: "70px", display: "flex", alignItems: "center" }}
         >
           <Logo style={{ width: "80px", height: "50px" }} />
         </Link>
-        <HeaderBodyMenu>
-          <HeaderBodyMenuItem
+        <S.HeaderBodyMenu>
+          <S.HeaderBodyMenuItem
             onClick={() => navigate("/attractions")}
             selected={selectedMenu === 0}
           >
             명소
-          </HeaderBodyMenuItem>
-          <HeaderBodyMenuItem
+          </S.HeaderBodyMenuItem>
+          <S.HeaderBodyMenuItem
             onClick={() => navigate("/posts")}
             selected={selectedMenu === 1}
           >
             포스트
-          </HeaderBodyMenuItem>
-          <HeaderBodyMenuItem
+          </S.HeaderBodyMenuItem>
+          <S.HeaderBodyMenuItem
             onClick={() => navigate("/map")}
             selected={selectedMenu === 2}
           >
             내 주변 명소 찾기
-          </HeaderBodyMenuItem>
-        </HeaderBodyMenu>
+          </S.HeaderBodyMenuItem>
+        </S.HeaderBodyMenu>
         {searchBarOn && (
-          <SearchBarWrapper>
+          <S.SearchBarWrapper>
             <SearchBar defaultValue={defaultValue} />
-          </SearchBarWrapper>
+          </S.SearchBarWrapper>
         )}
         {islogin && (
-          <Profile onClick={() => navigate("/mypage")}>
+          <S.Profile onClick={() => navigate("/mypage")}>
             <img src={IMG_SRC} alt="profile" />
-          </Profile>
+          </S.Profile>
         )}
-      </HeaderBody>
-    </HeaderBodyWrapper>
+      </S.HeaderBody>
+    </S.HeaderBodyWrapper>
   );
 };
 interface HeaderMainProps {
@@ -162,14 +152,14 @@ const HeaderMain = ({
   headerColor,
 }: HeaderMainProps) => {
   return (
-    <HeaderWrapper
+    <S.HeaderWrapper
       onMouseEnter={mouseOverHandler}
       onMouseLeave={mouseOutHandler}
       isVisible={isVisible}
       headerColor={headerColor}
     >
       {children}
-    </HeaderWrapper>
+    </S.HeaderWrapper>
   );
 };
 export const Header = Object.assign(HeaderMain, {

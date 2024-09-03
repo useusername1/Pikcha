@@ -12,15 +12,7 @@ import { UserDataAtomFamily } from "~/recoil/auth";
 
 import { HiOutlineChevronDoubleRight as DoubleArrowIcon } from "react-icons/hi";
 
-import {
-  Body,
-  BodyContent,
-  MainSubTitle,
-  MoreLink,
-  PlaceCardWrapper,
-  ViewsPlaceContainer,
-  ViewsPostContainer,
-} from "./styled";
+import * as S from "./styled";
 import { ArrayPlaceType } from "~/@types/place.types";
 import { ArrayPostType } from "~/@types/post.types";
 
@@ -56,11 +48,11 @@ function Main() {
       <Carousel />
       <Ranking />
       {/* <Chat key={"chatbox"} /> */}
-      <Body>
-        <BodyContent>
-          <MainSubTitle>많이 다녀간 명소</MainSubTitle>
-          <ViewsPlaceContainer>
-            <PlaceCardWrapper>
+      <S.Body>
+        <S.BodyContent>
+          <S.MainSubTitle>많이 다녀간 명소</S.MainSubTitle>
+          <S.ViewsPlaceContainer>
+            <S.PlaceCardWrapper>
               {attractionData &&
                 attractionData.map((placeInfo) => (
                   <PlaceCard
@@ -69,27 +61,27 @@ function Main() {
                     key={placeInfo.attractionId}
                   />
                 ))}
-            </PlaceCardWrapper>
-            <MoreLink>
+            </S.PlaceCardWrapper>
+            <S.MoreLink>
               <Link to={"/attractions"}>
                 더 많은 명소 둘러보기
                 <DoubleArrowIcon />
               </Link>
-            </MoreLink>
-          </ViewsPlaceContainer>
-          <MainSubTitle>가장 많이 본 포스트</MainSubTitle>
-          <ViewsPostContainer>
+            </S.MoreLink>
+          </S.ViewsPlaceContainer>
+          <S.MainSubTitle>가장 많이 본 포스트</S.MainSubTitle>
+          <S.ViewsPostContainer>
             {postData && (
               <PostCardComponent posts={postData} margin="0" width="24%" />
             )}
-          </ViewsPostContainer>
-          <MoreLink>
+          </S.ViewsPostContainer>
+          <S.MoreLink>
             <Link to={"/posts"}>
               더 많은 포스트 확인하기 <DoubleArrowIcon />
             </Link>
-          </MoreLink>
-        </BodyContent>
-      </Body>
+          </S.MoreLink>
+        </S.BodyContent>
+      </S.Body>
       <Footer />
     </>
   );

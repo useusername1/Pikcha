@@ -6,12 +6,7 @@ import {
   Dispatch,
   MouseEvent,
 } from "react";
-import {
-  AttractionItem,
-  AttractionItemContent,
-  AttractionItemContentWrapper,
-  SuggestionItemWrapper,
-} from "./styled";
+import * as S from "./styled";
 import { useNavigate } from "react-router-dom";
 import { TbArrowUpRight as ShortcutIcon } from "react-icons/tb";
 import { BiLocationPlus as SearchMoreIcon } from "react-icons/bi";
@@ -62,7 +57,7 @@ const SuggestionBox = ({
     );
   };
   return (
-    <SuggestionItemWrapper>
+    <S.SuggestionItemWrapper>
       {filteredAttractions.length ? (
         filteredAttractions.map((el, i) => (
           <SuggestionItem
@@ -76,28 +71,28 @@ const SuggestionBox = ({
           />
         ))
       ) : (
-        <AttractionItemContent as="li" type="notice">
+        <S.AttractionItemContent as="li" type="notice">
           {trimmedSearchValue === ""
             ? "검색어를 입력해주세요"
             : "추천 검색어가 없습니다"}
-        </AttractionItemContent>
+        </S.AttractionItemContent>
       )}
       {numOfFilteredAttractions > MAX_SUGGEST && (
-        <AttractionItem
+        <S.AttractionItem
           selectedEl={selected === MAX_SUGGEST + 1}
           onMouseOver={handleMouseOver}
         >
-          <AttractionItemContent
+          <S.AttractionItemContent
             as="li"
             type="more-result"
             onClick={handleMoreResultClick}
           >
             <SearchMoreIcon className="more-search" />
             {`"${trimmedSearchValue}"에 대한 모든 검색결과 보기 `}
-          </AttractionItemContent>
-        </AttractionItem>
+          </S.AttractionItemContent>
+        </S.AttractionItem>
       )}
-    </SuggestionItemWrapper>
+    </S.SuggestionItemWrapper>
   );
 };
 
@@ -135,9 +130,9 @@ const SuggestionItem = ({
     navigate(`/attractions/detail/${info.id}`);
   };
   return (
-    <AttractionItem selectedEl={selectedEl} onMouseOver={handleMouseOver}>
-      <AttractionItemContentWrapper onClick={handleAttractionItemClick}>
-        <AttractionItemContent type="name">
+    <S.AttractionItem selectedEl={selectedEl} onMouseOver={handleMouseOver}>
+      <S.AttractionItemContentWrapper onClick={handleAttractionItemClick}>
+        <S.AttractionItemContent type="name">
           {letterIndex.map((el, i, arr) => {
             let formerIndex = i === 0 ? 0 : arr[i - 1] + 1;
             return i % 2 === 0 ? (
@@ -147,13 +142,13 @@ const SuggestionItem = ({
             );
           })}
           {info.name.slice(letterIndex[letterIndex.length - 1] + 1)}
-        </AttractionItemContent>
-        <AttractionItemContent type="address">
+        </S.AttractionItemContent>
+        <S.AttractionItemContent type="address">
           {info.address}
-        </AttractionItemContent>
-      </AttractionItemContentWrapper>
+        </S.AttractionItemContent>
+      </S.AttractionItemContentWrapper>
       <ShortcutIcon />
-    </AttractionItem>
+    </S.AttractionItem>
   );
 };
 

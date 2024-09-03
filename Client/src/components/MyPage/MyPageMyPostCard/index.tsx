@@ -1,7 +1,7 @@
 import { useState } from "react";
 import MyPagePagination from "../MyPagePagination";
 import MyPagePostCardItem from "./MyPagePostCardItem";
-import * as mp from "./styled";
+import * as S from "./styled";
 import { ArrayMyPostsType } from "../types";
 
 const MyPageMyPostCard = ({
@@ -22,12 +22,12 @@ const MyPageMyPostCard = ({
 
   return (
     <>
-      <mp.MyPagePostCardWrapper>
+      <S.MyPagePostCardWrapper>
         {posts &&
           currentPosts.map((post) => (
             <MyPagePostCardItem key={post.postId} postInfo={post} />
           ))}
-      </mp.MyPagePostCardWrapper>
+      </S.MyPagePostCardWrapper>
       <MyPagePagination
         limit={5}
         props={posts}

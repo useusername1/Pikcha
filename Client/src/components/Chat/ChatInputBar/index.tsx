@@ -13,13 +13,7 @@ import { NewMessageToast } from "../@common/Toasts";
 import { scrollFlagRef } from "../ChatPanel";
 import { DividerLine } from "../styled";
 import { ChatInputBarStyleType } from "../types";
-import {
-  SendBarFrameDiv,
-  ReplyInfoDiv,
-  ChatInputBarDiv,
-  ChatInputBarButton,
-  EmojipickerWrapper,
-} from "./styled";
+import * as S from "./styled";
 import EmojiPicker, {
   EmojiClickData,
   EmojiStyle,
@@ -167,7 +161,7 @@ const ChatInputBar = ({
   };
   return (
     <>
-      <SendBarFrameDiv
+      <S.SendBarFrameDiv
         styleProps={sendbarStyle}
         showSearchBox={showSearchBox}
         showNewMessageToast={showNewMessageToast}
@@ -175,7 +169,7 @@ const ChatInputBar = ({
         <NewMessageToast chatDataMapRef={chatDataMapRef} />
         {isReplyMessage !== null && (
           <>
-            <ReplyInfoDiv>
+            <S.ReplyInfoDiv>
               <div className="reply-info">
                 <div className="reply-message">{isReplyMessage.content}</div>
                 <div className="reply-user">
@@ -189,11 +183,11 @@ const ChatInputBar = ({
               <span onClick={handleCloseClick} className="close-icon">
                 <CloseIcon />
               </span>
-            </ReplyInfoDiv>
+            </S.ReplyInfoDiv>
             <DividerLine />
           </>
         )}
-        <ChatInputBarDiv disabled={text.trim().length === 0} rowNum={rowNum}>
+        <S.ChatInputBarDiv disabled={text.trim().length === 0} rowNum={rowNum}>
           <textarea
             key={1}
             ref={textareaRef}
@@ -203,7 +197,7 @@ const ChatInputBar = ({
             onChange={handleInputChange}
             onKeyDown={handleInputKeyDown}
           ></textarea>
-          <ChatInputBarButton
+          <S.ChatInputBarButton
             ref={emojiRef as React.RefObject<HTMLDivElement>}
             buttontype="emoji"
             rowNum={rowNum}
@@ -212,7 +206,7 @@ const ChatInputBar = ({
             showEmoji={showEmoji}
           >
             <div className="emoji-icon">{emoji}</div>
-            <EmojipickerWrapper
+            <S.EmojipickerWrapper
               onClick={handleEmojipickerWrapperClick}
               rowNum={rowNum}
             >
@@ -226,18 +220,18 @@ const ChatInputBar = ({
                   emojiStyle={EmojiStyle.NATIVE}
                 />
               )}
-            </EmojipickerWrapper>
-          </ChatInputBarButton>
-          <ChatInputBarButton
+            </S.EmojipickerWrapper>
+          </S.ChatInputBarButton>
+          <S.ChatInputBarButton
             buttontype="send"
             rowNum={rowNum}
             onClick={(e) => clickHandler(e)}
             disabled={text.trim().length === 0}
           >
             <SendIcon className="send-icon" />
-          </ChatInputBarButton>
-        </ChatInputBarDiv>
-      </SendBarFrameDiv>
+          </S.ChatInputBarButton>
+        </S.ChatInputBarDiv>
+      </S.SendBarFrameDiv>
     </>
   );
 };

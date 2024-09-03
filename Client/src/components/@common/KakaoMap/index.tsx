@@ -1,17 +1,17 @@
 import { useEffect, useRef, useState } from "react";
-import { MyPosition, TrafficInfo } from "./styled";
+import * as S from "./styled";
 
-interface MapDataList {
+type TMapDataList = {
   attractionAddress: string;
   attractionId: number;
   attractionName: string;
   fixedImage: string;
-}
+};
 
-interface Map {
+interface KakaoMapProps {
   width: string;
   height: string;
-  dataList: MapDataList | undefined | string;
+  dataList: TMapDataList | undefined | string;
   position: any;
   left: string;
   regionFilter: string;
@@ -33,7 +33,7 @@ const KakaoMap = ({
   modalData,
   filterOrPosition,
   setFilterOrPosition,
-}: Map) => {
+}: KakaoMapProps) => {
   const container = useRef<any>();
   const [traffic, setTraffic] = useState(false);
 
@@ -228,20 +228,20 @@ const KakaoMap = ({
       >
         {component === "map" ? (
           <>
-            <TrafficInfo
+            <S.TrafficInfo
               onClick={() => {
                 setTraffic(!traffic);
               }}
             >
               {traffic ? "교통 정보 OFF" : "교통 정보"}
-            </TrafficInfo>
-            <MyPosition
+            </S.TrafficInfo>
+            <S.MyPosition
               onClick={() => {
                 setFilterOrPosition(!filterOrPosition);
               }}
             >
               {filterOrPosition ? "실시간 위치 OFF" : "실시간 위치"}
-            </MyPosition>
+            </S.MyPosition>
           </>
         ) : null}
       </div>

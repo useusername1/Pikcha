@@ -1,8 +1,8 @@
 import { useState } from "react";
-import MyPageFavoriteCardItem from "./MyPageFavoriteCardItem";
+import MyPageFavoriteCardItem from "./MyPageFavoriteCarditem";
 import MyPagePagination from "../MyPagePagination";
 import { ArrayMySavesType } from "../types";
-import * as mp from "./styled";
+import * as S from "./styled";
 
 const MyPageMyFavoriteCard = ({
   saves,
@@ -22,7 +22,7 @@ const MyPageMyFavoriteCard = ({
 
   return (
     <>
-      <mp.FavoriteCardWrapper>
+      <S.FavoriteCardWrapper>
         {saves &&
           currentSaves.map((save) => (
             <MyPageFavoriteCardItem
@@ -30,7 +30,7 @@ const MyPageMyFavoriteCard = ({
               attractionInfo={save}
             />
           ))}
-      </mp.FavoriteCardWrapper>
+      </S.FavoriteCardWrapper>
       <MyPagePagination
         limit={6}
         props={saves}

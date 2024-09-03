@@ -8,8 +8,8 @@ import { handleCommentSubmit } from "~/api/BlogDetail/Post/Post";
 import { UserDataAtomFamily } from "~/recoil/auth";
 import { isLoginModalVisibleAtom } from "~/recoil/modal/atoms";
 import { IoMdArrowDropup, IoMdArrowDropdown } from "react-icons/io";
-import * as poc from "./styled";
-import * as shared from "../styled";
+import * as S from "./styled";
+import * as DP from "../styled";
 import { CommentType } from "~/@types/detailPost.types";
 import { ReCommentType } from "../types";
 
@@ -36,24 +36,21 @@ const Comment = ({
   return (
     <>
       {comments && (
-        <poc.PostCommentWrapper key={comments.commentId}>
-          <shared.PostCommentBox>
-            <shared.PostCommentTitle>
-              <shared.PostCommentImg
-                alt="userImg"
-                src={comments.memberPicture}
-              />
-              <shared.PostCommentUserName
+        <S.PostCommentWrapper key={comments.commentId}>
+          <DP.PostCommentBox>
+            <DP.PostCommentTitle>
+              <DP.PostCommentImg alt="userImg" src={comments.memberPicture} />
+              <DP.PostCommentUserName
                 writer={postWriter === comments.memberId ? "writer" : ""}
               >
                 {comments.username}
-              </shared.PostCommentUserName>
-              <shared.PostCommentDate>
+              </DP.PostCommentUserName>
+              <DP.PostCommentDate>
                 {comments.createdAt.slice(0, 4)}년{" "}
                 {comments.createdAt.slice(5, 7)}월{" "}
                 {comments.createdAt.slice(8, 10)}일
-              </shared.PostCommentDate>
-              <shared.PostManageButton
+              </DP.PostCommentDate>
+              <DP.PostManageButton
                 onClick={() => {
                   setIsRecomment(!isRecomment);
                   setCommentIdx(comments.commentId);
@@ -62,44 +59,44 @@ const Comment = ({
                 {isRecomment && commentIdx === comments.commentId
                   ? "답글 취소"
                   : "답글 쓰기"}
-              </shared.PostManageButton>
-            </shared.PostCommentTitle>
+              </DP.PostManageButton>
+            </DP.PostCommentTitle>
             {memberId === comments.memberId || memberId === 1 ? (
-              <shared.PostManageButtonContainer>
+              <DP.PostManageButtonContainer>
                 {isEdit && commentIdx === comments.commentId ? (
-                  <shared.PostManageButton
+                  <DP.PostManageButton
                     onClick={() =>
                       modifiedComment(comments.commentId, editcommentContent)
                     }
                   >
                     완료
-                  </shared.PostManageButton>
+                  </DP.PostManageButton>
                 ) : (
-                  <shared.PostManageButton
+                  <DP.PostManageButton
                     onClick={() => {
                       setIsEdit(!isEdit);
                       setCommentIdx(comments.commentId);
                     }}
                   >
                     수정
-                  </shared.PostManageButton>
+                  </DP.PostManageButton>
                 )}
                 {isEdit && commentIdx === comments.commentId ? (
-                  <shared.PostManageButton onClick={() => setIsEdit(!isEdit)}>
+                  <DP.PostManageButton onClick={() => setIsEdit(!isEdit)}>
                     취소
-                  </shared.PostManageButton>
+                  </DP.PostManageButton>
                 ) : (
-                  <shared.PostManageButton
+                  <DP.PostManageButton
                     onClick={() => deletePostComment(comments.commentId)}
                   >
                     삭제
-                  </shared.PostManageButton>
+                  </DP.PostManageButton>
                 )}
-              </shared.PostManageButtonContainer>
+              </DP.PostManageButtonContainer>
             ) : null}
-          </shared.PostCommentBox>
+          </DP.PostCommentBox>
           {isEdit && commentIdx === comments.commentId ? (
-            <shared.PostCommentInputContainer
+            <DP.PostCommentInputContainer
               padding="20px 40px"
               width="100%"
               height="100px"
@@ -113,12 +110,12 @@ const Comment = ({
                   })
                 }
               ></textarea>
-            </shared.PostCommentInputContainer>
+            </DP.PostCommentInputContainer>
           ) : (
-            <poc.PostCommentContentContainer>
+            <S.PostCommentContentContainer>
               {comments.commentContent}
               {isRecomment && commentIdx === comments.commentId ? (
-                <shared.PostCommentInputContainer
+                <DP.PostCommentInputContainer
                   padding="20px 0"
                   width="70%"
                   height="45px"
@@ -152,10 +149,10 @@ const Comment = ({
                   >
                     작성
                   </button>
-                </shared.PostCommentInputContainer>
+                </DP.PostCommentInputContainer>
               ) : null}
               {comments.children.length !== 0 ? (
-                <poc.PostCommentisMoreRecommentContainer
+                <S.PostCommentisMoreRecommentContainer
                   onClick={() => {
                     setIsMoreReomment(!isMoreRecomment);
                     setCommentIdx(comments.commentId);
@@ -167,7 +164,7 @@ const Comment = ({
                     <IoMdArrowDropdown size={"20px"} />
                   )}
                   답글 {comments.children.length}개
-                </poc.PostCommentisMoreRecommentContainer>
+                </S.PostCommentisMoreRecommentContainer>
               ) : null}
               {isMoreRecomment && commentIdx === comments.commentId
                 ? comments.children.map((recomments: ReCommentType) => (
@@ -178,9 +175,9 @@ const Comment = ({
                     />
                   ))
                 : null}
-            </poc.PostCommentContentContainer>
+            </S.PostCommentContentContainer>
           )}
-        </poc.PostCommentWrapper>
+        </S.PostCommentWrapper>
       )}
     </>
   );

@@ -1,14 +1,14 @@
-import { FlashingDot, FlashingDotWrapper } from "./styled";
+import * as S from "./styled";
 
 const FlashingDots = () => {
   return (
-    <FlashingDotWrapper>
-      <FlashingDot>
+    <S.FlashingDotWrapper>
+      <S.FlashingDot>
         <div>
-          <FlashingDot />
+          <S.FlashingDot />
         </div>
-      </FlashingDot>
-    </FlashingDotWrapper>
+      </S.FlashingDot>
+    </S.FlashingDotWrapper>
   );
 };
 export default FlashingDots;

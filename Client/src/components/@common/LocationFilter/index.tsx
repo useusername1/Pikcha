@@ -4,7 +4,7 @@ import {
   MdOutlineKeyboardArrowUp,
 } from "react-icons/md";
 import { RiCloseLine } from "react-icons/ri";
-import { SelectBox, SelectContainer, SelectPost } from "./styled";
+import * as S from "./styled";
 import Districts from "~/data/districtsData";
 
 export default function LocationFilter({
@@ -33,24 +33,24 @@ export default function LocationFilter({
 
   return (
     <>
-      <SelectContainer>
+      <S.SelectContainer>
         <div>
           <span>선택한 지역</span>
           {!!checkedList.length && <button onClick={allRemove}>초기화</button>}
         </div>
         {checkedList &&
           checkedList.map((item, idx) => (
-            <SelectPost key={idx}>
+            <S.SelectPost key={idx}>
               <li>
                 <button onClick={() => onRemove(item)}>
                   <RiCloseLine />
                 </button>
                 {item}
               </li>
-            </SelectPost>
+            </S.SelectPost>
           ))}
-      </SelectContainer>
-      <SelectBox>
+      </S.SelectContainer>
+      <S.SelectBox>
         <div>
           <span>지역</span>
           <button onClick={() => setOpenLocation(!openLocation)}>
@@ -78,7 +78,7 @@ export default function LocationFilter({
               </form>
             ))
           : null}
-      </SelectBox>
+      </S.SelectBox>
     </>
   );
 }

@@ -8,17 +8,9 @@ import {
   isDeleteModeAtom,
 } from "~/recoil/chat/atoms";
 import ReplyChatBubble from "../../@common/ReplyChatBubble";
-import { DividerLine } from "../../styled";
-import {
-  ChatMessageDiv,
-  ChatContentWrapper,
-  ChatContentBottomWrapper,
-  ChatContentMyDiv,
-  ChatContentMenu,
-  ChatContentMenuItem,
-  ReactionTagSpan,
-} from "../styled";
-import { DeleteCheckIconWrapper } from "./styled";
+import * as C from "../../styled";
+import * as CF from "../styled";
+import * as S from "./styled";
 import { FaTrashAlt as TrashIcon, FaHeart as HeartIcon } from "react-icons/fa";
 import { HiOutlineCheckCircle as DeleteCheckIcon } from "react-icons/hi";
 import { MdSubdirectoryArrowRight as ReplyIcon } from "react-icons/md";
@@ -85,14 +77,14 @@ const MyChatBox = ({
     setMessageToReply(chatData);
   };
   return (
-    <ChatMessageDiv
+    <C.ChatMessageDiv
       key={chatData.createdAt}
       type="RIGHT"
       ref={lastChatMessageRef}
       searchTargetAnimation={searchTargetAnimation}
     >
-      <ChatContentWrapper direction="RIGHT">
-        <ChatContentBottomWrapper
+      <CF.ChatContentWrapper direction="RIGHT">
+        <CF.ChatContentBottomWrapper
           messageType={chatData.type}
           isDeleteMode={isDeleteMode}
         >
@@ -104,31 +96,31 @@ const MyChatBox = ({
               })}
             </span>
           )}
-          <ChatContentMyDiv
+          <C.ChatContentMyDiv
             type={timeStampFlagForRadius ? "first" : "notFirst"}
             messageType={chatData.type}
           >
             {chatData.type !== "DELETE" && chatData.type !== "REPORT" && (
-              <ChatContentMenu type="RIGHT">
-                <ChatContentMenuItem
+              <CF.ChatContentMenu type="RIGHT">
+                <CF.ChatContentMenuItem
                   className="setting-box"
                   onClick={handleSettingClick}
                 >
                   <SettingIcon className="setting-icon" />
-                </ChatContentMenuItem>
-                <ChatContentMenuItem
+                </CF.ChatContentMenuItem>
+                <CF.ChatContentMenuItem
                   className="reply-box"
                   onClick={handleReplyClick}
                 >
                   <ReplyIcon className="reply-icon" />
-                </ChatContentMenuItem>
-                <ChatContentMenuItem
+                </CF.ChatContentMenuItem>
+                <CF.ChatContentMenuItem
                   className="trash-box"
                   onClick={() => handleDeleteClick(chatData.chatId as number)}
                 >
                   <TrashIcon className="trash-icon" />
-                </ChatContentMenuItem>
-              </ChatContentMenu>
+                </CF.ChatContentMenuItem>
+              </CF.ChatContentMenu>
             )}
             {chatData.type === "REPLY" && (
               <>
@@ -136,7 +128,7 @@ const MyChatBox = ({
                   chatData={chatData}
                   chatDataMapRef={chatDataMapRef}
                 />
-                <DividerLine margin="3px" color="var(--reply-borderline)" />
+                <C.DividerLine margin="3px" color="var(--reply-borderline)" />
               </>
             )}
             {chatData.type === "DELETE"
@@ -145,23 +137,23 @@ const MyChatBox = ({
               ? "3회 이상 신고된 메시지입니다"
               : chatData.content}
             {chatData.type !== "DELETE" && (
-              <DeleteCheckIconWrapper
+              <S.DeleteCheckIconWrapper
                 onClick={() => handleDeleteClick(chatData.chatId as number)}
                 isDeleteChecked={isDeleteChecked}
               >
                 <DeleteCheckIcon />
-              </DeleteCheckIconWrapper>
+              </S.DeleteCheckIconWrapper>
             )}
-          </ChatContentMyDiv>
-        </ChatContentBottomWrapper>
+          </C.ChatContentMyDiv>
+        </CF.ChatContentBottomWrapper>
         {!!chatData.likes && (
-          <ReactionTagSpan isVoted={chatData.isVoted}>
+          <CF.ReactionTagSpan isVoted={chatData.isVoted}>
             <HeartIcon />
             {chatData.likes}
-          </ReactionTagSpan>
+          </CF.ReactionTagSpan>
         )}
-      </ChatContentWrapper>
-    </ChatMessageDiv>
+      </CF.ChatContentWrapper>
+    </C.ChatMessageDiv>
   );
 };
 export default MyChatBox;

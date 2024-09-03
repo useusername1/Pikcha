@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { isOverlayLeftAtom } from "~/recoil/loginSignUp/atoms";
-import * as o from "./styled";
+import * as S from "./styled";
 import { ReactComponent as Logo } from "~/assets/Logo.svg";
 interface OverlayProps {
   direction: "left" | "right";
@@ -14,15 +14,15 @@ const Overlay = ({ direction }: OverlayProps) => {
   const navigate = useNavigate();
 
   return (
-    <o.StyledOverlay overlay={isOverlayLeft} isLeft={direction === "left"}>
+    <S.StyledOverlay overlay={isOverlayLeft} isLeft={direction === "left"}>
       <img src={imageUrl}></img>
-      <o.LogoContainer>
+      <S.LogoContainer>
         <Logo
           style={{ width: "80px", height: "50px" }}
           onClick={() => navigate("/")}
         />
-      </o.LogoContainer>
-    </o.StyledOverlay>
+      </S.LogoContainer>
+    </S.StyledOverlay>
   );
 };
 export default Overlay;

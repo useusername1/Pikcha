@@ -5,13 +5,7 @@ import {
   showSearchBoxAtom,
   incomingMessageAtom,
 } from "~/recoil/chat/atoms";
-import {
-  ChatHeaderWrapper,
-  LogoIconWrapper,
-  ChatInfoWrapper,
-  ChatControllWrapper,
-  Tooltip,
-} from "./styled";
+import * as S from "./styled";
 import { HiOutlineSearch as SearchIcon } from "react-icons/hi";
 import { MdOutlineLogout as GoOutIcon } from "react-icons/md";
 import { FaRegWindowMinimize as WindowMinIcon } from "react-icons/fa";
@@ -28,37 +22,37 @@ const ChatHeader = () => {
     setChatStatus("MINIMIZED");
   };
   return (
-    <ChatHeaderWrapper showSearchBox={showSearchBox}>
-      <LogoIconWrapper>
+    <S.ChatHeaderWrapper showSearchBox={showSearchBox}>
+      <S.LogoIconWrapper>
         <PikchaIcon />
-      </LogoIconWrapper>
-      <ChatInfoWrapper>
+      </S.LogoIconWrapper>
+      <S.ChatInfoWrapper>
         <Logo />
         <div>
           <span>{onlineNumOfUsers}</span> online
         </div>
-      </ChatInfoWrapper>
-      <ChatControllWrapper>
+      </S.ChatInfoWrapper>
+      <S.ChatControllWrapper>
         <span className="tooltip-iconwrapper" onClick={handleMinClick}>
           <WindowMinIcon className="window-icon" />
-          <Tooltip>최소화</Tooltip>
+          <S.Tooltip>최소화</S.Tooltip>
         </span>
         <span
           className="tooltip-iconwrapper"
           onClick={() => setShowSearchBox((p) => !p)}
         >
           <SearchIcon className="search-icon" />
-          <Tooltip>검색</Tooltip>
+          <S.Tooltip>검색</S.Tooltip>
         </span>
         <span
           className="tooltip-iconwrapper"
           onClick={() => setChatStatus("EXITED")}
         >
           <GoOutIcon className="out-icon" />
-          <Tooltip>나가기</Tooltip>
+          <S.Tooltip>나가기</S.Tooltip>
         </span>
-      </ChatControllWrapper>
-    </ChatHeaderWrapper>
+      </S.ChatControllWrapper>
+    </S.ChatHeaderWrapper>
   );
 };
 export default ChatHeader;

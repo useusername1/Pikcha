@@ -5,8 +5,8 @@ import { useRecoilState } from "recoil";
 import Button from "~/components/@common/Button";
 import { isOverlayLeftAtom } from "~/recoil/loginSignUp/atoms";
 import DaumPostcode from "react-daum-postcode";
-import * as s from "./styled";
-import * as shared from "../styled";
+import * as S from "./styled";
+import * as LSU from "../styled";
 import { apiClient } from "~/api/axiosInstance";
 
 const SignUpSide = () => {
@@ -108,7 +108,7 @@ const SignUpSide = () => {
   };
 
   return (
-    <s.SinUpSideWrapper>
+    <S.SinUpSideWrapper>
       {openPostcode && (
         <>
           <DaumPostcode
@@ -124,79 +124,79 @@ const SignUpSide = () => {
             autoClose={false} // 값을 선택할 경우 사용되는 DOM을 제거하여 자동 닫힘 설정
             defaultQuery="" // 팝업을 열때 기본적으로 입력되는 검색어
           />
-          <s.CloseButton onClick={handleAddress.clickInput}>
+          <S.CloseButton onClick={handleAddress.clickInput}>
             <AiOutlineCloseCircle />
-          </s.CloseButton>
+          </S.CloseButton>
         </>
       )}
-      <shared.Signincontainer overlay={isOverlayLeft}>
-        <shared.TopConatiner padding="10% 0 7% 0">
-          <shared.TextStyle
+      <LSU.Signincontainer overlay={isOverlayLeft}>
+        <LSU.TopConatiner padding="10% 0 7% 0">
+          <LSU.TextStyle
             color="var(--black-900)"
             fontSize="23px"
             fontweight="bold"
             margin="0 0 10px 0"
           >
             회원가입
-          </shared.TextStyle>
-          <shared.InputStyle
+          </LSU.TextStyle>
+          <LSU.InputStyle
             placeholder="이메일"
             defaultValue={""}
             onChange={handleSignEmailChange}
             onKeyDown={onPressEnter}
-          ></shared.InputStyle>
+          ></LSU.InputStyle>
           {signemailErr && signemail.length !== 0 ? (
-            <shared.ErrMsg color="red" fontSize="12px" fontweight="normal">
+            <LSU.ErrMsg color="red" fontSize="12px" fontweight="normal">
               올바른 이메일 형식이 아닙니다.
-            </shared.ErrMsg>
+            </LSU.ErrMsg>
           ) : null}
-          <shared.InputStyle
+          <LSU.InputStyle
             placeholder="비밀번호"
             defaultValue={""}
             onChange={handleSignPasswordChange}
             onKeyDown={onPressEnter}
             type="password"
-          ></shared.InputStyle>
+          ></LSU.InputStyle>
           {signpasswordErr && signpassword.length !== 0 ? (
-            <shared.ErrMsg color="red" fontSize="12px" fontweight="normal">
+            <LSU.ErrMsg color="red" fontSize="12px" fontweight="normal">
               비밀번호를 8자이상 입력해주세요.
-            </shared.ErrMsg>
+            </LSU.ErrMsg>
           ) : null}
-          <shared.InputStyle
+          <LSU.InputStyle
             placeholder="비밀번호확인"
             defaultValue={""}
             onChange={handlePasswordConfirm}
             onKeyDown={onPressEnter}
             type="password"
-          ></shared.InputStyle>
+          ></LSU.InputStyle>
           {passwordConfirm === signpassword ? null : (
-            <shared.ErrMsg color="red" fontSize="12px" fontweight="normal">
+            <LSU.ErrMsg color="red" fontSize="12px" fontweight="normal">
               비밀번호가 다릅니다.
-            </shared.ErrMsg>
+            </LSU.ErrMsg>
           )}
-          <shared.InputStyle
+          <LSU.InputStyle
             placeholder="전화번호(-를 포함해서 입력해주세요)"
             defaultValue={""}
             onChange={handlePhoneChange}
             onKeyDown={onPressEnter}
-          ></shared.InputStyle>
+          ></LSU.InputStyle>
           {phonenumberErr && phonenumber.length !== 0 ? (
-            <shared.ErrMsg color="red" fontSize="12px" fontweight="normal">
+            <LSU.ErrMsg color="red" fontSize="12px" fontweight="normal">
               올바른 전화번호 형식이 아닙니다.
-            </shared.ErrMsg>
+            </LSU.ErrMsg>
           ) : null}
-          <shared.InputStyle
+          <LSU.InputStyle
             placeholder="주소"
             defaultValue={address}
             onClick={handleAddress.clickInput}
             onKeyDown={handleAddress.clickInput}
             readOnly
-          ></shared.InputStyle>
-          <shared.InputStyle
+          ></LSU.InputStyle>
+          <LSU.InputStyle
             placeholder="닉네임"
             onChange={handleUsernameChange}
             onKeyDown={onPressEnter}
-          ></shared.InputStyle>
+          ></LSU.InputStyle>
           <Button
             width="77%"
             height="38px"
@@ -210,17 +210,17 @@ const SignUpSide = () => {
             margin="20px 0 0 0"
             onClick={onClickSignin}
           ></Button>
-        </shared.TopConatiner>
-        <s.BottomTextContainer>
-          <shared.TextStyle
+        </LSU.TopConatiner>
+        <S.BottomTextContainer>
+          <LSU.TextStyle
             color="var(--black-700)"
             fontSize="var(--font-xs)"
             fontweight="var(--fw-medium)"
             margin="0 8px 0 0"
           >
             이미 계정이 있으신가요?
-          </shared.TextStyle>
-          <shared.TextStyle
+          </LSU.TextStyle>
+          <LSU.TextStyle
             color="var(--black-700)"
             fontSize="var(--font-xs)"
             fontweight="var(--fw-bold)"
@@ -229,10 +229,10 @@ const SignUpSide = () => {
             onClick={onClickBtn}
           >
             로그인하기
-          </shared.TextStyle>
-        </s.BottomTextContainer>
-      </shared.Signincontainer>
-    </s.SinUpSideWrapper>
+          </LSU.TextStyle>
+        </S.BottomTextContainer>
+      </LSU.Signincontainer>
+    </S.SinUpSideWrapper>
   );
 };
 

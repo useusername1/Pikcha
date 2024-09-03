@@ -1,5 +1,5 @@
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { ReplyMessageBoxDiv } from "./styled";
+import * as S from "./styled";
 import { scrollTargetChatIdAtom } from "~/recoil/chat/atoms";
 import { scrollFlagRef } from "~/components/Chat/ChatPanel";
 import { UserDataAtomFamily } from "~/recoil/auth";
@@ -32,7 +32,7 @@ const ReplyChatBubble = ({
     setScrollTargetChatId(chatData.targetChatId);
   };
   return (
-    <ReplyMessageBoxDiv textColor={textColor} onClick={handleClick}>
+    <S.ReplyMessageBoxDiv textColor={textColor} onClick={handleClick}>
       <img src={chatData.targetPicture as string} alt="target-user" />
       <div className="target-info">
         <span className="targetuser-info">
@@ -43,7 +43,7 @@ const ReplyChatBubble = ({
         </span>
         <span>{chatData.targetContent}</span>
       </div>
-    </ReplyMessageBoxDiv>
+    </S.ReplyMessageBoxDiv>
   );
 };
 export default ReplyChatBubble;

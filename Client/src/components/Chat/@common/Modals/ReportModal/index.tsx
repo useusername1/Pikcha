@@ -5,16 +5,10 @@ import {
   messageToReportAtom,
   showReportModalAtom,
 } from "~/recoil/chat/atoms";
-import { DividerLine } from "~/components/Chat/styled";
-import { ModalWrapper } from "../styled";
+import * as C from "~/components/Chat/styled";
+import * as M from "../styled";
+import * as S from "./styled";
 import { RiAlarmWarningFill as AlarmIcon } from "react-icons/ri";
-
-import {
-  CheckboxContainer,
-  ReportForm,
-  ReportLabel,
-  ReportModalContainer,
-} from "./styled";
 import { chatDatatype } from "~/@types/chat.types";
 
 interface ReportModalProps {
@@ -60,40 +54,40 @@ const ReportModal = ({ setChatData }: ReportModalProps) => {
     setShowReportModal(false);
   };
   return (
-    <ModalWrapper>
-      <ReportModalContainer>
+    <M.ModalWrapper>
+      <S.ReportModalContainer>
         <div className="report-user">
           {reportChatData?.username}&nbsp;님의 게시글
         </div>
         <div className="report-content">{reportChatData?.content}</div>
-        <DividerLine width="100%" margin="5px" />
-        <ReportLabel>
+        <C.DividerLine width="100%" margin="5px" />
+        <S.ReportLabel>
           <AlarmIcon />
           신고
-        </ReportLabel>
-        <ReportForm id="report">
+        </S.ReportLabel>
+        <S.ReportForm id="report">
           <div>신고 사유를 선택해주세요</div>
           <div className="radio-box">
-            <CheckboxContainer>
+            <S.CheckboxContainer>
               <input type="checkbox" id="report1" />
               <label htmlFor="report1"></label>
               광고성 게시물
-            </CheckboxContainer>
-            <CheckboxContainer>
+            </S.CheckboxContainer>
+            <S.CheckboxContainer>
               <input type="checkbox" id="report2" />
               <label htmlFor="report2"></label>
               음란성 게시물
-            </CheckboxContainer>
-            <CheckboxContainer>
+            </S.CheckboxContainer>
+            <S.CheckboxContainer>
               <input type="checkbox" id="report3" />
               <label htmlFor="report3"></label>
               욕설, 부적절한 언어
-            </CheckboxContainer>
-            <CheckboxContainer>
+            </S.CheckboxContainer>
+            <S.CheckboxContainer>
               <input type="checkbox" id="report4" defaultChecked />
               <label htmlFor="report4"></label>
               기타
-            </CheckboxContainer>
+            </S.CheckboxContainer>
           </div>
           <textarea
             form="report"
@@ -111,9 +105,9 @@ const ReportModal = ({ setChatData }: ReportModalProps) => {
               확인
             </button>
           </div>
-        </ReportForm>
-      </ReportModalContainer>
-    </ModalWrapper>
+        </S.ReportForm>
+      </S.ReportModalContainer>
+    </M.ModalWrapper>
   );
 };
 export default ReportModal;

@@ -4,14 +4,7 @@ import { useSetRecoilState } from "recoil";
 import { showSearchBoxAtom } from "~/recoil/chat/atoms";
 import ChatSearchTimeSelector from "./ChatSearchTimeSelector";
 import SearchedMessage from "./SearchedMessageItem";
-import {
-  SearchBoxWrapper,
-  ChatSearchBoxHeaderDiv,
-  ChatSearchBarWrapper,
-  ChatSearchBar,
-  SearchedMessageContainer,
-  EmptyChatResultDiv,
-} from "./styled";
+import * as S from "./styled";
 import { HiOutlineSearch as SearchIcon } from "react-icons/hi";
 import { BsArrowCounterclockwise as ResetIcon } from "react-icons/bs";
 import { IoClose as CloseIcon } from "react-icons/io5";
@@ -86,16 +79,16 @@ const ChatSearchBox = ({
   };
 
   return (
-    <SearchBoxWrapper>
-      <ChatSearchBoxHeaderDiv>
+    <S.SearchBoxWrapper>
+      <S.ChatSearchBoxHeaderDiv>
         <CloseIcon className="close-icon" onClick={handleCloseClick} />
-      </ChatSearchBoxHeaderDiv>
-      <ChatSearchBarWrapper
+      </S.ChatSearchBoxHeaderDiv>
+      <S.ChatSearchBarWrapper
         search_disabled={searchValue.length <= 1}
         showGuide={!!searchValue && searchValue.trim().length < 2}
         showGuideAnimation={showGuideAnimation}
       >
-        <ChatSearchBar
+        <S.ChatSearchBar
           ref={searchBarRef}
           placeholder="채팅 검색하기"
           value={searchValue}
@@ -109,12 +102,12 @@ const ChatSearchBox = ({
         {searchValue && searchValue.trim().length < 2 && (
           <span>2글자 이상 입력해주세요</span>
         )}
-      </ChatSearchBarWrapper>
+      </S.ChatSearchBarWrapper>
 
       {showYMSelctor && (
         <ChatSearchTimeSelector getSearchResult={getSearchResult} />
       )}
-      <SearchedMessageContainer>
+      <S.SearchedMessageContainer>
         {searchedMessages &&
           searchedMessages.length > 0 &&
           searchedMessages.map((el) => (
@@ -126,10 +119,10 @@ const ChatSearchBox = ({
             />
           ))}
         {searchedMessages && searchedMessages.length === 0 && (
-          <EmptyChatResultDiv>검색 결과가 없습니다</EmptyChatResultDiv>
+          <S.EmptyChatResultDiv>검색 결과가 없습니다</S.EmptyChatResultDiv>
         )}
-      </SearchedMessageContainer>
-    </SearchBoxWrapper>
+      </S.SearchedMessageContainer>
+    </S.SearchBoxWrapper>
   );
 };
 export default ChatSearchBox;

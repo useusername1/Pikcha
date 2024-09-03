@@ -8,17 +8,9 @@ import {
   messageToReportAtom,
 } from "~/recoil/chat/atoms";
 import ReplyChatBubble from "../../@common/ReplyChatBubble";
-import { DividerLine } from "../../styled";
-import {
-  ChatMessageDiv,
-  ChatContentWrapper,
-  ChatContentBottomWrapper,
-  ChatContentDiv,
-  ChatContentMenu,
-  ChatContentMenuItem,
-  ReactionTagSpan,
-} from "../styled";
-import { ChatProfileWrapper, UsernameDiv } from "./styled";
+import * as C from "../../styled";
+import * as CF from "../styled";
+import * as S from "./styled";
 import { FaHeart as HeartIcon } from "react-icons/fa";
 import {
   MdReport as ReportIcon,
@@ -71,24 +63,24 @@ const OtherChatBox = ({
     setShowReportModal(true);
   };
   return (
-    <ChatMessageDiv
+    <C.ChatMessageDiv
       key={chatData.createdAt}
       type="LEFT"
       ref={lastChatMessageRef}
       isFirst={timeStampFlagForRadius && memberIdFlag}
       searchTargetAnimation={searchTargetAnimation}
     >
-      <ChatProfileWrapper showProfile={memberIdFlag}>
+      <S.ChatProfileWrapper showProfile={memberIdFlag}>
         {memberIdFlag && <img src={chatData.picture} alt="chat profile" />}
-      </ChatProfileWrapper>
-      <ChatContentWrapper direction="LEFT">
-        {memberIdFlag && <UsernameDiv>{chatData.username}</UsernameDiv>}
-        <ChatContentBottomWrapper
+      </S.ChatProfileWrapper>
+      <CF.ChatContentWrapper direction="LEFT">
+        {memberIdFlag && <S.UsernameDiv>{chatData.username}</S.UsernameDiv>}
+        <CF.ChatContentBottomWrapper
           messageType={chatData.type}
           isDeleteMode={isDeleteMode}
           isOthers={true}
         >
-          <ChatContentDiv
+          <CF.ChatContentDiv
             type={timeStampFlagForRadius ? "first" : "notFirst"}
             messageType={chatData.type}
           >
@@ -99,7 +91,7 @@ const OtherChatBox = ({
                   textColor="var(--black-800)"
                   chatDataMapRef={chatDataMapRef}
                 />
-                <DividerLine margin="3px" color="var(--black-275)" />
+                <C.DividerLine margin="3px" color="var(--black-275)" />
               </>
             )}
             {chatData.type === "DELETE"
@@ -108,29 +100,32 @@ const OtherChatBox = ({
               ? "3회 이상 신고된 메시지입니다"
               : chatData.content}
             {chatData.type !== "DELETE" && chatData.type !== "REPORT" && (
-              <ChatContentMenu type="LEFT" reportDisabled={chatData.isReported}>
-                <ChatContentMenuItem
+              <CF.ChatContentMenu
+                type="LEFT"
+                reportDisabled={chatData.isReported}
+              >
+                <CF.ChatContentMenuItem
                   className="report-box"
                   onClick={() => handleReportClick(chatData.isReported)}
                   reportDisabled={chatData.isReported}
                 >
                   <ReportIcon className="report-icon" />
-                </ChatContentMenuItem>
-                <ChatContentMenuItem
+                </CF.ChatContentMenuItem>
+                <CF.ChatContentMenuItem
                   className="reply-box"
                   onClick={handleReplyClick}
                 >
                   <ReplyIcon className="reply-icon" />
-                </ChatContentMenuItem>
-                <ChatContentMenuItem
+                </CF.ChatContentMenuItem>
+                <CF.ChatContentMenuItem
                   className="heart-box"
                   onClick={handleHeartClick}
                 >
                   <HeartIcon className="heart-icon" />
-                </ChatContentMenuItem>
-              </ChatContentMenu>
+                </CF.ChatContentMenuItem>
+              </CF.ChatContentMenu>
             )}
-          </ChatContentDiv>
+          </CF.ChatContentDiv>
 
           {timeStampFlagForTime && (
             <span className="time-tag">
@@ -140,19 +135,19 @@ const OtherChatBox = ({
               })}
             </span>
           )}
-        </ChatContentBottomWrapper>
+        </CF.ChatContentBottomWrapper>
         {chatData.type !== "DELETE" && !!chatData.likes && (
-          <ReactionTagSpan
+          <CF.ReactionTagSpan
             isVoted={chatData.isVoted}
             onClick={handleHeartClick}
             isOthers={true}
           >
             <HeartIcon />
             {chatData.likes}
-          </ReactionTagSpan>
+          </CF.ReactionTagSpan>
         )}
-      </ChatContentWrapper>
-    </ChatMessageDiv>
+      </CF.ChatContentWrapper>
+    </C.ChatMessageDiv>
   );
 };
 export default OtherChatBox;

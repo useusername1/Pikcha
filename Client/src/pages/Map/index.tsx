@@ -8,7 +8,7 @@ import { regionDummy } from "~/data/regionData";
 import tags from "~/data/tagData";
 import { UserDataAtomFamily } from "~/recoil/auth";
 import { isLoginModalVisibleAtom } from "~/recoil/modal/atoms";
-import * as m from "./styled";
+import * as S from "./styled";
 import { BsBookmarkPlus, BsFillChatLeftFill } from "react-icons/bs";
 import { RiArrowDropDownLine } from "react-icons/ri";
 import { FaMapMarkerAlt } from "react-icons/fa";
@@ -115,9 +115,9 @@ const Map = () => {
   return (
     <>
       <HiddenHeader></HiddenHeader>
-      <m.Container>
-        <m.PlaceList>
-          <m.DropDown>
+      <S.Container>
+        <S.PlaceList>
+          <S.DropDown>
             <button
               onClick={() => {
                 setDropdownView(!dropdownView);
@@ -132,7 +132,7 @@ const Map = () => {
               </div>
             </button>
             {dropdownView ? (
-              <m.SelectList>
+              <S.SelectList>
                 {regionDummy.map((el: RegionDummyType, index: number) => {
                   return (
                     <button
@@ -146,14 +146,14 @@ const Map = () => {
                     </button>
                   );
                 })}
-              </m.SelectList>
+              </S.SelectList>
             ) : null}
-          </m.DropDown>
-          <m.PlaceComponent>
+          </S.DropDown>
+          <S.PlaceComponent>
             {regionList !== undefined &&
               regionList.map((el: RegionType, index: number) => {
                 return (
-                  <m.Place
+                  <S.Place
                     onClick={() => {
                       setDetailModal(true);
                       handleModalData(el.attractionId);
@@ -168,15 +168,15 @@ const Map = () => {
                       <FaMapMarkerAlt size="10"></FaMapMarkerAlt>
                       {el.attractionAddress}
                     </p>
-                  </m.Place>
+                  </S.Place>
                 );
               })}
-          </m.PlaceComponent>
-        </m.PlaceList>
+          </S.PlaceComponent>
+        </S.PlaceList>
 
         {detailModal ? (
-          <m.PlaceDetailModal>
-            <m.PlaceDetailModalHeader>
+          <S.PlaceDetailModal>
+            <S.PlaceDetailModalHeader>
               <div>
                 <img src={modalData.fixedImage} alt={"modalImg"}></img>
               </div>
@@ -217,10 +217,10 @@ const Map = () => {
                 {tags[(modalData.attractionId - 1) % tags.length]}{" "}
               </div>
               <span onClick={() => setDetailModal(false)}>{"<<<"}</span>
-            </m.PlaceDetailModalHeader>
-            <m.PlaceDetailModalMain>
+            </S.PlaceDetailModalHeader>
+            <S.PlaceDetailModalMain>
               <div>방문자 포토리뷰</div>
-              <m.PostImgContainer>
+              <S.PostImgContainer>
                 {modalData.numOfPosts > 1 ? (
                   modalData.postIdAndUrls.map((el: any, index: number) => {
                     return (
@@ -237,16 +237,16 @@ const Map = () => {
                     );
                   })
                 ) : (
-                  <m.PostNone>
+                  <S.PostNone>
                     <div>
                       <GiTalk size="19"></GiTalk>
                     </div>
                     등록된 포토리뷰가 없습니다.
-                  </m.PostNone>
+                  </S.PostNone>
                 )}
-              </m.PostImgContainer>
-            </m.PlaceDetailModalMain>
-          </m.PlaceDetailModal>
+              </S.PostImgContainer>
+            </S.PlaceDetailModalMain>
+          </S.PlaceDetailModal>
         ) : null}
 
         {detailModal ? (
@@ -278,7 +278,7 @@ const Map = () => {
             setFilterOrPosition={setFilterOrPosition}
           ></KakaoMap>
         )}
-      </m.Container>
+      </S.Container>
     </>
   );
 };

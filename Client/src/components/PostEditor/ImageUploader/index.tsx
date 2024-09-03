@@ -5,7 +5,7 @@ import {
   editorPostContentAtom,
   editorPreviewListAtom,
 } from "~/recoil/postEditor/atoms";
-import * as wp from "./styled";
+import * as S from "./styled";
 
 function ImageUploader({
   setImgFiles,
@@ -51,12 +51,12 @@ function ImageUploader({
   return (
     <>
       {imageUrl && (
-        <wp.SelectImageContainer>
+        <S.SelectImageContainer>
           선택한 이미지
           <img src={imageUrl} alt="preview" />
-        </wp.SelectImageContainer>
+        </S.SelectImageContainer>
       )}
-      <wp.ModalContainer>
+      <S.ModalContainer>
         <input
           type="file"
           accept="image/*"
@@ -72,8 +72,8 @@ function ImageUploader({
           onChange={(e) => setPreviewText(e.target.value)}
           placeholder="사진에 대해 설명해주세요!"
         />
-        <wp.AddButton onClick={(e) => addPreview(e)}>추가하기</wp.AddButton>
-      </wp.ModalContainer>
+        <S.AddButton onClick={(e) => addPreview(e)}>추가하기</S.AddButton>
+      </S.ModalContainer>
     </>
   );
 }

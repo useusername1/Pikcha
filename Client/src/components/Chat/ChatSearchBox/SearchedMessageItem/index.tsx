@@ -6,7 +6,7 @@ import { chatDataAtom, scrollTargetChatIdAtom } from "~/recoil/chat/atoms";
 import { scrollFlagRef } from "../../ChatPanel";
 import { searchedMessageType } from "../types";
 import { chatIdSearch } from "../utils";
-import { SearchedMessageWrapper, SearchedMessageContent } from "./styled";
+import * as S from "./styled";
 import { apiClient } from "~/api/axiosInstance";
 
 interface SearcheMessageProps {
@@ -88,14 +88,14 @@ const SearchedMessageItem = ({
       .catch(console.log);
   };
   return (
-    <SearchedMessageWrapper
+    <S.SearchedMessageWrapper
       onClick={() => handleSearchedMessageClick(messageData.chatId)}
     >
       <img src={messageData.picture} alt="profile" />
-      <SearchedMessageContent>
+      <S.SearchedMessageContent>
         <div className="username">{messageData.username}</div>
         <div className="content">{messageData.content}</div>
-      </SearchedMessageContent>
+      </S.SearchedMessageContent>
       <div className="createdAt">
         <span className="createdAt">
           {new Intl.DateTimeFormat("ko-KR")
@@ -103,7 +103,7 @@ const SearchedMessageItem = ({
             .slice(0, -1)}
         </span>
       </div>
-    </SearchedMessageWrapper>
+    </S.SearchedMessageWrapper>
   );
 };
 export default SearchedMessageItem;

@@ -12,7 +12,7 @@ import {
   Suspense,
 } from "react";
 import { useNavigate } from "react-router-dom";
-import { SearchForm, AttractionItemContent } from "./styled";
+import * as S from "./styled";
 import useClickDetect from "~/hooks/useClickDetect";
 import { useRecoilValue } from "recoil";
 import { headerVisibilityAtom } from "~/recoil/header/atoms";
@@ -124,7 +124,7 @@ const SearchBar = ({ defaultValue = "" }: SearchBarProps) => {
   };
 
   return (
-    <SearchForm
+    <S.SearchForm
       autoComplete="off"
       onSubmit={handleSubmit}
       ref={ref as React.RefObject<HTMLFormElement>}
@@ -156,15 +156,15 @@ const SearchBar = ({ defaultValue = "" }: SearchBarProps) => {
           />
         </Suspense>
       )}
-    </SearchForm>
+    </S.SearchForm>
   );
 };
 
 function Loading() {
   return (
-    <AttractionItemContent as="li" type="notice">
+    <S.AttractionItemContent as="li" type="notice">
       로딩중...
-    </AttractionItemContent>
+    </S.AttractionItemContent>
   );
 }
 export default SearchBar;
