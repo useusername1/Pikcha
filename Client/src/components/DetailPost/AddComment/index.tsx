@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useRecoilState, useSetRecoilState } from "recoil";
-import { handleCommentSubmit } from "~/api/BlogDetail/Post/Post";
+import { handleCommentSubmit } from "~/api/detailPost/Post/Post";
 import Button from "~/components/@common/Button";
 import { UserDataAtomFamily } from "~/recoil/auth";
 import { isLoginModalVisibleAtom } from "~/recoil/modal/atoms";

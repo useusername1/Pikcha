@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useRecoilState } from "recoil";
-import { deletePostComment } from "~/api/BlogDetail/Delete/Delete";
-import { modifiedComment } from "~/api/BlogDetail/Patch/Patch";
+import { deletePostComment } from "~/api/detailPost/Delete/Delete";
+import { modifiedComment } from "~/api/detailPost/Patch/Patch";
 import { UserDataAtomFamily } from "~/recoil/auth";
 import { ReCommentType } from "../types";
 import * as DP from "../styled";

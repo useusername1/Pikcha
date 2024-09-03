@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { getPost } from "~/api/BlogDetail/Get/Get";
-import { handlePostSubmit } from "~/api/Post/handlePostSubmit";
+import { handlePostSubmit } from "~/api/postEditor/handlePostSubmit";
 import Button from "~/components/@common/Button";
 import {
   WritingGuide,
@@ -17,6 +16,7 @@ import {
 import { BsDot } from "react-icons/bs";
 import { MdOutlineKeyboardBackspace } from "react-icons/md";
 import { CgClose } from "react-icons/cg";
+import { getPost } from "~/api/post/getPost";
 import * as S from "./styled";
 interface PostEditorProps {
   mode: "edit" | "new";
