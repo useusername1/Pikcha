@@ -1,2 +1,2 @@
-import FlashingDots from "./FlashisngDots";
+import FlashingDots from "./FlashingDots/FlashisngDots";
 export { FlashingDots };
