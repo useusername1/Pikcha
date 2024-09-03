@@ -1,4 +1,4 @@
-const getCurrentCount = (
+export const getCurrentCount = (
   totalCount: number | undefined,
   prev: boolean,
   cur: boolean
@@ -8,5 +8,3 @@ const getCurrentCount = (
   }
   return cur ? totalCount : (totalCount as number) - 1;
 };
-
-export default getCurrentCount;

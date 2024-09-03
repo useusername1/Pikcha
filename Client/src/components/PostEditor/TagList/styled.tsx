@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const TagBox = styled.span`
+export const TagBox = styled.span`
   display: flex;
   align-items: center;
   padding: 5px 7px;
@@ -16,5 +16,3 @@ const TagBox = styled.span`
     color: var(--purple-tag);
   }
 `;
-
-export { TagBox };

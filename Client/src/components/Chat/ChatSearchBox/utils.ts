@@ -3,7 +3,7 @@ import { chatDatatype } from "~/@types/chat.types";
 /** 일치하는 chatId가 있으면 found:true 반환 chatId에 해당하는 위치의 인덱스 반환
 일치하는 chatId가 없으면 found:false && chatId에 해당하는 위치의 앞뒤 인덱스 반환
 */
-function chatIdSearch(chatMessage: chatDatatype[], targetId: number) {
+export function chatIdSearch(chatMessage: chatDatatype[], targetId: number) {
   let first = 0;
   let last = chatMessage.length - 1;
   let mid;
@@ -19,5 +19,3 @@ function chatIdSearch(chatMessage: chatDatatype[], targetId: number) {
     targetIdIndex: [Math.min(first, last), Math.max(first, last)],
   };
 }
-
-export { chatIdSearch };

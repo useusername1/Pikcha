@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const SelectContainer = styled.div`
+export const SelectContainer = styled.div`
   width: 100%;
   border-bottom: 1px solid var(--black-300);
   display: flex;
@@ -27,7 +27,7 @@ const SelectContainer = styled.div`
   }
 `;
 
-const SelectBox = styled.div`
+export const SelectBox = styled.div`
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -72,7 +72,7 @@ const SelectBox = styled.div`
   }
 `;
 
-const SelectPost = styled.ul`
+export const SelectPost = styled.ul`
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -97,5 +97,3 @@ const SelectPost = styled.ul`
     }
   }
 `;
-
-export { SelectContainer, SelectBox, SelectPost };

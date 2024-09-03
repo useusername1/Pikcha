@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const Tooltip = styled.span`
+export const Tooltip = styled.span`
   position: absolute;
   display: block;
   transform: translate(-25%);
@@ -14,7 +14,7 @@ const Tooltip = styled.span`
   border-radius: var(--br-s);
 `;
 
-const ChatControllWrapper = styled.div`
+export const ChatControllWrapper = styled.div`
   margin-left: auto;
   margin-right: 12px;
   display: flex;
@@ -43,7 +43,7 @@ const ChatControllWrapper = styled.div`
   }
 `;
 
-const ChatHeaderWrapper = styled.div<{ showSearchBox: boolean }>`
+export const ChatHeaderWrapper = styled.div<{ showSearchBox: boolean }>`
   position: sticky;
   height: 60px;
   border-radius: ${(props) =>
@@ -56,7 +56,7 @@ const ChatHeaderWrapper = styled.div<{ showSearchBox: boolean }>`
   z-index: var(--zi-four);
 `;
 
-const ChatInfoWrapper = styled.div`
+export const ChatInfoWrapper = styled.div`
   display: flex;
   flex-direction: column;
   svg {
@@ -72,7 +72,7 @@ const ChatInfoWrapper = styled.div`
   }
 `;
 
-const LogoIconWrapper = styled.div`
+export const LogoIconWrapper = styled.div`
   width: 30px;
   height: 30px;
   padding: 5px;
@@ -89,11 +89,3 @@ const LogoIconWrapper = styled.div`
     }
   }
 `;
-
-export {
-  Tooltip,
-  ChatControllWrapper,
-  ChatInfoWrapper,
-  ChatHeaderWrapper,
-  LogoIconWrapper,
-};

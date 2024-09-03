@@ -1,6 +1,6 @@
 import styled, { keyframes } from "styled-components";
 
-const Move = keyframes`
+export const Move = keyframes`
   0% {
     transform: translate(0,0);
   }
@@ -15,7 +15,7 @@ const Move = keyframes`
   }
 `;
 
-const EmptyNotificationWrapper = styled.div`
+export const EmptyNotificationWrapper = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
@@ -47,5 +47,3 @@ const EmptyNotificationWrapper = styled.div`
     color: var(--black-700);
   }
 `;
-
-export { EmptyNotificationWrapper };

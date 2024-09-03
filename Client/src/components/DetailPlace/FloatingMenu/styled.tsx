@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const FixBoxVertical = styled.div<{ inverted: boolean }>`
+export const FixBoxVertical = styled.div<{ inverted: boolean }>`
   padding: 27px 30px 20px 30px;
   background-color: white;
   color: grey;
@@ -16,7 +16,7 @@ const FixBoxVertical = styled.div<{ inverted: boolean }>`
   left: ${(props) => (props.inverted ? "87%" : "87%")};
   top: ${(props) => (props.inverted ? "62%" : "1000px")};
 `;
-const IconContainer = styled.div<{ isSelected?: boolean }>`
+export const IconContainer = styled.div<{ isSelected?: boolean }>`
   position: relative;
   display: flex;
   flex-direction: column;
@@ -62,13 +62,13 @@ const IconContainer = styled.div<{ isSelected?: boolean }>`
   }
 `;
 
-const MarkerCount = styled.p`
+export const MarkerCount = styled.p`
   color: var(--black-700);
   font-size: var(--font-xs);
   margin: 2px auto;
 `;
 
-const ShareBox = styled.div<{ isVisible: boolean }>`
+export const ShareBox = styled.div<{ isVisible: boolean }>`
   position: absolute;
   --svg-length: 40px;
   --svg-margin: 8px;
@@ -133,4 +133,3 @@ const ShareBox = styled.div<{ isVisible: boolean }>`
     }
   }
 `;
-export { FixBoxVertical, MarkerCount, ShareBox, IconContainer };

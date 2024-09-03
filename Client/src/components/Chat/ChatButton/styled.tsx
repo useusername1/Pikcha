@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { ChatPanelStatusType } from "~/@types/chat.types";
 
-const ChatExpandableButton = styled.button<{
+export const ChatExpandableButton = styled.button<{
   connected: boolean;
   chatStatus: ChatPanelStatusType;
 }>`
@@ -36,5 +36,3 @@ const ChatExpandableButton = styled.button<{
     border-radius: 50%;
   }
 `;
-
-export { ChatExpandableButton };

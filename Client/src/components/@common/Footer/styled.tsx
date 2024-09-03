@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const FooterWrapper = styled.div`
+export const FooterWrapper = styled.div`
   width: 100%;
   height: 250px;
   background-color: var(--pikcha-black);
@@ -9,7 +9,7 @@ const FooterWrapper = styled.div`
   align-items: center;
 `;
 
-const FooterContainer = styled.div`
+export const FooterContainer = styled.div`
   max-width: 1280px;
   height: 100%;
   width: 85%;
@@ -24,7 +24,7 @@ const FooterContainer = styled.div`
   }
 `;
 
-const LogoContainer = styled.div`
+export const LogoContainer = styled.div`
   margin-top: 10px;
   svg {
     width: 80px;
@@ -38,14 +38,14 @@ const LogoContainer = styled.div`
   }
 `;
 
-const FooterImage = styled.img<{ width: string; height: string }>`
+export const FooterImage = styled.img<{ width: string; height: string }>`
   width: ${(props) => props.width};
   height: ${(props) => props.height};
   border-radius: 50%;
   cursor: pointer;
 `;
 
-const FooterText = styled.span<{
+export const FooterText = styled.span<{
   fontSize?: string;
   marginRight?: string;
   hoverColor?: string;
@@ -62,13 +62,13 @@ const FooterText = styled.span<{
   }
 `;
 
-const MadePeopleContainer = styled.div`
+export const MadePeopleContainer = styled.div`
   display: flex;
   align-items: center;
   margin: 10px 0 45px 0;
 `;
 
-const ContributorLink = styled.a`
+export const ContributorLink = styled.a`
   display: flex;
   align-items: color-interpolation-filters;
   :after {
@@ -83,7 +83,7 @@ const ContributorLink = styled.a`
     content: "";
   }
 `;
-const FooterBottomText = styled.span`
+export const FooterBottomText = styled.span`
   color: var(--black-700);
   font-size: var(--font-xs);
   letter-spacing: 0.01rem;
@@ -92,12 +92,12 @@ const FooterBottomText = styled.span`
     flex: 1;
   }
 `;
-const FooterBottomContainer = styled.div`
+export const FooterBottomContainer = styled.div`
   display: flex;
   justify-content: space-between;
   padding-top: 15px;
 `;
-const Logo = styled.h2`
+export const Logo = styled.h2`
   color: var(--purple-300);
   font-size: 18px;
   letter-spacing: 0.6rem;
@@ -108,7 +108,7 @@ const Logo = styled.h2`
   border-radius: 10px;
   margin-right: 13px;
 `;
-const LinkIconContainer = styled.a`
+export const LinkIconContainer = styled.a`
   svg {
     width: 20px;
     height: 20px;
@@ -123,11 +123,11 @@ const LinkIconContainer = styled.a`
     transform: translate(40px, 2px);
   }
 `;
-const LinkWrapper = styled.div`
+export const LinkWrapper = styled.div`
   display: flex;
   align-items: center;
 `;
-const EmailContainer = styled.span`
+export const EmailContainer = styled.span`
   display: flex;
   align-items: center;
   color: var(--black-700);
@@ -147,18 +147,3 @@ const EmailContainer = styled.span`
     }
   }
 `;
-export {
-  Logo,
-  FooterWrapper,
-  FooterContainer,
-  LogoContainer,
-  FooterImage,
-  FooterText,
-  FooterBottomText,
-  FooterBottomContainer,
-  MadePeopleContainer,
-  ContributorLink,
-  LinkIconContainer,
-  LinkWrapper,
-  EmailContainer,
-};

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const ConfirmationToastWrapper = styled.div`
+export const ConfirmationToastWrapper = styled.div`
   display: flex;
   flex-direction: column;
   position: absolute;
@@ -13,7 +13,9 @@ const ConfirmationToastWrapper = styled.div`
   transform: translateX(calc(50% + 4px));
 `;
 
-const ConfirmationToastItemContainer = styled.div<{ startAnimation: boolean }>`
+export const ConfirmationToastItemContainer = styled.div<{
+  startAnimation: boolean;
+}>`
   background-color: white;
   color: var(--black-700);
   display: flex;
@@ -57,5 +59,3 @@ const ConfirmationToastItemContainer = styled.div<{ startAnimation: boolean }>`
     }
   }
 `;
-
-export { ConfirmationToastWrapper, ConfirmationToastItemContainer };

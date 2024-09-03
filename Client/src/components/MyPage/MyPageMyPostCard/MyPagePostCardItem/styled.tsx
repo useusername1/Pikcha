@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const MyPagePostCardItemWrapper = styled.div<{
+export const MyPagePostCardItemWrapper = styled.div<{
   isEditMode: boolean;
   startTransition: boolean;
 }>`
@@ -36,7 +36,7 @@ const MyPagePostCardItemWrapper = styled.div<{
     border: 1px solid rgba(255, 255, 255, 0.3);
   }
 `;
-const PostImg = styled.img`
+export const PostImg = styled.img`
   height: 80%;
   aspect-ratio: 1/1;
   object-fit: cover;
@@ -47,7 +47,7 @@ const PostImg = styled.img`
   }
 `;
 
-const MyPagePostTextInfoLeftContainer = styled.div`
+export const MyPagePostTextInfoLeftContainer = styled.div`
   display: flex;
   flex-direction: column;
   margin-right: auto;
@@ -62,7 +62,7 @@ const MyPagePostTextInfoLeftContainer = styled.div`
     }
   }
 `;
-const MyPagePostTextInfoRightContainer = styled.div`
+export const MyPagePostTextInfoRightContainer = styled.div`
   font-size: var(--font-xs);
   color: var(--black-700);
   display: flex;
@@ -78,7 +78,7 @@ const MyPagePostTextInfoRightContainer = styled.div`
   }
 `;
 
-const PostTextInfoBottom = styled.div`
+export const PostTextInfoBottom = styled.div`
   display: flex;
   span {
     font-size: var(--font-xs);
@@ -86,7 +86,7 @@ const PostTextInfoBottom = styled.div`
     color: var(--black-700);
   }
 `;
-const IconWrapper = styled.div`
+export const IconWrapper = styled.div`
   margin-right: 20px;
   position: relative;
   z-index: var(--zi-three);
@@ -110,11 +110,3 @@ const IconWrapper = styled.div`
     opacity: 0.8;
   }
 `;
-export {
-  MyPagePostCardItemWrapper,
-  MyPagePostTextInfoRightContainer,
-  MyPagePostTextInfoLeftContainer,
-  PostImg,
-  PostTextInfoBottom,
-  IconWrapper,
-};

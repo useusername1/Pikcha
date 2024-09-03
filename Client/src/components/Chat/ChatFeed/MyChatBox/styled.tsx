@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const DeleteCheckIconWrapper = styled.div<{ isDeleteChecked: boolean }>`
+export const DeleteCheckIconWrapper = styled.div<{ isDeleteChecked: boolean }>`
   visibility: hidden;
   transition: all ease 0.3s;
   position: absolute;
@@ -32,5 +32,3 @@ const DeleteCheckIconWrapper = styled.div<{ isDeleteChecked: boolean }>`
     }
   }
 `;
-
-export { DeleteCheckIconWrapper };

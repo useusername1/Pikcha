@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const SearchedMessageContent = styled.div`
+export const SearchedMessageContent = styled.div`
   display: flex;
   justify-content: space-evenly;
   flex-direction: column;
@@ -23,7 +23,7 @@ const SearchedMessageContent = styled.div`
   }
 `;
 
-const SearchedMessageWrapper = styled.div`
+export const SearchedMessageWrapper = styled.div`
   display: flex;
   align-items: center;
   height: 57px;
@@ -52,5 +52,3 @@ const SearchedMessageWrapper = styled.div`
     height: 100%;
   }
 `;
-
-export { SearchedMessageContent, SearchedMessageWrapper };

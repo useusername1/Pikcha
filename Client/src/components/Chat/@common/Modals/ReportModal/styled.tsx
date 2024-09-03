@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { ModalContainer } from "../styled";
 
-const ReportModalContainer = styled(ModalContainer)`
+export const ReportModalContainer = styled(ModalContainer)`
   height: 310px;
   padding: 20px;
   font-size: var(--font-xs);
@@ -28,7 +28,7 @@ const ReportModalContainer = styled(ModalContainer)`
   }
 `;
 
-const ReportLabel = styled.div`
+export const ReportLabel = styled.div`
   display: flex;
   align-items: center;
   width: 100%;
@@ -42,7 +42,7 @@ const ReportLabel = styled.div`
   }
 `;
 
-const ReportForm = styled.form`
+export const ReportForm = styled.form`
   font-size: var(--font-xs);
   width: 100%;
   padding-top: 5px;
@@ -80,7 +80,7 @@ const ReportForm = styled.form`
   }
 `;
 
-const CheckboxContainer = styled.div`
+export const CheckboxContainer = styled.div`
   input[type="checkbox"] {
     margin: 0 7px 0 0;
     display: none;
@@ -110,5 +110,3 @@ const CheckboxContainer = styled.div`
     left: 2px;
   }
 `;
-
-export { ReportForm, ReportLabel, ReportModalContainer, CheckboxContainer };

@@ -1,4 +1,4 @@
-const Districts = [
+export const Districts = [
   { id: "1", Post: "강남구" },
   { id: "2", Post: "강동구" },
   { id: "3", Post: "강북구" },
@@ -25,5 +25,3 @@ const Districts = [
   { id: "24", Post: "중구" },
   { id: "25", Post: "중랑구" },
 ];
-
-export default Districts;

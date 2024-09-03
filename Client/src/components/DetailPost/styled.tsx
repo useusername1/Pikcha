@@ -1,39 +1,39 @@
 import styled from "styled-components";
 
-const PostCommentBox = styled.div`
+export const PostCommentBox = styled.div`
   display: flex;
   justify-content: space-between;
   padding: 10px 0;
 `;
 
-const PostCommentTitle = styled.div`
+export const PostCommentTitle = styled.div`
   display: flex;
   align-items: center;
 `;
 
-const PostCommentImg = styled.img`
+export const PostCommentImg = styled.img`
   width: 30px;
   height: 30px;
   border-radius: var(--br-l);
   margin-right: 10px;
 `;
 
-const PostCommentUserName = styled.span<{ writer: string }>`
+export const PostCommentUserName = styled.span<{ writer: string }>`
   font-size: var(--font-sm);
   font-weight: var(--fw-bold);
   margin-right: 5px;
   color: ${(props) => (props.writer === "writer" ? "var(--purple-400)" : "")};
 `;
 
-const PostCommentDate = styled.span`
+export const PostCommentDate = styled.span`
   font-size: var(--font-xxs);
 `;
 
-const PostManageButtonContainer = styled.div`
+export const PostManageButtonContainer = styled.div`
   display: flex;
 `;
 
-const PostManageButton = styled.button`
+export const PostManageButton = styled.button`
   min-width: 30px;
   font-size: var(--font-xs);
   margin-left: 10px;
@@ -45,7 +45,7 @@ const PostManageButton = styled.button`
   }
 `;
 
-const PostCommentInputContainer = styled.form<{
+export const PostCommentInputContainer = styled.form<{
   padding: string;
   width: string;
   height: string;
@@ -80,14 +80,3 @@ const PostCommentInputContainer = styled.form<{
     }
   }
 `;
-
-export {
-  PostCommentBox,
-  PostCommentTitle,
-  PostCommentImg,
-  PostCommentUserName,
-  PostCommentDate,
-  PostManageButtonContainer,
-  PostManageButton,
-  PostCommentInputContainer,
-};

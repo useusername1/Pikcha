@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 import { ChatInputBarStyleType } from "../types";
 export type SendBarButtonType = "emoji" | "send";
-const EmojipickerWrapper = styled.div<{ rowNum: number }>`
+export const EmojipickerWrapper = styled.div<{ rowNum: number }>`
   position: absolute;
   right: 0;
   transform: ${(props) =>
@@ -10,7 +10,7 @@ const EmojipickerWrapper = styled.div<{ rowNum: number }>`
     --emoji-font-family: "Apple Color Emoji";
   }
 `;
-const ReplyInfoDiv = styled.div`
+export const ReplyInfoDiv = styled.div`
   display: flex;
   align-items: center;
   margin: 0 5px 13px 7px;
@@ -40,7 +40,7 @@ const ReplyInfoDiv = styled.div`
     }
   }
 `;
-const ChatInputBarButton = styled.div<{
+export const ChatInputBarButton = styled.div<{
   buttontype: SendBarButtonType;
   rowNum: number;
   showEmoji?: boolean;
@@ -97,7 +97,7 @@ const ChatInputBarButton = styled.div<{
   }
 `;
 
-const SendBarFrameDiv = styled.div<{
+export const SendBarFrameDiv = styled.div<{
   styleProps: ChatInputBarStyleType;
   showSearchBox?: boolean;
   showNewMessageToast?: boolean;
@@ -114,7 +114,7 @@ const SendBarFrameDiv = styled.div<{
   transform-style: preserve-3d;
 `;
 
-const ChatInputBarDiv = styled.div<{
+export const ChatInputBarDiv = styled.div<{
   disabled: boolean;
   rowNum: number;
 }>`
@@ -156,11 +156,3 @@ const ChatInputBarDiv = styled.div<{
     }
   }
 `;
-
-export {
-  EmojipickerWrapper,
-  ReplyInfoDiv,
-  ChatInputBarButton,
-  ChatInputBarDiv,
-  SendBarFrameDiv,
-};

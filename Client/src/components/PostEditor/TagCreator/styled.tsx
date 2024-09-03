@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const TagWrapper = styled.div`
+export const TagWrapper = styled.div`
   width: 100%;
   min-height: 40px;
   display: flex;
@@ -20,4 +20,3 @@ const TagWrapper = styled.div`
     }
   }
 `;
-export { TagWrapper };

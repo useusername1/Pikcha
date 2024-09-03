@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const MyPosition = styled.div`
+export const MyPosition = styled.div`
   width: 109px;
   height: 40px;
   background-color: var(--purple-400);
@@ -20,7 +20,7 @@ const MyPosition = styled.div`
   }
 `;
 
-const TrafficInfo = styled.div`
+export const TrafficInfo = styled.div`
   width: 109px;
   height: 40px;
   background-color: rgb(42, 41, 40);
@@ -39,4 +39,3 @@ const TrafficInfo = styled.div`
     cursor: pointer;
   }
 `;
-export { MyPosition, TrafficInfo };

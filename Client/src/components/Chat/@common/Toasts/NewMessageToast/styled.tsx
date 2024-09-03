@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 
-const NewMessageBoxWrapper = styled.div<{ showNewMessageBox: boolean }>`
+export const NewMessageBoxWrapper = styled.div<{ showNewMessageBox: boolean }>`
   position: absolute;
   width: 95%;
   height: 50px;
@@ -52,4 +52,3 @@ const NewMessageBoxWrapper = styled.div<{ showNewMessageBox: boolean }>`
     letter-spacing: 0.03rem;
   }
 `;
-export { NewMessageBoxWrapper };

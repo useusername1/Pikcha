@@ -1,6 +1,6 @@
 import styled, { css, keyframes } from "styled-components";
 
-const shake = keyframes`
+export const shake = keyframes`
     0% {
       transform: translate(-52px, 48px);
     }
@@ -12,7 +12,7 @@ const shake = keyframes`
     }
 `;
 
-const slideLeft = keyframes`
+export const slideLeft = keyframes`
     0% {
       opacity: 0.7;
     }
@@ -22,7 +22,7 @@ const slideLeft = keyframes`
     }
 `;
 
-const ChatSearchBar = styled.input`
+export const ChatSearchBar = styled.input`
   width: 90%;
   height: 40px;
   background-color: var(--black-250);
@@ -42,10 +42,10 @@ const ChatSearchBar = styled.input`
   }
 `;
 
-const shakeAnimation = css`
+export const shakeAnimation = css`
   animation: ${shake} 0.15s 2 linear;
 `;
-const ChatSearchBarWrapper = styled.div<{
+export const ChatSearchBarWrapper = styled.div<{
   search_disabled: boolean;
   showGuide: boolean;
   showGuideAnimation: boolean;
@@ -95,7 +95,7 @@ const ChatSearchBarWrapper = styled.div<{
   }
 `;
 
-const SearchedMessageContainer = styled.div`
+export const SearchedMessageContainer = styled.div`
   height: 100%;
   overflow-y: scroll;
   border-radius: var(--br-l);
@@ -118,7 +118,7 @@ const SearchedMessageContainer = styled.div`
   }
 `;
 
-const ChatSearchBoxHeaderDiv = styled.div`
+export const ChatSearchBoxHeaderDiv = styled.div`
   display: flex;
   align-items: center;
   height: 60px;
@@ -136,10 +136,10 @@ const ChatSearchBoxHeaderDiv = styled.div`
     }
   }
 `;
-const slideLeftAnimation = css`
+export const slideLeftAnimation = css`
   animation: ${slideLeft} 0.5s ease;
 `;
-const SearchBoxWrapper = styled.div`
+export const SearchBoxWrapper = styled.div`
   display: flex;
   justify-content: center;
   padding-bottom: 5px;
@@ -154,7 +154,7 @@ const SearchBoxWrapper = styled.div`
   flex-direction: column;
   ${slideLeftAnimation}
 `;
-const EmptyChatResultDiv = styled.div`
+export const EmptyChatResultDiv = styled.div`
   color: var(--black-700);
   font-size: var(--font-xs);
   margin-top: 5px;
@@ -162,12 +162,3 @@ const EmptyChatResultDiv = styled.div`
   align-items: center;
   justify-content: center;
 `;
-
-export {
-  ChatSearchBar,
-  ChatSearchBarWrapper,
-  ChatSearchBoxHeaderDiv,
-  EmptyChatResultDiv,
-  SearchBoxWrapper,
-  SearchedMessageContainer,
-};

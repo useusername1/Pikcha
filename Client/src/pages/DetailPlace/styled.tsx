@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const ImageBox = styled.div`
+export const ImageBox = styled.div`
   width: 100%;
   height: 300px;
   > img {
@@ -20,7 +20,7 @@ const ImageBox = styled.div`
     opacity: 0.2;
   }
 `;
-const Container = styled.div`
+export const Container = styled.div`
   width: 100%;
   padding-bottom: 100px;
   background-color: white;
@@ -64,7 +64,7 @@ const Container = styled.div`
     height: 15px;
   }
 `;
-const NavBar = styled.div`
+export const NavBar = styled.div`
   display: flex;
   padding: 0 25%;
   height: 120px;
@@ -96,14 +96,14 @@ const NavBar = styled.div`
   }
 `;
 
-const Post = styled.div`
+export const Post = styled.div`
   background: #f8f9fa;
   width: 85%;
   margin: 0 auto;
   padding: 100px 0 60px 0;
 `;
 
-const PostHeader = styled.div`
+export const PostHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -136,7 +136,7 @@ const PostHeader = styled.div`
   }
 `;
 
-const LocationInfoContainer = styled.div`
+export const LocationInfoContainer = styled.div`
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -161,23 +161,13 @@ const LocationInfoContainer = styled.div`
   }
 `;
 
-const PostCardListWrapper = styled.div`
+export const PostCardListWrapper = styled.div`
   width: 85%;
   margin: 0 auto;
   flex-wrap: wrap;
 `;
 
-const PostWrapper = styled.div`
+export const PostWrapper = styled.div`
   width: 100%;
   background-color: #f8f9fa;
 `;
-export {
-  ImageBox,
-  Container,
-  NavBar,
-  Post,
-  PostHeader,
-  LocationInfoContainer,
-  PostCardListWrapper,
-  PostWrapper,
-};

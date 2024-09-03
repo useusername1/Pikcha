@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const ModalBackground = styled.div`
+export const ModalBackground = styled.div`
   position: fixed;
   top: 0;
   left: 0;
@@ -12,7 +12,7 @@ const ModalBackground = styled.div`
   justify-content: center;
   align-items: center;
 `;
-const Container = styled.div`
+export const Container = styled.div`
   width: 390px;
   height: 135px;
   border-radius: 9px;
@@ -23,7 +23,7 @@ const Container = styled.div`
   flex-direction: column;
 `;
 
-const ContainerInfo = styled.div`
+export const ContainerInfo = styled.div`
   width: 100%;
   height: 110px;
   display: flex;
@@ -54,7 +54,7 @@ const ContainerInfo = styled.div`
   }
 `;
 
-const ContainerButton = styled.div`
+export const ContainerButton = styled.div`
   height: 70px;
   background-color: #e9e9e9;
   border-bottom-left-radius: 9px;
@@ -79,5 +79,3 @@ const ContainerButton = styled.div`
     }
   }
 `;
-
-export { ModalBackground, Container, ContainerInfo, ContainerButton };

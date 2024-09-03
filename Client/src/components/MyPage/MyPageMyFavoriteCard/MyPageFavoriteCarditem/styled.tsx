@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const FavoriteCardContainer = styled.div<{
+export const FavoriteCardContainer = styled.div<{
   isDeleteMode: boolean;
   startAnimation: boolean;
 }>`
@@ -59,7 +59,7 @@ const FavoriteCardContainer = styled.div<{
   }
 `;
 
-const AttractionImage = styled.img`
+export const AttractionImage = styled.img`
   margin-top: 8px;
   object-fit: cover;
   width: 90%;
@@ -72,7 +72,7 @@ const AttractionImage = styled.img`
   }
 `;
 
-const AttractionTextInfo = styled.div`
+export const AttractionTextInfo = styled.div`
   width: 90%;
   padding: 5px 0;
   color: var(--black-900);
@@ -105,4 +105,3 @@ const AttractionTextInfo = styled.div`
     }
   }
 `;
-export { FavoriteCardContainer, AttractionImage, AttractionTextInfo };

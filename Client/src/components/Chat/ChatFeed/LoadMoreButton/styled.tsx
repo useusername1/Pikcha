@@ -1,13 +1,13 @@
 import styled from "styled-components";
 
-const LoadMoreButtonWrapper = styled.div`
+export const LoadMoreButtonWrapper = styled.div`
   display: flex;
   justify-content: center;
   width: 100%;
   padding: 30px 0 15px 0;
 `;
 
-const LoadMoreButton = styled.button`
+export const LoadMoreButton = styled.button`
   padding-left: 5px;
   display: flex;
   align-items: center;
@@ -29,5 +29,3 @@ const LoadMoreButton = styled.button`
     color: var(--chat-messagebox);
   }
 `;
-
-export { LoadMoreButtonWrapper, LoadMoreButton };

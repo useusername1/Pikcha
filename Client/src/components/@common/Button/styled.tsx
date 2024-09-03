@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { ButtonProps } from "./types";
 
-const VioletButton = styled.button<ButtonProps>`
+export const VioletButton = styled.button<ButtonProps>`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -22,7 +22,7 @@ const VioletButton = styled.button<ButtonProps>`
   }
 `;
 
-const WhiteButton = styled.button<ButtonProps>`
+export const WhiteButton = styled.button<ButtonProps>`
   width: ${(props) => props.width};
   height: ${(props) => props.height};
   background-color: var(--purple-300);
@@ -38,7 +38,7 @@ const WhiteButton = styled.button<ButtonProps>`
     color: var(--purple-300);
   }
 `;
-const GrayButton = styled.button<ButtonProps>`
+export const GrayButton = styled.button<ButtonProps>`
   width: ${(props) => props.width};
   height: ${(props) => props.height};
   background-color: var(--black-300);
@@ -58,7 +58,7 @@ const GrayButton = styled.button<ButtonProps>`
   }
 `;
 
-const NoneButton = styled.button<ButtonProps>`
+export const NoneButton = styled.button<ButtonProps>`
   width: ${(props) => props.width};
   height: ${(props) => props.height};
   background-color: var(--black-250);
@@ -72,7 +72,7 @@ const NoneButton = styled.button<ButtonProps>`
     pointer-events: none;
   }
 `;
-const CustomButton = styled.button<ButtonProps>`
+export const CustomButton = styled.button<ButtonProps>`
   width: ${(props) => props.width};
   height: ${(props) => props.height};
   background-color: ${(props) => props.backgroundColor};
@@ -89,5 +89,3 @@ const CustomButton = styled.button<ButtonProps>`
     background-color: ${(props) => props.hoverBackgroundColor};
   }
 `;
-
-export { VioletButton, WhiteButton, GrayButton, NoneButton, CustomButton };

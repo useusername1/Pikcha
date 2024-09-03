@@ -9,7 +9,7 @@ import { AiFillHeart as LikeIcon } from "react-icons/ai";
 import { BsFillBookmarkFill as BookmarkIcon } from "react-icons/bs";
 import { MdModeComment } from "react-icons/md";
 import { PlaceType } from "~/@types/place.types";
-import getCurrentCount from "~/utils/getCurrentCount";
+import { getCurrentCount } from "~/utils/getCurrentCount";
 
 const PlaceCard = ({
   placeInfo,

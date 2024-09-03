@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const WriteGuideModalBackground = styled.div`
+export const WriteGuideModalBackground = styled.div`
   position: fixed;
   top: 0;
   left: 0;
@@ -10,14 +10,14 @@ const WriteGuideModalBackground = styled.div`
   z-index: 1000;
 `;
 
-const WriteGuideModalWrapper = styled.div`
+export const WriteGuideModalWrapper = styled.div`
   width: 100%;
   height: 100vh;
   display: flex;
   justify-content: center;
 `;
 
-const WriteGuideModalContainer = styled.div`
+export const WriteGuideModalContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -28,7 +28,7 @@ const WriteGuideModalContainer = styled.div`
   }
 `;
 
-const WriteGuideModalGuideText = styled.div`
+export const WriteGuideModalGuideText = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
@@ -41,9 +41,3 @@ const WriteGuideModalGuideText = styled.div`
     color: #585ac6;
   }
 `;
-export {
-  WriteGuideModalBackground,
-  WriteGuideModalWrapper,
-  WriteGuideModalContainer,
-  WriteGuideModalGuideText,
-};

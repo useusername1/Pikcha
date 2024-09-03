@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const MessageErrorControlWrapper = styled.div`
+export const MessageErrorControlWrapper = styled.div`
   padding: 1px 6px 1px 8px;
   background-color: var(--pink-heart);
   display: flex;
@@ -29,5 +29,3 @@ const MessageErrorControlWrapper = styled.div`
     }
   }
 `;
-
-export { MessageErrorControlWrapper };

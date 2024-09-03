@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { ModalContainer } from "../styled";
 
-const DeleteModalContainer = styled(ModalContainer)`
+export const DeleteModalContainer = styled(ModalContainer)`
   height: 130px;
   padding: 8px;
   div.modal-subject {
@@ -26,5 +26,3 @@ const DeleteModalContainer = styled(ModalContainer)`
     letter-spacing: 0.02rem;
   }
 `;
-
-export { DeleteModalContainer };

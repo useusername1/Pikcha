@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { ChatPanelStatusType } from "~/@types/chat.types";
 
-const ChatBoxDiv = styled.div<{
+export const ChatBoxDiv = styled.div<{
   chatStatus: ChatPanelStatusType;
 }>`
   width: 400px;
@@ -20,7 +20,7 @@ const ChatBoxDiv = styled.div<{
   transform-style: preserve-3d;
 `;
 
-const ChatBoxWrapper = styled.div`
+export const ChatBoxWrapper = styled.div`
   overflow-x: hidden;
   overflow-y: auto;
   scrollbar-gutter: stable;
@@ -43,5 +43,3 @@ const ChatBoxWrapper = styled.div`
     background-color: var(--black-400);
   }
 `;
-
-export { ChatBoxDiv, ChatBoxWrapper };

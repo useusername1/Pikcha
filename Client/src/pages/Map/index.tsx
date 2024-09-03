@@ -5,7 +5,7 @@ import { useRecoilValue, useSetRecoilState } from "recoil";
 import { HiddenHeader } from "~/components/@common/Header";
 import KakaoMap from "~/components/@common/KakaoMap";
 import { regionDummy } from "~/data/regionData";
-import tags from "~/data/tagData";
+import { tags } from "~/data/tagData";
 import { UserDataAtomFamily } from "~/recoil/auth";
 import { isLoginModalVisibleAtom } from "~/recoil/modal/atoms";
 import * as S from "./styled";

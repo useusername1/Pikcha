@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { OverlayProps } from "../types";
 
-const LogoContainer = styled.div`
+export const LogoContainer = styled.div`
   position: absolute;
   width: 100%;
   height: 100%;
@@ -19,7 +19,7 @@ const LogoContainer = styled.div`
   }
 `;
 
-const StyledOverlay = styled.div<OverlayProps>`
+export const StyledOverlay = styled.div<OverlayProps>`
   width: 430px;
   height: 515px;
   border-radius: ${(props) =>
@@ -58,5 +58,3 @@ const StyledOverlay = styled.div<OverlayProps>`
         : "var(--br-m) 0 0 var(--br-m)"};
   }
 `;
-
-export { LogoContainer, StyledOverlay };

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const MyPagePostCardWrapper = styled.div`
+export const MyPagePostCardWrapper = styled.div`
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -9,5 +9,3 @@ const MyPagePostCardWrapper = styled.div`
   margin-top: 10px;
   gap: 1px 2%;
 `;
-
-export { MyPagePostCardWrapper };

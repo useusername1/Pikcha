@@ -2,14 +2,14 @@ import styled, { css } from "styled-components";
 import { SendBarFrameDiv } from "~/components/Chat/ChatInputBar/styled";
 import { ChatInputBarStyleType } from "~/components/Chat/types";
 
-const ConfirmBarDiv = styled(SendBarFrameDiv)<{
+export const ConfirmBarDiv = styled(SendBarFrameDiv)<{
   styleProps: ChatInputBarStyleType;
 }>`
   display: flex;
   justify-content: space-between;
 `;
 
-const CancelAllButton = styled.button`
+export const CancelAllButton = styled.button`
   height: calc(var(--sb-lineheight) + var(--sb-padding) * 2);
   border-radius: 15px;
   width: 48.5%;
@@ -29,7 +29,7 @@ const CancelAllButton = styled.button`
   }
 `;
 
-const DeleteAllButton = styled(CancelAllButton)<{
+export const DeleteAllButton = styled(CancelAllButton)<{
   disabled: boolean;
 }>`
   ${(props) =>
@@ -45,5 +45,3 @@ const DeleteAllButton = styled(CancelAllButton)<{
       props.disabled ? "var(--black-250)" : "#ffeeee"};
   }
 `;
-
-export { ConfirmBarDiv, CancelAllButton, DeleteAllButton };

@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 import { ChatMessageType } from "~/@types/chat.types";
 
-const DividerLine = styled.hr<{
+export const DividerLine = styled.hr<{
   width?: string;
   margin?: string;
   color?: string;
@@ -17,7 +17,7 @@ const DividerLine = styled.hr<{
   transform: translateX(1%);
 `;
 
-const ChatContentMyDiv = styled.div<{
+export const ChatContentMyDiv = styled.div<{
   type: "first" | "notFirst";
   messageType: ChatMessageType;
 }>`
@@ -42,7 +42,7 @@ const ChatContentMyDiv = styled.div<{
     `}
 `;
 
-const ChatMessageDiv = styled.div<{
+export const ChatMessageDiv = styled.div<{
   type: "LEFT" | "RIGHT";
   isFirst?: boolean;
   searchTargetAnimation?: boolean;
@@ -74,9 +74,8 @@ const ChatMessageDiv = styled.div<{
   }
 `;
 
-const ChatMessageWrapper = styled.div`
+export const ChatMessageWrapper = styled.div`
   display: flex;
   flex-direction: column;
   transform-style: preserve-3d;
 `;
-export { DividerLine, ChatContentMyDiv, ChatMessageDiv, ChatMessageWrapper };

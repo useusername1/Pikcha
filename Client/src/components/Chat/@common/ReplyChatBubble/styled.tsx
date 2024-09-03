@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const ReplyMessageBoxDiv = styled.div<{ textColor?: string }>`
+export const ReplyMessageBoxDiv = styled.div<{ textColor?: string }>`
   display: flex;
   align-items: flex-start;
   border-radius: 12px;
@@ -33,4 +33,3 @@ const ReplyMessageBoxDiv = styled.div<{ textColor?: string }>`
     cursor: pointer;
   }
 `;
-export { ReplyMessageBoxDiv };

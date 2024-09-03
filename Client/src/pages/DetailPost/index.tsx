@@ -16,7 +16,7 @@ import { MdModeEdit, MdDelete, MdPlace } from "react-icons/md";
 import { RxDoubleArrowLeft } from "react-icons/rx";
 import { ArrayCommentType } from "~/@types/detailPost.types";
 import { PostDetailType } from "./types";
-import getCurrentCount from "~/utils/getCurrentCount";
+import { getCurrentCount } from "~/utils/getCurrentCount";
 
 const DetailPost = () => {
   const [post, setPost] = useState<PostDetailType>();

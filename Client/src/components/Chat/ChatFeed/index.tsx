@@ -12,6 +12,7 @@ import LoadMoreButton from "./LoadMoreButton";
 import { scrollFlagRef } from "../ChatPanel";
 import * as S from "./styled";
 import { UserDataAtomFamily } from "~/recoil/auth";
+import * as C from "../styled";
 
 interface ChatFeedProps {
   deleteMessage: (message: Set<number> | number[]) => void;
@@ -126,7 +127,7 @@ const ChatFeed = ({
   }, []);
 
   return (
-    <S.ChatMessageWrapper>
+    <C.ChatMessageWrapper>
       {chatData.map((el, i, arr) => {
         if (el.type === "LEAVE") {
           return (
@@ -224,7 +225,7 @@ const ChatFeed = ({
           </Fragment>
         );
       })}
-    </S.ChatMessageWrapper>
+    </C.ChatMessageWrapper>
   );
 };
 export default ChatFeed;

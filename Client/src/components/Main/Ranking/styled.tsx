@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-const RankingWrapper = styled.div`
+export const RankingWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -9,7 +9,7 @@ const RankingWrapper = styled.div`
   background-color: white;
 `;
 
-const RankingItem = styled.li<{ popOver?: boolean }>`
+export const RankingItem = styled.li<{ popOver?: boolean }>`
   transform: ${(props) => (props.popOver ? "none" : "translateY(52px)")};
   display: flex;
   a {
@@ -36,7 +36,7 @@ const RankingItem = styled.li<{ popOver?: boolean }>`
     text-decoration: none;
   }
 `;
-const RankingItemContent = styled.span<{
+export const RankingItemContent = styled.span<{
   currentRank?: boolean;
   attractionName?: boolean;
   address?: boolean;
@@ -105,7 +105,7 @@ const RankingItemContent = styled.span<{
     width: 17px;
   }
 `;
-const MainRankingWrapper = styled.ul`
+export const MainRankingWrapper = styled.ul`
   max-width: 700px;
   width: 80%;
   height: 55px;
@@ -122,7 +122,7 @@ const MainRankingWrapper = styled.ul`
     color: var(--black-600);
   }
 `;
-const RankingTitle = styled.span`
+export const RankingTitle = styled.span`
   display: flex;
   align-items: center;
   margin: 1px 25px 0 0;
@@ -136,7 +136,7 @@ const RankingTitle = styled.span`
     height: 17px;
   }
 `;
-const RankingItemWrapper = styled.div<{ startAnimation: boolean }>`
+export const RankingItemWrapper = styled.div<{ startAnimation: boolean }>`
   display: flex;
   flex-direction: column;
   flex: 1 1 auto;
@@ -145,13 +145,13 @@ const RankingItemWrapper = styled.div<{ startAnimation: boolean }>`
     props.startAnimation ? "translateY(-62px)" : "none"};
 `;
 
-const CurrentTimeSpan = styled.span`
+export const CurrentTimeSpan = styled.span`
   font-size: var(--font-xs);
   color: var(--black-700);
   margin: 0 0 0 20px;
 `;
 
-const PopOverWrapper = styled.div`
+export const PopOverWrapper = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
@@ -160,13 +160,3 @@ const PopOverWrapper = styled.div`
   left: -15px;
   z-index: var(--zi-three);
 `;
-export {
-  RankingWrapper,
-  RankingItemWrapper,
-  RankingItem,
-  RankingItemContent,
-  MainRankingWrapper,
-  RankingTitle,
-  CurrentTimeSpan,
-  PopOverWrapper,
-};

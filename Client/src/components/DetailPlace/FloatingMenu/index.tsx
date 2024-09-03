@@ -24,7 +24,7 @@ import {
   BsShareFill,
   BsBookmarkFill,
 } from "react-icons/bs";
-import getCurrentCount from "~/utils/getCurrentCount";
+import { getCurrentCount } from "~/utils/getCurrentCount";
 interface ShareProps {
   inverted: boolean;
   handlePostButtonClick: MouseEventHandler<HTMLElement>;

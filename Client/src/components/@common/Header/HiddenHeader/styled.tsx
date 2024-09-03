@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const HiddenHeaderBodyWrapper = styled.header<{
+export const HiddenHeaderBodyWrapper = styled.header<{
   isVisible: boolean;
 }>`
   width: 100%;
@@ -15,7 +15,7 @@ const HiddenHeaderBodyWrapper = styled.header<{
   transform: ${(props) =>
     props.isVisible ? "translate(0,28px)" : "translate(0,-42px)"};
 `;
-const HiddenHeaderTopWrapper = styled.div<{ isVisible: boolean }>`
+export const HiddenHeaderTopWrapper = styled.div<{ isVisible: boolean }>`
   height: 28px;
   position: relative;
   z-index: var(--zi-four);
@@ -44,5 +44,3 @@ const HiddenHeaderTopWrapper = styled.div<{ isVisible: boolean }>`
     cursor: pointer;
   }
 `;
-
-export { HiddenHeaderBodyWrapper, HiddenHeaderTopWrapper };

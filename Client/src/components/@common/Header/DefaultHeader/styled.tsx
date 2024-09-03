@@ -1,11 +1,11 @@
 import styled from "styled-components";
 
-const SearchBarWrapper = styled.div`
+export const SearchBarWrapper = styled.div`
   max-width: 420px;
   min-width: 350px;
   margin-left: 38px;
 `;
-const SearchForm = styled.form<{ isVisible: Boolean }>`
+export const SearchForm = styled.form<{ isVisible: Boolean }>`
   display: flex;
   flex-direction: column;
   position: absolute;
@@ -75,13 +75,13 @@ const SearchForm = styled.form<{ isVisible: Boolean }>`
     }
   }
 `;
-const SuggestionItemWrapper = styled.ul`
+export const SuggestionItemWrapper = styled.ul`
   max-width: 420px;
   list-style: none;
   padding-left: 0px;
   margin: 0;
 `;
-const AttractionItem = styled.div<{ selectedEl: Boolean }>`
+export const AttractionItem = styled.div<{ selectedEl: Boolean }>`
   max-width: 400px;
   color: var(--purple-300);
   background-color: ${(props) =>
@@ -105,12 +105,12 @@ const AttractionItem = styled.div<{ selectedEl: Boolean }>`
   }
   transition: all 0.2s ease;
 `;
-const AttractionItemContentWrapper = styled.div`
+export const AttractionItemContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
   flex-grow: 1;
 `;
-const AttractionItemContent = styled.div<{
+export const AttractionItemContent = styled.div<{
   type: string;
 }>`
   display: flex;
@@ -144,7 +144,7 @@ const AttractionItemContent = styled.div<{
   }
   transition: all 0.2s ease;
 `;
-const HeaderTop = styled.div`
+export const HeaderTop = styled.div`
   background-color: white;
   height: 30px;
   display: flex;
@@ -160,7 +160,7 @@ const HeaderTop = styled.div`
     }
   }
 `;
-const HeaderTopMenu = styled.ul`
+export const HeaderTopMenu = styled.ul`
   position: relative;
   z-index: var(--zi-four);
   display: flex;
@@ -177,7 +177,7 @@ const HeaderTopMenu = styled.ul`
     }
   }
 `;
-const HeaderBody = styled.div`
+export const HeaderBody = styled.div`
   height: 70px;
   box-sizing: border-box;
   display: flex;
@@ -189,12 +189,12 @@ const HeaderBody = styled.div`
     width: 200px;
   }
 `;
-const HeaderBodyMenu = styled.ul`
+export const HeaderBodyMenu = styled.ul`
   margin-left: auto;
   display: flex;
   justify-content: space-between;
 `;
-const HeaderBodyMenuItem = styled.li<{ selected: boolean }>`
+export const HeaderBodyMenuItem = styled.li<{ selected: boolean }>`
   font-size: var(--font-sm);
   list-style: none;
   margin-right: 25px;
@@ -209,7 +209,7 @@ const HeaderBodyMenuItem = styled.li<{ selected: boolean }>`
     cursor: pointer;
   }
 `;
-const Profile = styled.div`
+export const Profile = styled.div`
   margin-left: 20px;
   width: 40x;
   height: 40px;
@@ -223,7 +223,7 @@ const Profile = styled.div`
     object-fit: cover;
   }
 `;
-const HeaderWrapper = styled.header<{
+export const HeaderWrapper = styled.header<{
   isVisible: boolean;
   headerColor?: string;
 }>`
@@ -237,26 +237,9 @@ const HeaderWrapper = styled.header<{
   transition: all 0.7s cubic-bezier(0.3, 1, 0.65, 1);
   will-change: auto;
 `;
-const HeaderBodyWrapper = styled.div<{ backgroundOn: boolean }>`
+export const HeaderBodyWrapper = styled.div<{ backgroundOn: boolean }>`
   width: 100%;
 
   background-color: ${(props) =>
     props.backgroundOn ? "white" : "transparent"};
 `;
-
-export {
-  SearchBarWrapper,
-  SearchForm,
-  AttractionItem,
-  AttractionItemContent,
-  AttractionItemContentWrapper,
-  SuggestionItemWrapper,
-  HeaderTop,
-  HeaderTopMenu,
-  HeaderBody,
-  HeaderBodyMenu,
-  HeaderBodyMenuItem,
-  Profile,
-  HeaderWrapper,
-  HeaderBodyWrapper,
-};

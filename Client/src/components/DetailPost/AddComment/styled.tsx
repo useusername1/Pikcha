@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const AddCommentWrapper = styled.form<{ isLogin: boolean }>`
+export const AddCommentWrapper = styled.form<{ isLogin: boolean }>`
   margin: 35px auto 50px;
   width: 80%;
   > h3 {
@@ -35,5 +35,3 @@ const AddCommentWrapper = styled.form<{ isLogin: boolean }>`
     right: 6.2em;
   }
 `;
-
-export { AddCommentWrapper };

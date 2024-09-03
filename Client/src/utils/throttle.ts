@@ -1,4 +1,4 @@
-const throttle = (callback: Function, delay: number, e?: MouseEvent) => {
+export const throttle = (callback: Function, delay: number, e?: MouseEvent) => {
   let timerId: ReturnType<typeof setTimeout> | null = null;
   return () => {
     if (timerId) {
@@ -10,4 +10,3 @@ const throttle = (callback: Function, delay: number, e?: MouseEvent) => {
     }, delay);
   };
 };
-export default throttle;

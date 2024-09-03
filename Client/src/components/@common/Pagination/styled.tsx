@@ -1,11 +1,11 @@
 import styled, { css } from "styled-components";
 
-const PagenationContainer = styled.nav`
+export const PagenationContainer = styled.nav`
   padding: 40px 0;
   margin: 0 auto;
 `;
 
-const PagenationWrapper = styled.div`
+export const PagenationWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -13,7 +13,7 @@ const PagenationWrapper = styled.div`
   margin: 16px;
 `;
 
-const PageButton: any = styled.button<{ selected: boolean }>`
+export const PageButton: any = styled.button<{ selected: boolean }>`
   border: none;
   border-radius: 4px;
   font-size: var(--font-sm);
@@ -41,5 +41,3 @@ const PageButton: any = styled.button<{ selected: boolean }>`
     color: var(--black-500);
   }
 `;
-
-export { PagenationContainer, PagenationWrapper, PageButton };

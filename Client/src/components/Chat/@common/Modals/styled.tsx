@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const ModalWrapper = styled.div`
+export const ModalWrapper = styled.div`
   position: absolute;
   width: 400px;
   height: 580px;
@@ -12,7 +12,7 @@ const ModalWrapper = styled.div`
   z-index: var(--zi-four);
 `;
 
-const ModalContainer = styled.div`
+export const ModalContainer = styled.div`
   background-color: white;
   border: none;
   width: 230px;
@@ -50,5 +50,3 @@ const ModalContainer = styled.div`
     }
   }
 `;
-
-export { ModalWrapper, ModalContainer };

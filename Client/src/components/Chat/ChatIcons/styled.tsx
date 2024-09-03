@@ -1,5 +1,5 @@
 import styled from "styled-components";
-const FlashingDot = styled.div`
+export const FlashingDot = styled.div`
   position: relative;
   width: 5px;
   height: 5px;
@@ -48,9 +48,7 @@ const FlashingDot = styled.div`
   }
 `;
 
-const FlashingDotWrapper = styled.div`
+export const FlashingDotWrapper = styled.div`
   display: flex;
   align-items: flex-end;
 `;
-
-export { FlashingDot, FlashingDotWrapper };

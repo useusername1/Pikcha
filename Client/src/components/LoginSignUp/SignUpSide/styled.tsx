@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const SinUpSideWrapper = styled.section`
+export const SinUpSideWrapper = styled.section`
   width: 100%;
   height: 100%;
   display: flex;
@@ -8,7 +8,7 @@ const SinUpSideWrapper = styled.section`
   align-items: center;
   border-radius: var(--br-m);
 `;
-const CloseButton = styled.button`
+export const CloseButton = styled.button`
   z-index: 100;
   background-color: white;
   font-size: 25px;
@@ -24,8 +24,6 @@ const CloseButton = styled.button`
   }
 `;
 
-const BottomTextContainer = styled.div`
+export const BottomTextContainer = styled.div`
   display: flex;
 `;
-
-export { SinUpSideWrapper, CloseButton, BottomTextContainer };

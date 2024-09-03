@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const SelectImageContainer = styled.div`
+export const SelectImageContainer = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -10,7 +10,7 @@ const SelectImageContainer = styled.div`
     height: 200px;
   }
 `;
-const ModalContainer = styled.div`
+export const ModalContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -75,9 +75,7 @@ const ModalContainer = styled.div`
   }
 `;
 
-const AddButton = styled.button`
+export const AddButton = styled.button`
   width: 30px;
   height: 30px;
 `;
-
-export { SelectImageContainer, ModalContainer, AddButton };

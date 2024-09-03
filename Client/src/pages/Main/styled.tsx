@@ -1,6 +1,6 @@
 import styled, { keyframes } from "styled-components";
 
-const GoRight = keyframes`
+export const GoRight = keyframes`
   0% {
     transform: translateX(0);
   }
@@ -9,26 +9,26 @@ const GoRight = keyframes`
   }
 `;
 
-const Body = styled.div`
+export const Body = styled.div`
   height: 100%;
   padding: 20px 0 70px 0;
   background-color: hsl(222, 24%, 98%);
 `;
 
-const MainSubTitle = styled.h3`
+export const MainSubTitle = styled.h3`
   font-size: var(--font-xl);
   color: var(--black-900);
   width: 100%;
   margin: 50px 20px 20px 0px;
 `;
 
-const ViewsPlaceContainer = styled.div`
+export const ViewsPlaceContainer = styled.div`
   > div {
     display: flex;
   }
 `;
 
-const ViewsPostContainer = styled.div`
+export const ViewsPostContainer = styled.div`
   width: 100%;
 
   > p {
@@ -37,7 +37,7 @@ const ViewsPostContainer = styled.div`
     margin: 30px 0 0 83%;
   }
 `;
-const MoreLink = styled.div`
+export const MoreLink = styled.div`
   display: flex;
   justify-content: flex-end;
   padding: 20px 0;
@@ -60,24 +60,14 @@ const MoreLink = styled.div`
     }
   }
 `;
-const PlaceCardWrapper = styled.div`
+export const PlaceCardWrapper = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
 `;
 
-const BodyContent = styled.div`
+export const BodyContent = styled.div`
   margin: 0 auto;
   max-width: 1440px;
   width: 83.5%;
 `;
-
-export {
-  Body,
-  MainSubTitle,
-  ViewsPlaceContainer,
-  ViewsPostContainer,
-  MoreLink,
-  PlaceCardWrapper,
-  BodyContent,
-};

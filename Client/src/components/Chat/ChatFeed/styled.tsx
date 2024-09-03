@@ -2,7 +2,7 @@ import styled, { css } from "styled-components";
 import { DeleteCheckIconWrapper } from "./MyChatBox/styled";
 import { ChatMessageType } from "~/@types/chat.types";
 
-const UserInfoAlarmWrapper = styled.div`
+export const UserInfoAlarmWrapper = styled.div`
   display: flex;
   justify-content: center;
   span {
@@ -17,7 +17,7 @@ const UserInfoAlarmWrapper = styled.div`
   }
 `;
 
-const ChatContentBottomWrapper = styled.div<{
+export const ChatContentBottomWrapper = styled.div<{
   messageType: ChatMessageType;
   isDeleteMode: boolean;
   isOthers?: boolean;
@@ -60,7 +60,7 @@ const ChatContentBottomWrapper = styled.div<{
       }
     `}
 `;
-const ChatContentMenu = styled.div<{
+export const ChatContentMenu = styled.div<{
   type: "RIGHT" | "LEFT";
   reportDisabled?: boolean;
 }>`
@@ -146,7 +146,7 @@ const ChatContentMenu = styled.div<{
   }
 `;
 
-const ChatContentMenuItem = styled.span<{ reportDisabled?: boolean }>`
+export const ChatContentMenuItem = styled.span<{ reportDisabled?: boolean }>`
   transition: all ease 0.1s;
   visibility: hidden;
   opacity: 0;
@@ -188,7 +188,7 @@ const ChatContentMenuItem = styled.span<{ reportDisabled?: boolean }>`
     `}
 `;
 
-const ChatContentWrapper = styled.div<{
+export const ChatContentWrapper = styled.div<{
   direction: "RIGHT" | "LEFT";
 }>`
   margin-left: 7px;
@@ -198,7 +198,10 @@ const ChatContentWrapper = styled.div<{
     props.direction === "RIGHT" ? "flex-end" : "flex-start"};
 `;
 
-const ReactionTagSpan = styled.span<{ isVoted?: boolean; isOthers?: boolean }>`
+export const ReactionTagSpan = styled.span<{
+  isVoted?: boolean;
+  isOthers?: boolean;
+}>`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -220,7 +223,7 @@ const ReactionTagSpan = styled.span<{ isVoted?: boolean; isOthers?: boolean }>`
   }
 `;
 
-const ChatContentDiv = styled.div<{
+export const ChatContentDiv = styled.div<{
   type: "first" | "notFirst";
   messageType: ChatMessageType;
 }>`
@@ -243,7 +246,7 @@ const ChatContentDiv = styled.div<{
     `}
 `;
 
-const ChatCreatedDateDiv = styled.div<{ showChatDate: boolean }>`
+export const ChatCreatedDateDiv = styled.div<{ showChatDate: boolean }>`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -266,13 +269,3 @@ const ChatCreatedDateDiv = styled.div<{ showChatDate: boolean }>`
     border-radius: var(--br-m);
   }
 `;
-export {
-  UserInfoAlarmWrapper,
-  ChatContentBottomWrapper,
-  ChatContentMenu,
-  ChatContentMenuItem,
-  ChatContentWrapper,
-  ReactionTagSpan,
-  ChatContentDiv,
-  ChatCreatedDateDiv,
-};

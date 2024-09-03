@@ -1,13 +1,7 @@
 import { useState, useEffect, useRef, useLayoutEffect, Fragment } from "react";
 import CarouselContent from "./CarouselContent";
-import carouselData from "~/data/carouselData";
-import {
-  CarouselWrapper,
-  CarouselContentListContainer,
-  CarouselControlContainer,
-  RangeSliderContainer,
-  SliderDot,
-} from "./styled";
+import { carouselData } from "~/data/carouselData";
+import * as S from "./styled";
 import { IoIosArrowForward as NextIcon } from "react-icons/io";
 import { IoIosArrowBack as PrevIcon } from "react-icons/io";
 import { IoPause as PauseIcon } from "react-icons/io5";
@@ -135,8 +129,8 @@ const Carousel = () => {
 
   return (
     <>
-      <CarouselWrapper>
-        <CarouselContentListContainer
+      <S.CarouselWrapper>
+        <S.CarouselContentListContainer
           currentPhotoNum={currentPhoto}
           transitionOn={transitionOnRef.current}
         >
@@ -147,8 +141,8 @@ const Carousel = () => {
               isTransitionEnd={i === textTransition}
             />
           ))}
-        </CarouselContentListContainer>
-        <CarouselControlContainer>
+        </S.CarouselContentListContainer>
+        <S.CarouselControlContainer>
           <PrevIcon className="prev-icon" onClick={handlePrevClick} />
           {isPlaying ? (
             <PauseIcon className="pause-icon" onClick={handlePauseClick} />
@@ -157,21 +151,21 @@ const Carousel = () => {
           )}
 
           <NextIcon className="next-icon" onClick={handleNextClick} />
-        </CarouselControlContainer>
-        <RangeSliderContainer currentPhoto={currentPhoto}>
+        </S.CarouselControlContainer>
+        <S.RangeSliderContainer currentPhoto={currentPhoto}>
           {newCarouselData.map((el, i) =>
             i === 0 || i === newCarouselData.length - 1 ? (
               <Fragment key={el.id}></Fragment>
             ) : (
-              <SliderDot
+              <S.SliderDot
                 key={el.id}
                 currentDot={i === preUpdatedCurrentPhotoRef.current}
                 onClick={() => handleDotClick(i)}
               />
             )
           )}
-        </RangeSliderContainer>
-      </CarouselWrapper>
+        </S.RangeSliderContainer>
+      </S.CarouselWrapper>
     </>
   );
 };

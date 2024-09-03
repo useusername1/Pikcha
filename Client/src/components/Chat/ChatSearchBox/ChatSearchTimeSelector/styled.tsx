@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 
-const SearchTimeSelectorWrapper = styled.div<{ rightDisabled: boolean }>`
+export const SearchTimeSelectorWrapper = styled.div<{ rightDisabled: boolean }>`
   height: 40px;
   display: flex;
   align-items: center;
@@ -28,5 +28,3 @@ const SearchTimeSelectorWrapper = styled.div<{ rightDisabled: boolean }>`
       }
     `}
 `;
-
-export { SearchTimeSelectorWrapper };
