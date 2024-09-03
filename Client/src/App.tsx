@@ -1,6 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { lazy, Suspense, useEffect } from "react";
-import "./App.css";
 import Loading from "./pages/Loading";
 import Modal from "./components/@common/LoginModal";
 import ScrollToTop from "./components/@common/ScrollToTop";
