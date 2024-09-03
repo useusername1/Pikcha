@@ -1,4 +1,4 @@
-const tags = [
+export const tags = [
   "#가족 여행지",
   "#야경이 아름다운 곳",
   "#여름 여행지",
@@ -11,5 +11,3 @@ const tags = [
   "#가을에 방문하기 좋은 곳",
   "#테마 거리",
 ];
-
-export default tags;

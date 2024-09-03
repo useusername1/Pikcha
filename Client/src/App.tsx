@@ -1,25 +1,24 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { lazy, Suspense, useEffect } from "react";
-import "./App.css";
-import OAuth from "./routes/OAuthRoute";
-import ScrollToTop from "./components/ScrollToTop";
-import useSetupAxiosInterceptor from "./hooks/useSetupAxiosInterceptor";
-import ProtectedRoute from "./routes/ProtectedRoute";
-import useSetupAuthBroadcastChannel from "./hooks/useSetupAuthBroadcastChannel";
 import Loading from "./pages/Loading";
-import Modal from "./components/Modal";
+import Modal from "./components/@common/LoginModal";
+import ScrollToTop from "./components/@common/ScrollToTop";
+import OAuth from "./routes/OAuthRoute";
+import ProtectedRoute from "./routes/ProtectedRoute";
+import useSetupAxiosInterceptor from "./hooks/useSetupAxiosInterceptor";
+import useSetupAuthBroadcastChannel from "./hooks/useSetupAuthBroadcastChannel";
+import Chat from "./components/Chat";
 
 const Main = lazy(() => import("./pages/Main"));
-const Place = lazy(() => import("./pages/Place/Place"));
-const Post = lazy(() => import("./pages/Post/Post"));
-const MyPage = lazy(() => import("./pages/MyPage/MyPage"));
-const WritePost = lazy(() => import("./pages/Write_EditPost/WritePost"));
-const PlaceDetail = lazy(() => import("./pages/PlaceDetail"));
-const DetailPost = lazy(() => import("./pages/DetailPost/DetailPost"));
+const Place = lazy(() => import("./pages/Place"));
+const Post = lazy(() => import("./pages/Post"));
+const MyPage = lazy(() => import("./pages/MyPage"));
+const PostEditor = lazy(() => import("./pages/PostEditor"));
+const PlaceDetail = lazy(() => import("./pages/DetailPlace"));
+const DetailPost = lazy(() => import("./pages/DetailPost"));
 const Map = lazy(() => import("./pages/Map"));
-const LoginSign = lazy(() => import("./pages/LoginSign"));
-const EditPost = lazy(() => import("./pages/Write_EditPost/EditPost "));
-const NoAddress = lazy(() => import("./pages/NoAddress"));
+const LoginSignUp = lazy(() => import("./pages/LoginSignUp"));
+const NotFound = lazy(() => import("./pages/NotFound"));
 
 function App() {
   useSetupAxiosInterceptor();
@@ -33,24 +32,31 @@ function App() {
       <BrowserRouter>
         <ScrollToTop />
         <Modal />
+        <Chat key={"chatbox"} />
         <Suspense fallback={<Loading />}>
           <Routes>
-            <Route path="/login" element={<LoginSign />}></Route>
+            <Route path="/login" element={<LoginSignUp />}></Route>
             <Route path="/" element={<Main />} />
             <Route path="/attractions" element={<Place />}>
               <Route path="search" element={<Place />} />
             </Route>
             <Route path="/posts" element={<Post />} />
-            <Route path="/write/:postId" element={<WritePost />} />
             <Route path="/map" element={<Map />} />
             <Route path="/attractions/detail/:id" element={<PlaceDetail />} />
             <Route path="/posts/detail/:postId" element={<DetailPost />} />
             <Route path="/oauth" element={<OAuth />} />
             <Route element={<ProtectedRoute />}>
               <Route path="/mypage" element={<MyPage />} />
-              <Route path="/edit/:postId" element={<EditPost />} />
+              <Route
+                path="/write/:postId"
+                element={<PostEditor mode="new" />}
+              />
+              <Route
+                path="/edit/:postId"
+                element={<PostEditor mode="edit" />}
+              />
             </Route>
-            <Route path="*" element={<NoAddress />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>
       </BrowserRouter>

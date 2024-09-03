@@ -1,8 +1,10 @@
-import Axios from "axios";
+import axios from "axios";
 
-const axios = Axios.create({
+axios.defaults.withCredentials = true;
+
+const apiClient = axios.create({
   baseURL: `${process.env.REACT_APP_HOST}`,
   withCredentials: true,
 });
 
-export default axios;
+export { apiClient };

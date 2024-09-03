@@ -2,8 +2,8 @@ import { useEffect } from "react";
 import { useRecoilValue } from "recoil";
 import { UserDataAtomFamily } from "../recoil/auth";
 import { AxiosError } from "axios";
-import axios from "../api/axiosInstance";
-import { checkTokenIssue } from "../utils/checkTokenIssue";
+import { apiClient } from "../api/axiosInstance";
+import { checkTokenIssue } from "./utils/checkTokenIssue";
 import { useTokenRenewalContext } from "../context/TokenRenewalContext";
 
 interface ErrorResponse {
@@ -16,7 +16,7 @@ const useSetupAxiosInterceptor = () => {
   const { manageAccessTokenRenewal } = useTokenRenewalContext();
 
   useEffect(() => {
-    const reqInterceptor = axios.interceptors.request.use(
+    const reqInterceptor = apiClient.interceptors.request.use(
       (config) => {
         if (isLoggedIn) config.headers["Authorization"] = accessToken;
         return config;
@@ -26,12 +26,12 @@ const useSetupAxiosInterceptor = () => {
       }
     );
     return () => {
-      axios.interceptors.request.eject(reqInterceptor);
+      apiClient.interceptors.request.eject(reqInterceptor);
     };
   }, [isLoggedIn, accessToken]);
 
   useEffect(() => {
-    const resInterceptor = axios.interceptors.response.use(
+    const resInterceptor = apiClient.interceptors.response.use(
       (res) => {
         return res;
       },
@@ -44,7 +44,7 @@ const useSetupAxiosInterceptor = () => {
           if (checkTokenIssue(status, data.message)) {
             const isTokenRenewed = await manageAccessTokenRenewal();
             if (isTokenRenewed) {
-              return axios(originalRequest);
+              return apiClient(originalRequest);
             }
           }
         }
@@ -52,7 +52,7 @@ const useSetupAxiosInterceptor = () => {
       }
     );
     return () => {
-      axios.interceptors.response.eject(resInterceptor);
+      apiClient.interceptors.response.eject(resInterceptor);
     };
   }, []);
 };

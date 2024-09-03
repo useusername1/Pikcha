@@ -3,7 +3,7 @@ interface AttractionsProps {
   id: number;
   address: string;
 }
-const AttractionsData: Array<AttractionsProps> = [
+export const AttractionsData: Array<AttractionsProps> = [
   {
     name: "봉은사",
     id: 1,
@@ -525,4 +525,3 @@ const AttractionsData: Array<AttractionsProps> = [
     address: "종로구 서린동 148",
   },
 ];
-export { AttractionsData };

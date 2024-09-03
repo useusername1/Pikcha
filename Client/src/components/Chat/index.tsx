@@ -1,10 +1,10 @@
 import ChatButton from "./ChatButton";
 import ChatPanel from "./ChatPanel";
 import { useRecoilValue } from "recoil";
-import { ChatStatus } from "../../recoil/chatState";
+import { chatStatusAtom } from "~/recoil/chat/atoms";
 
 const Chat = () => {
-  const chatStatus = useRecoilValue(ChatStatus);
+  const chatStatus = useRecoilValue(chatStatusAtom);
 
   return (
     <>

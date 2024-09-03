@@ -1,6 +1,6 @@
 const prefix = "https://lh3.googleusercontent.com/d/";
 
-const carouselData = [
+export const carouselData = [
   {
     img: prefix + "1Ovd4L2Fl6znCpbT1kff_agMiAyoyYPjF",
     id: 3,
@@ -102,4 +102,3 @@ const carouselData = [
     location: "창덕궁",
   },
 ];
-export default carouselData;

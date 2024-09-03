@@ -1,6 +1,6 @@
 import { AtomEffect, RecoilState, RecoilValueReadOnly, atom } from "recoil";
 import { withUserDefaultFamily } from "./withLocalstorage";
-import { TUserData, UserStateKeys } from "./types";
+import { TUserData, UserStateKeys } from "~/@types/auth.types";
 
 const UserStatekeysArr = Object.keys(UserStateKeys) as UserStateKeys[];
 
