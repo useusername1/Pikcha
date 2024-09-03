@@ -1,9 +1,7 @@
 import { useEffect } from "react";
 import { useRecoilValue } from "recoil";
-import {
-  ChannelName,
-  broadcastchannelsStateFamily,
-} from "../recoil/broadcastState";
+import { broadcastchannelsAtomFamily } from "../recoil/broadcastChannel/atoms";
+import { ChannelName } from "~/@types/broadcastChannel.types";
 
 type BroadcastEventHandler = (e: MessageEvent) => void;
 /**Broadcast채널을 생성하고 이벤트 리스너를 등록 */
@@ -12,7 +10,7 @@ const useBroadCastChannel = (
   eventHandler: BroadcastEventHandler
 ) => {
   const broadcastChannel = useRecoilValue(
-    broadcastchannelsStateFamily(channelName)
+    broadcastchannelsAtomFamily(channelName)
   );
 
   useEffect(() => {

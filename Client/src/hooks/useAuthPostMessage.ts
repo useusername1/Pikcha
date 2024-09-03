@@ -1,6 +1,6 @@
 import { useCallback } from "react";
 import { useRecoilValue } from "recoil";
-import { broadcastchannelsStateFamily } from "../recoil/broadcastState";
+import { broadcastchannelsAtomFamily } from "../recoil/broadcastChannel/atoms";
 import { runNextTick } from "../utils/runNextTick";
 
 export const BroadcastAuthMessages = {
@@ -11,7 +11,7 @@ export const BroadcastAuthMessages = {
 
 /** 인증관련 메시지를 보내는 함수를 반환*/
 const useAuthPostMessage = () => {
-  const channel = useRecoilValue(broadcastchannelsStateFamily("auth"));
+  const channel = useRecoilValue(broadcastchannelsAtomFamily("auth"));
 
   const postLogin = useCallback(() => {
     runNextTick(() => {
