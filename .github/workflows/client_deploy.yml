@@ -4,22 +4,24 @@ on:
   push:
     branches:
       - dev_front
+  workflow_dispatch: # Allows manual triggering of the workflow
 
 permissions:
-  id-token: write   # This is required for requesting the JWT
-  contents: read    # This is required for actions/checkout
+  id-token: write # for requesting the JWT
+  contents: read # for actions/checkout
 
 jobs:
   deploy:
     name: Build, Deploy to S3 bucket
-    runs-on: [ubuntu-latest]
+    runs-on: ubuntu-latest
 
     strategy:
-      matrix: node-version: 16
+      matrix:
+        node-version: [16]
 
     steps:
       - name: Checkout code
-      - uses: actions/checkout@v3
+        uses: actions/checkout@v3
 
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
@@ -46,13 +48,12 @@ jobs:
       - name: configure aws credentials
         uses: aws-actions/configure-aws-credentials@v3
         with:
-          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}  # GitHub Secrets에 설정한 IAM 역할 ARN
-          aws-region: ${{ secrets.AWS_REGION }}   # GitHub Secrets에 설정한 AWS 리전
-      
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }} # GitHub Secrets에 설정한 IAM 역할 ARN
+          aws-region: ${{ secrets.AWS_REGION }} # GitHub Secrets에 설정한 AWS 리전
+
       # 빌드 파일을 S3에 업로드
       - name: Upload to S3
         run: aws s3 sync ./Client/build/ s3://${{ secrets.AWS_S3_BUCKET }} --delete
-
 
       # CloudFront 캐시 무효화
       - name: Invalidate CloudFront Cache
