@@ -38,11 +38,11 @@ const DetailPlace = (): JSX.Element => {
   const scrollRefContent = useRef<HTMLDivElement>(null);
   const totalInfoRef = useRef<PageInfoType | null>(null);
 
-  const { id } = useParams();
-  const url = `/attractions/${id}`;
-  const url2 = `/attractions/${id}/${memberId}`;
-  const url3 = `/posts/${id}?page=${curPage}&size=8`;
-  const url4 = `/posts/${id}/${memberId}?page=${curPage}&size=8`;
+  const { attractionId } = useParams();
+  const url = `/attractions/${attractionId}`;
+  const url2 = `/attractions/${attractionId}/${memberId}`;
+  const url3 = `/posts/${attractionId}?page=${curPage}&size=8`;
+  const url4 = `/posts/${attractionId}/${memberId}?page=${curPage}&size=8`;
   const ATTRACTIONS_URL = isLoggedIn ? url2 : url;
   const POSTS_URL = isLoggedIn ? url4 : url3;
   const navigate = useNavigate();
@@ -99,7 +99,7 @@ const DetailPlace = (): JSX.Element => {
       setIsLoginModalVisible(true);
       return;
     }
-    navigate(`/write/${id}`);
+    navigate(`/write/${attractionId}`);
   };
 
   return (

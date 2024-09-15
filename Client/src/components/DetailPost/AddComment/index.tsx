@@ -10,7 +10,7 @@ import * as S from "./styled";
 const AddComment = () => {
   const [addComment, setAddComment] = useState("");
   const [isLogin] = useRecoilState(UserDataAtomFamily.LOGIN_STATE);
-  const { id } = useParams();
+  const { postId } = useParams();
   const setIsLoginModalVisible = useSetRecoilState(isLoginModalVisibleAtom);
 
   return (
@@ -39,7 +39,7 @@ const AddComment = () => {
             width="75px"
             height="30px"
             text="등록"
-            onClick={(e) => handleCommentSubmit(id, addComment, e)}
+            onClick={(e) => handleCommentSubmit(postId, addComment, e)}
           />
         ) : (
           <Button type="gray" width="80px" height="35px" text="등록" />

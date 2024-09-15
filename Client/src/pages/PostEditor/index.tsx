@@ -32,13 +32,13 @@ function PostEditor({ mode }: PostEditorProps) {
   const [imgFiles, setImgFiles] = useState<File[]>([]);
   const [showImageUploader, setShowImageUploader] = useState(false);
   const [isWriteGuideModal, setIsWriteGuideModal] = useState(true);
-  const { postId } = useParams();
+  const { targetId } = useParams();
   const navigate = useNavigate();
 
   useEffect(() => {
     if (mode === "edit") {
       const getData = async () => {
-        const result = await getPost(postId);
+        const result = await getPost(targetId);
         const previewContents = result.postImageUrls.concat(
           result.postContents
         );
@@ -80,7 +80,7 @@ function PostEditor({ mode }: PostEditorProps) {
       tagList,
       imgFiles,
       postContent,
-      postId
+      targetId
     );
     navigate(`/posts/detail/${post}`);
   };

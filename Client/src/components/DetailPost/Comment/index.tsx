@@ -31,7 +31,7 @@ const Comment = ({
   const [isMoreRecomment, setIsMoreReomment] = useState(false);
   const [memberId] = useRecoilState(UserDataAtomFamily.MEMBER_ID);
   const setIsLoginModalVisible = useSetRecoilState(isLoginModalVisibleAtom);
-  const { id } = useParams();
+  const { postId } = useParams();
 
   return (
     <>
@@ -140,7 +140,7 @@ const Comment = ({
                   <button
                     onClick={(e) =>
                       handleCommentSubmit(
-                        id,
+                        postId,
                         recommentContent,
                         e,
                         comments.commentId

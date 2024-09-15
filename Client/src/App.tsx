@@ -42,17 +42,20 @@ function App() {
             </Route>
             <Route path="/posts" element={<Post />} />
             <Route path="/map" element={<Map />} />
-            <Route path="/attractions/detail/:id" element={<PlaceDetail />} />
+            <Route
+              path="/attractions/detail/:attractionId"
+              element={<PlaceDetail />}
+            />
             <Route path="/posts/detail/:postId" element={<DetailPost />} />
             <Route path="/oauth" element={<OAuth />} />
             <Route element={<ProtectedRoute />}>
               <Route path="/mypage" element={<MyPage />} />
               <Route
-                path="/write/:postId"
+                path="/write/:targetId"
                 element={<PostEditor mode="new" />}
               />
               <Route
-                path="/edit/:postId"
+                path="/edit/:targetId"
                 element={<PostEditor mode="edit" />}
               />
             </Route>
