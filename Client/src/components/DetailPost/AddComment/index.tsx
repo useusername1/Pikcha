@@ -6,6 +6,7 @@ import Button from "~/components/@common/Button";
 import { UserDataAtomFamily } from "~/recoil/auth";
 import { isLoginModalVisibleAtom } from "~/recoil/modal/atoms";
 import * as S from "./styled";
+import { profileImg } from "~/data/userData";
 
 const AddComment = () => {
   const [addComment, setAddComment] = useState("");
@@ -17,12 +18,7 @@ const AddComment = () => {
     <S.AddCommentWrapper isLogin={isLogin}>
       <h3>댓글 남기기</h3>
       <div>
-        <img
-          src={
-            "https://drive.google.com/uc?id=1OmsgU1GLU9iUBYe9ruw_Uy1AcrN57n4g"
-          }
-          alt="userImg"
-        />
+        <img src={profileImg} alt="userImg" />
         <textarea
           placeholder={
             isLogin ? "댓글을 남겨주세요!" : "로그인 후 사용해주세요."
