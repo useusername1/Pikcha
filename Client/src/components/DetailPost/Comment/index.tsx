@@ -13,6 +13,11 @@ import * as DP from "../styled";
 import { CommentType } from "~/@types/detailPost.types";
 import { ReCommentType } from "../types";
 
+type TContentState = {
+  recommentContent: string;
+  editcommentContent: string | null;
+};
+
 const Comment = ({
   comments,
   postWriter,
@@ -23,15 +28,23 @@ const Comment = ({
   const [isEdit, setIsEdit] = useState(false);
   const [isRecomment, setIsRecomment] = useState(false);
   const [commentIdx, setCommentIdx] = useState(0);
-  const [content, setContent] = useState({
+  const [content, setContent] = useState<TContentState>({
     recommentContent: "",
-    editcommentContent: "",
+    editcommentContent: null,
   });
   const { recommentContent, editcommentContent } = content;
   const [isMoreRecomment, setIsMoreReomment] = useState(false);
   const [memberId] = useRecoilState(UserDataAtomFamily.MEMBER_ID);
   const setIsLoginModalVisible = useSetRecoilState(isLoginModalVisibleAtom);
   const { postId } = useParams();
+
+  const handleEditComplete = () => {
+    if (editcommentContent === null) {
+      setIsEdit(false);
+      return;
+    }
+    modifiedComment(comments.commentId, editcommentContent);
+  };
 
   return (
     <>
@@ -64,11 +77,7 @@ const Comment = ({
             {memberId === comments.memberId || memberId === 1 ? (
               <DP.PostManageButtonContainer>
                 {isEdit && commentIdx === comments.commentId ? (
-                  <DP.PostManageButton
-                    onClick={() =>
-                      modifiedComment(comments.commentId, editcommentContent)
-                    }
-                  >
+                  <DP.PostManageButton onClick={handleEditComplete}>
                     완료
                   </DP.PostManageButton>
                 ) : (
