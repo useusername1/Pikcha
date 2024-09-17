@@ -7,11 +7,12 @@ export const handlePostSubmit = async (
   content: string[],
   postId: string | undefined
 ) => {
-  let result = "";
+  let result = null;
   if (title === "") {
     alert("제목을 입력해주세요");
-  } else if (imgList.length === 0) alert("이미지를 등록해주세요.");
-  else {
+  } else if (imgList.length === 0) {
+    alert("이미지를 등록해주세요.");
+  } else {
     const formData = new FormData();
     formData.append("postTitle", title);
     tags.forEach((tag) => {
@@ -23,14 +24,16 @@ export const handlePostSubmit = async (
     content.forEach((text) => {
       formData.append("postContents", text);
     });
-    await apiClient
-      .post(`/posts/register/${postId}`, formData, {
+    try {
+      const res = await apiClient.post(`/posts/register/${postId}`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
-      })
-      .then((res) => (result = res.data.data.postId))
-      .catch((err) => console.error(err));
+      });
+      result = res.data.data.postId;
+    } catch (err) {
+      console.error(err);
+    }
   }
   return result;
 };
