@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 import { handlePostSubmit } from "~/api/postEditor/handlePostSubmit";
 import Button from "~/components/@common/Button";
 import {
@@ -18,22 +18,30 @@ import { MdOutlineKeyboardBackspace } from "react-icons/md";
 import { CgClose } from "react-icons/cg";
 import { getPost } from "~/api/post/getPost";
 import * as S from "./styled";
+import useUnsavedChangedWarning from "~/hooks/useUnsavedChangesWarning";
 interface PostEditorProps {
   mode: "edit" | "new";
 }
 
 function PostEditor({ mode }: PostEditorProps) {
   const [title, setTitle] = useState("");
+  const [imgFiles, setImgFiles] = useState<File[]>([]);
+  const [showImageUploader, setShowImageUploader] = useState(false);
+  const [isWriteGuideModal, setIsWriteGuideModal] = useState(false);
   const [tagList, setTagList] = useRecoilState(editorTagListAtom);
   const [postPreviewList, setPostPreviewList] = useRecoilState(
     editorPreviewListAtom
   );
-  const postContent = useRecoilValue(editorPostContentAtom);
-  const [imgFiles, setImgFiles] = useState<File[]>([]);
-  const [showImageUploader, setShowImageUploader] = useState(false);
-  const [isWriteGuideModal, setIsWriteGuideModal] = useState(true);
+  const [postContent, setPostContent] = useRecoilState(editorPostContentAtom);
   const { targetId } = useParams();
   const navigate = useNavigate();
+
+  const shouldWarn = !(
+    title === "" &&
+    imgFiles.length === 0 &&
+    tagList.length === 0
+  );
+  useUnsavedChangedWarning(shouldWarn);
 
   useEffect(() => {
     if (mode === "edit") {
@@ -49,7 +57,14 @@ function PostEditor({ mode }: PostEditorProps) {
       };
       getData();
     }
+    return () => {
+      setTagList([]);
+      setPostPreviewList([]);
+      setPostContent([]);
+      setPostContent([]);
+    };
   }, []);
+
   const handleTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
     if (title.length > 30) alert("30자 이내로 작성해주세요.");
@@ -98,9 +113,9 @@ function PostEditor({ mode }: PostEditorProps) {
           </span>
           <Button
             type="violet"
-            width="80px"
-            height="20px"
-            text="가이드 보기"
+            width="120px"
+            height="30px"
+            text="작성 가이드 보기"
             onClick={() => setIsWriteGuideModal(true)}
           />
         </div>
