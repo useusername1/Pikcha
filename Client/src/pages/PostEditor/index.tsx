@@ -90,14 +90,16 @@ function PostEditor({ mode }: PostEditorProps) {
 
   const actionPostSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    const post = await handlePostSubmit(
+    const postId = await handlePostSubmit(
       title,
       tagList,
       imgFiles,
       postContent,
       targetId
     );
-    navigate(`/posts/detail/${post}`);
+    if (postId !== null) {
+      navigate(`/posts/detail/${postId}`);
+    }
   };
 
   return (
